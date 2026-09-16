@@ -37,7 +37,7 @@ class BusinessCodeCard extends StatelessWidget {
             'Business code',
             style: TextStyle(
               color: AppColors.textPrimary,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
               fontSize: AppDimensions.fontSizeTitleSmall,
             ),
           ),

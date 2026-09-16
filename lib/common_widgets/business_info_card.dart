@@ -111,45 +111,52 @@ class BusinessInfoCard extends StatelessWidget {
           AppDimensions.verticalSpace16,
 
           // --- Stat boxes: rating / distance / call ---
-          Row(
-            children: [
-              Expanded(
-                child: business.isNew || business.rating == null
-                    ? const _StatBox(
-                        primaryText: 'New',
-                        caption: 'No reviews yet',
-                      )
-                    : _StatBox(
-                        primaryText: business.rating!.toStringAsFixed(1),
-                        secondaryLine: const Row(
-                          children: [
-                            Icon(
-                              Icons.star_rounded,
-                              color: AppColors.secondaryColor,
-                              size: 16,
-                            ),
-                          ],
+          // FIX: wrapped in IntrinsicHeight so all three boxes are forced
+          // to the height of the tallest one (the rating box, which has
+          // the extra star-icon line), instead of each box sizing to its
+          // own content independently.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: business.isNew || business.rating == null
+                      ? const _StatBox(
+                          primaryText: 'New',
+                          caption: 'No reviews yet',
+                        )
+                      : _StatBox(
+                          primaryText: business.rating!.toStringAsFixed(1),
+                          secondaryLine: const Row(
+                            children: [
+                              Icon(
+                                Icons.star_rounded,
+                                color: AppColors.secondaryColor,
+                                size: 16,
+                              ),
+                            ],
+                          ),
+                          caption: '${business.reviewCount ?? 0} reviews',
                         ),
-                        caption: '${business.reviewCount ?? 0} reviews',
-                      ),
-              ),
-              const SizedBox(width: AppDimensions.spacingSmall),
-              Expanded(
-                child: _StatBox(
-                  primaryText: '${business.distanceKm} km',
-                  caption: 'Directions',
-                  onTap: onDirectionsTap,
                 ),
-              ),
-              const SizedBox(width: AppDimensions.spacingSmall),
-              Expanded(
-                child: _StatBox(
-                  primaryText: 'Call',
-                  caption: business.phoneNumber ?? 'Not available',
-                  onTap: business.phoneNumber != null ? onCallTap : null,
+                const SizedBox(width: AppDimensions.spacingSmall),
+                Expanded(
+                  child: _StatBox(
+                    primaryText: '${business.distanceKm} km',
+                    caption: 'Directions',
+                    onTap: onDirectionsTap,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: AppDimensions.spacingSmall),
+                Expanded(
+                  child: _StatBox(
+                    primaryText: 'Call',
+                    caption: business.phoneNumber ?? 'Not available',
+                    onTap: business.phoneNumber != null ? onCallTap : null,
+                  ),
+                ),
+              ],
+            ),
           ),
 
           // --- Phone number contact row — the number is shown here instead
@@ -207,7 +214,7 @@ class BusinessInfoCard extends StatelessWidget {
         initial,
         style: const TextStyle(
           color: AppColors.textSecondary,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
           fontSize: AppDimensions.fontSizeTitleLarge,
         ),
       ),
@@ -244,8 +251,10 @@ class _StatBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        // FIX: fills the stretched height IntrinsicHeight now gives it.
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.paddingMedium,
+          vertical: AppDimensions.paddingSmall,
           horizontal: AppDimensions.paddingSmall,
         ),
         decoration: BoxDecoration(
@@ -257,17 +266,27 @@ class _StatBox extends StatelessWidget {
           children: [
             Text(
               primaryText,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: AppColors.primaryColor,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: AppDimensions.fontSizetitleXSmall,
               ),
             ),
             ?secondaryLine,
             const SizedBox(height: 2),
-            AppText.bodySmall(caption, color: AppColors.textSecondary),
+            // FIX: was unconstrained — a long caption (a phone number, a
+            // long "Directions"-style label, anything) would wrap to a
+            // second line and grow this box taller than its siblings.
+            // Capped to 1 line with ellipsis so it always truncates
+            // instead, keeping every box's content height identical.
+            AppText.bodyXSmall(
+              caption,
+              color: AppColors.textSecondary,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
       ),

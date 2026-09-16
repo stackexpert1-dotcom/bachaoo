@@ -1,4 +1,4 @@
-import 'package:bachaoo/common_widgets/promo_card.dart';
+import 'package:bachaoo/common_widgets/gradient_promo_card.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,10 @@ class PromoStatCard extends StatelessWidget {
         children: [
           Text(
             eyebrowText,
-            style: TextStyle(color: onPrimary.withValues(alpha: 0.85), fontSize: 15),
+            style: TextStyle(
+              color: onPrimary.withValues(alpha: 0.85),
+              fontSize: 15,
+            ),
           ),
           if (_hasStat) ...[
             const SizedBox(height: 6),
@@ -50,7 +53,7 @@ class PromoStatCard extends StatelessWidget {
                   style: TextStyle(
                     color: AppColors.secondaryColor,
                     fontSize: 44,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 if (statLabel != null && statLabel!.isNotEmpty) ...[

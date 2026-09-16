@@ -24,7 +24,7 @@ class ReferralListTile extends StatelessWidget {
               isPending ? '?' : referral.initials,
               style: TextStyle(
                 color: AppColors.primaryColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
@@ -59,7 +59,7 @@ class ReferralListTile extends StatelessWidget {
                 'Pending',
                 style: TextStyle(
                   color: AppColors.primaryColor,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w700,
                   fontSize: 12,
                 ),
               ),
@@ -69,7 +69,7 @@ class ReferralListTile extends StatelessWidget {
               '+${_formatNumber(referral.pointsEarned!)}',
               style: const TextStyle(
                 color: AppColors.secondaryColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 fontSize: 14,
               ),
             ),

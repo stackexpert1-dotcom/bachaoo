@@ -47,8 +47,10 @@ class DealDetailModel {
       price: (json['price'] as num).toDouble(),
       originalPrice: (json['original_price'] as num).toDouble(),
       discountPercentLabel: json['discount_percent_label'] as String,
-      includedItems: (json['included_items'] as List?)?.cast<String>() ?? const <String>[],
-      claimSteps: (json['claim_steps'] as List?)?.cast<String>() ?? const <String>[],
+      includedItems:
+          (json['included_items'] as List?)?.cast<String>() ?? const <String>[],
+      claimSteps:
+          (json['claim_steps'] as List?)?.cast<String>() ?? const <String>[],
       contactName: json['contact_name'] as String,
       contactRole: json['contact_role'] as String,
       contactPhone: json['contact_phone'] as String,

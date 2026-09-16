@@ -39,7 +39,7 @@ class TrendingDealsSection extends StatelessWidget {
               onTap: onSeeAllTap,
               child: AppText.bodySmall(
                 'See all',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
               ),
             ),
@@ -56,7 +56,7 @@ class TrendingDealsSection extends StatelessWidget {
             crossAxisCount: 2,
             mainAxisSpacing: AppDimensions.spacingMedium,
             crossAxisSpacing: AppDimensions.spacingMedium,
-            childAspectRatio: 0.70,
+            childAspectRatio: 0.64,
           ),
           itemBuilder: (context, index) {
             final deal = gridDeals[index];

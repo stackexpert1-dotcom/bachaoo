@@ -1,3 +1,4 @@
+import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/chat/models/chat_message_model.dart';
@@ -111,10 +112,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Material(
                     color: AppColors.appBackroundColor,
-                    shape: const CircleBorder(),
+                    // shape: const CircleBorder(),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radiusSmall,
+                    ),
                     child: InkWell(
                       onTap: () => Navigator.of(context).maybePop(),
-                      customBorder: const CircleBorder(),
+                      // customBorder: const CircleBorder(),
+
                       child: const SizedBox(
                         width: 40,
                         height: 40,
@@ -126,6 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     ),
                   ),
+                  // CustomBackButton(),
                   const SizedBox(width: AppDimensions.spacingSmall),
                   Container(
                     width: AppDimensions.avatarMedium,
@@ -141,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       widget.conversation.avatarInitials ?? '?',
                       style: const TextStyle(
                         color: AppColors.white,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeBodyMedium,
                       ),
                     ),
@@ -154,7 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeTitleMedium,
                       ),
                     ),

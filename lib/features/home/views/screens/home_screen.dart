@@ -129,9 +129,13 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     CustomTextFormField(
                       hintText: 'Search deals, places, categories',
+                      hintStyle: TextStyle(
+                        fontSize: AppDimensions.fontSizeBodyMedium,
+                        color: AppColors.textHint,
+                      ),
                       prefixIcon: const Icon(
                         Icons.search,
-                        color: AppColors.textSecondary,
+                        color: AppColors.textHint,
                       ),
                       radius: 12,
                     ),
@@ -152,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                         AppText.bodySmall(
                           'See All',
                           color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                         ),
                       ],
                     ),

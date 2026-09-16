@@ -44,6 +44,25 @@ class BusinessCodeBottomSheet extends StatefulWidget {
 class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
   String _code = '';
 
+  /// Shared focus node for the hidden code field. We hold onto it so we can
+  /// dismiss the software keyboard before the sheet closes — otherwise the
+  /// keyboard lingers over the confirm-discount screen during the route
+  /// transition, its viewInsets briefly shrink the visible area, and the
+  /// debug "overflowed" indicator flashes on screen.
+  late final FocusNode _codeFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _codeFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _codeFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,6 +133,8 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
 
           // --- Code input ---
           BusinessCodeInput(
+            focusNode: _codeFocusNode,
+            unfocusOnComplete: true,
             onChanged: (value) => setState(() => _code = value),
           ),
           AppDimensions.verticalSpace20,
@@ -123,10 +144,12 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
             label: 'Confirm discount',
             isEnabled: _code.length == 4,
             backgroundColor: AppColors.secondaryColor,
-            textColor: AppColors.textOnSecondary,
-            onTap: () {
-              // Close the sheet first — otherwise the confirmed screen
-              // would push on top of it instead of replacing it.
+            textColor: AppColors.primaryColor,
+            onTap: () async {
+              // _codeFocusNode.unfocus();
+              // FocusManager.instance.primaryFocus?.unfocus();
+              await Future.delayed(const Duration(milliseconds: 100));
+              if (!context.mounted) return;
               Navigator.of(context).pop();
               widget.onConfirm?.call(_code);
             },
@@ -156,7 +179,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
               ),
             ),
           ),
-          AppDimensions.verticalSpace48,
+          // AppDimensions.verticalSpace48,
         ],
       ),
     );
@@ -171,7 +194,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
           'Rs ${value.toStringAsFixed(0)}',
           style: TextStyle(
             color: valueColor ?? AppColors.textPrimary,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
             fontSize: AppDimensions.fontSizeBodyLarge,
           ),
         ),

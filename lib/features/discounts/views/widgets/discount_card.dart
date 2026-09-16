@@ -59,7 +59,8 @@ class DiscountCard extends StatelessWidget {
                         style: const TextStyle(
                           color: AppColors.warningDark,
                           fontWeight: FontWeight.w700,
-                          fontSize: AppDimensions.fontSizeLabelLarge,
+                          fontSize: AppDimensions.fontSizeLabelMedium,
+                          height: 1.2,
                         ),
                       ),
                     ),
@@ -80,8 +81,8 @@ class DiscountCard extends StatelessWidget {
                       style: const TextStyle(
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.fontSizeTitleSmall,
-                        height: AppDimensions.lineHeightTight,
+                        fontSize: AppDimensions.fontSizeBodyMedium,
+                        height: 1.25,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -91,7 +92,8 @@ class DiscountCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.textSecondary,
-                        fontSize: AppDimensions.fontSizeBodySmall,
+                        fontSize: AppDimensions.fontSizeLabelMedium,
+                        height: 1.3,
                       ),
                     ),
                   ],

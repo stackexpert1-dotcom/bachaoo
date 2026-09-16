@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 class CustomTextFormField extends StatefulWidget {
   final String? label;
   final String? hintText;
+  final TextStyle? hintStyle;
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool isPassword;
@@ -39,6 +40,7 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.onTap,
+    this.hintStyle,
     this.radius = AppDimensions.inputRadius,
     this.inputFormatters,
   });
@@ -61,8 +63,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             widget.label!,
             style: const TextStyle(
               color: AppColors.textSecondary,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               fontSize: AppDimensions.fontSizeBodyMedium,
+              height: 1.2,
             ),
           ),
           const SizedBox(height: AppDimensions.spacingXSmall),
@@ -80,15 +83,21 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               widget.textStyle ??
               const TextStyle(
                 color: AppColors.inputText,
-                fontSize: AppDimensions.fontSizeBodyLarge,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                height: 1.35,
               ),
           cursorColor: AppColors.primaryColor,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: const TextStyle(
-              color: AppColors.inputHint,
-              fontSize: AppDimensions.fontSizeBodyLarge,
-            ),
+            hintStyle:
+                widget.hintStyle ??
+                const TextStyle(
+                  color: AppColors.inputHint,
+                  fontSize: AppDimensions.fontSizeBodyMedium,
+                  fontWeight: FontWeight.w400,
+                  height: 1.35,
+                ),
             filled: true,
             fillColor: widget.fillColor,
             contentPadding: AppDimensions.inputPadding,

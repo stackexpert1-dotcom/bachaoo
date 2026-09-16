@@ -84,7 +84,7 @@ class DiscountHeaderImage extends StatelessWidget {
                   percentLabel,
                   style: const TextStyle(
                     color: AppColors.secondaryColor,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     fontSize: 56,
                     height: 1.0,
                   ),
@@ -94,7 +94,7 @@ class DiscountHeaderImage extends StatelessWidget {
                   description,
                   style: const TextStyle(
                     color: AppColors.white,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     fontSize: AppDimensions.fontSizeTitleLarge,
                   ),
                 ),

@@ -22,7 +22,7 @@ class HowItWorksCard extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 12),
         Container(
@@ -52,7 +52,7 @@ class HowItWorksCard extends StatelessWidget {
                           '${i + 1}',
                           style: TextStyle(
                             color: primary,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w700,
                             fontSize: 13,
                           ),
                         ),

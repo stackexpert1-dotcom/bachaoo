@@ -79,7 +79,7 @@ class PartnerFoundSheet extends StatelessWidget {
                         controller.partnerName.value ?? '',
                         style: const TextStyle(
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
@@ -227,7 +227,7 @@ class PartnerFoundSheet extends StatelessWidget {
             value,
             style: const TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               color: Color(0xFF1E5631),
             ),
           ),

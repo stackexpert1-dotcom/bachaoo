@@ -40,7 +40,7 @@ class PointsProgressCard extends StatelessWidget {
                       style: const TextStyle(
                         color: Color(0xFF1E5631),
                         fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     TextSpan(
@@ -101,7 +101,7 @@ class PointsProgressCard extends StatelessWidget {
                   text: card.nextTierLabel,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 TextSpan(

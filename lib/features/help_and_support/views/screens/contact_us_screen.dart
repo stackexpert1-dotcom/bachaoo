@@ -39,7 +39,7 @@ class ContactUsScreen extends StatelessWidget {
                       'Contact us',
                       style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeHeadlineMedium,
                       ),
                     ),
@@ -201,7 +201,7 @@ class ContactActionCard extends StatelessWidget {
                     title,
                     style: const TextStyle(
                       color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       fontSize: AppDimensions.fontSizeTitleSmall,
                     ),
                   ),

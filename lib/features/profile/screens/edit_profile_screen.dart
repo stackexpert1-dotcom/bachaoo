@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Profile',
                       style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeHeadlineSmall,
                       ),
                     ),
@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'Save',
                         style: TextStyle(
                           color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                           fontSize: AppDimensions.fontSizeBodyLarge,
                         ),
                       ),
@@ -183,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'Account',
                     style: TextStyle(
                       color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       fontSize: AppDimensions.fontSizeHeadlineXSmall,
                     ),
                   ),

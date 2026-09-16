@@ -1,4 +1,5 @@
 import 'package:bachaoo/common_widgets/filter_chip_button.dart';
+import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/help_and_support/models/policy_section_model.dart';
@@ -295,14 +296,7 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
                   ),
                   const SizedBox(width: AppDimensions.spacingMedium),
                   Expanded(
-                    child: Text(
-                      _screenTitles[_selected]!,
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
-                        fontSize: AppDimensions.fontSizeHeadlineMedium,
-                      ),
-                    ),
+                    child: AppText.appBarTitle(_screenTitles[_selected]!),
                   ),
                 ],
               ),

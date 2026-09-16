@@ -37,7 +37,7 @@ class ActivityListTile extends StatelessWidget {
             item.amountLabel,
             style: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               color: item.isPositive
                   ? const Color(0xFFB9770E)
                   : const Color(0xFF1E5631),

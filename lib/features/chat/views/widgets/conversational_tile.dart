@@ -66,7 +66,7 @@ class ConversationTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             fontSize: AppDimensions.fontSizeTitleSmall,
                           ),
                         ),
@@ -121,7 +121,7 @@ class _InitialsAvatar extends StatelessWidget {
         initials,
         style: const TextStyle(
           color: AppColors.white,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
           fontSize: AppDimensions.fontSizeTitleSmall,
         ),
       ),

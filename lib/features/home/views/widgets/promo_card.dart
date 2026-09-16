@@ -79,7 +79,8 @@ class PromoCard extends StatelessWidget {
                       style: const TextStyle(
                         color: AppColors.secondaryColor,
                         fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.fontSizeLabelLarge,
+                        fontSize: AppDimensions.fontSizeLabelMedium,
+                        height: 1.2,
                       ),
                     ),
                   ),
@@ -105,8 +106,9 @@ class PromoCard extends StatelessWidget {
                       promo.brandName!,
                       style: const TextStyle(
                         color: AppColors.error,
-                        fontWeight: FontWeight.w800,
-                        fontSize: AppDimensions.fontSizeLabelLarge,
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppDimensions.fontSizeLabelMedium,
+                        height: 1.2,
                       ),
                     ),
                   ),
@@ -127,7 +129,8 @@ class PromoCard extends StatelessWidget {
                           promo.subtitle!,
                           style: const TextStyle(
                             color: AppColors.white,
-                            fontSize: AppDimensions.fontSizeBodyMedium,
+                            fontSize: AppDimensions.fontSizeBodySmall,
+                            height: 1.3,
                           ),
                         ),
                       if (promo.offerTitle != null) ...[
@@ -136,8 +139,9 @@ class PromoCard extends StatelessWidget {
                           promo.offerTitle!,
                           style: const TextStyle(
                             color: AppColors.white,
-                            fontWeight: FontWeight.w800,
-                            fontSize: AppDimensions.fontSizeHeadlineSmall,
+                            fontWeight: FontWeight.w700,
+                            fontSize: AppDimensions.fontSizeTitleLarge,
+                            height: 1.2,
                           ),
                         ),
                       ],

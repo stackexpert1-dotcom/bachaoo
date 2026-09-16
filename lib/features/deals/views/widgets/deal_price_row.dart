@@ -36,7 +36,7 @@ class DealPriceRow extends StatelessWidget {
               price.toStringAsFixed(0),
               style: const TextStyle(
                 color: AppColors.primaryColor,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: AppDimensions.fontSizeDisplaySmall,
               ),
             ),

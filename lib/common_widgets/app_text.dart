@@ -1,11 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 
-/// Centralized text styles — use the named constructors instead of
-/// writing `Text(..., style: TextStyle(...))` everywhere.
+/// ============================================================
+/// BACHOOO APP FONT
+/// ============================================================
 ///
-/// Example: AppText.headlineSmall('Categories')
+/// Bachaoo uses the Sora font family throughout the application.
+///
+/// Sora weights:
+/// 300 - Light
+/// 400 - Regular
+/// 500 - Medium
+/// 600 - Semi Bold
+/// 700 - Bold
+/// 800 - Extra Bold
+///
+/// The UI mainly uses 400, 500, 600 and 700.
+/// Weight 800 is intentionally avoided for normal headings
+/// because it makes the typography look too heavy.
+/// ============================================================
+
+final TextStyle Function({
+  TextStyle? textStyle,
+  Color? color,
+  Color? backgroundColor,
+  double? fontSize,
+  FontWeight? fontWeight,
+  FontStyle? fontStyle,
+  double? letterSpacing,
+  double? wordSpacing,
+  TextBaseline? textBaseline,
+  double? height,
+  Locale? locale,
+  Paint? foreground,
+  Paint? background,
+  List<Shadow>? shadows,
+  List<FontFeature>? fontFeatures,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  TextDecorationStyle? decorationStyle,
+  double? decorationThickness,
+})
+appFont = GoogleFonts.sora;
+
+/// ============================================================
+/// CENTRALIZED TEXT WIDGET
+/// ============================================================
+///
+/// Example:
+///
+/// AppText.headlineSmall('Near you')
+///
+/// AppText.titleLarge('Al-Buraq')
+///
+/// AppText.bodyMedium('Satellite Town · 1.2 km')
+/// ============================================================
+
 class AppText extends StatelessWidget {
   final String text;
   final TextStyle style;
@@ -23,110 +75,170 @@ class AppText extends StatelessWidget {
   });
 
   // ============================================================
-  // DISPLAY — hero numbers, splash titles
+  // DISPLAY
   // ============================================================
+  // Large promotional text / hero text / important numbers
+  // ============================================================
+
   factory AppText.displayLarge(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeDisplayLarge,
-      fontWeight: FontWeight.w800,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeDisplayLarge,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.8,
+        height: 1.1,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.displayMedium(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeDisplayMedium,
-      fontWeight: FontWeight.w800,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeDisplayMedium,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.6,
+        height: 1.1,
+        color: color,
+      ),
+    );
+  }
 
   // ============================================================
-  // HEADLINE — screen / section titles (e.g. "Categories")
+  // HEADLINE
   // ============================================================
+  // Screen headings / section headings
+  // ============================================================
+
   factory AppText.headlineLarge(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeHeadlineLarge,
-      fontWeight: FontWeight.w800,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeHeadlineLarge,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.4,
+        height: 1.18,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.headlineMedium(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeHeadlineMedium,
-      fontWeight: FontWeight.w800,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeHeadlineMedium,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.3,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.headlineSmall(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeHeadlineSmall,
-      fontWeight: FontWeight.w800,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeHeadlineSmall,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.2,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
+
   factory AppText.headlineXSmall(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontWeight: FontWeight.w800,
-      color: color,
-      fontSize: AppDimensions.fontSizeHeadlineXSmall,
-    ),
-  );
+    int? maxLines,
+    TextOverflow? overflow,
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeHeadlineXSmall,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.1,
+        height: 1.25,
+        color: color,
+      ),
+    );
+  }
+
+  /// Compact navigation/app-bar title.
+  factory AppText.appBarTitle(
+    String text, {
+    Color color = AppColors.textPrimary,
+    TextAlign? textAlign,
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   // ============================================================
-  // TITLE — card headings, list item titles
+  // TITLE
   // ============================================================
+  // Card titles / restaurant names / list item titles
+  // ============================================================
+
   factory AppText.titleLarge(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeTitleLarge,
-      fontWeight: FontWeight.w700,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeTitleLarge,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.2,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.titleMedium(
     String text, {
@@ -134,17 +246,21 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: overflow,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeTitleMedium,
-      fontWeight: FontWeight.w700,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeTitleMedium,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.1,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.titleSmall(
     String text, {
@@ -152,17 +268,21 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: overflow,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeTitleSmall,
-      fontWeight: FontWeight.w700,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeTitleSmall,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.titleXSmall(
     String text, {
@@ -170,21 +290,28 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: overflow,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizetitleXXSmall,
-      fontWeight: FontWeight.w700,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizetitleXSmall,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0,
+        height: 1.2,
+        color: color,
+      ),
+    );
+  }
 
   // ============================================================
-  // BODY — normal paragraph / field text
+  // BODY
   // ============================================================
+  // Addresses / descriptions / secondary information
+  // ============================================================
+
   factory AppText.bodyLarge(
     String text, {
     Color color = AppColors.textPrimary,
@@ -192,17 +319,20 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: overflow,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeBodyLarge,
-      fontWeight: fontWeight,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeBodyLarge,
+        fontWeight: fontWeight,
+        height: 1.45,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.bodyMedium(
     String text, {
@@ -211,78 +341,108 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: overflow,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeBodyMedium,
-      fontWeight: fontWeight,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeBodyMedium,
+        fontWeight: fontWeight,
+        height: 1.4,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.bodySmall(
     String text, {
     Color color = AppColors.textHint,
     FontWeight fontWeight = FontWeight.w400,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeBodySmall,
-      fontWeight: fontWeight,
-      color: color,
-    ),
-  );
+    int? maxLines,
+    TextOverflow? overflow,
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeBodySmall,
+        fontWeight: fontWeight,
+        height: 1.35,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.bodyXSmall(
     String text, {
     Color color = AppColors.textHint,
     FontWeight fontWeight = FontWeight.w400,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeBodyXSmall,
-      fontWeight: fontWeight,
-      color: color,
-    ),
-  );
+    int? maxLines,
+    TextOverflow? overflow,
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeBodyXSmall,
+        fontWeight: fontWeight,
+        height: 1.3,
+        color: color,
+      ),
+    );
+  }
 
   // ============================================================
-  // LABEL — buttons, chips, small tags
+  // LABEL
   // ============================================================
+  // Buttons / chips / small actions / discount labels
+  // ============================================================
+
   factory AppText.labelLarge(
     String text, {
     Color color = AppColors.textPrimary,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeLabelLarge,
-      fontWeight: FontWeight.w700,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeLabelLarge,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.05,
+        color: color,
+      ),
+    );
+  }
 
   factory AppText.labelSmall(
     String text, {
     Color color = AppColors.textHint,
     TextAlign? textAlign,
-  }) => AppText(
-    text,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontSize: AppDimensions.fontSizeLabelSmall,
-      fontWeight: FontWeight.w600,
-      color: color,
-    ),
-  );
+  }) {
+    return AppText(
+      text,
+      textAlign: textAlign,
+      style: appFont(
+        fontSize: AppDimensions.fontSizeLabelSmall,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0,
+        color: color,
+      ),
+    );
+  }
+
+  // ============================================================
+  // BUILD
+  // ============================================================
 
   @override
   Widget build(BuildContext context) {

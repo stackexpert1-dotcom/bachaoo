@@ -197,7 +197,7 @@ class ProfileBottomSheet extends StatelessWidget {
                       initials,
                       style: const TextStyle(
                         color: AppColors.white,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeTitleLarge,
                       ),
                     ),
@@ -211,7 +211,7 @@ class ProfileBottomSheet extends StatelessWidget {
                           fullName,
                           style: const TextStyle(
                             color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             fontSize: AppDimensions.fontSizeTitleLarge,
                           ),
                         ),
@@ -256,7 +256,7 @@ class ProfileBottomSheet extends StatelessWidget {
                   crossAxisCount: 4,
                   mainAxisSpacing: AppDimensions.spacingSmall,
                   crossAxisSpacing: AppDimensions.spacingSmall,
-                  childAspectRatio: 0.9,
+                  childAspectRatio: 0.8,
                 ),
                 itemBuilder: (context, index) => actions[index],
               ),
@@ -301,15 +301,15 @@ class ProfileBottomSheet extends StatelessWidget {
 
               const SizedBox(height: AppDimensions.spacingXLarge),
 
-              Center(
-                child: Text(
-                  'Powered by De Virtual Club \u00b7 v3.0',
-                  style: TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: AppDimensions.fontSizeBodyMedium,
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: Text(
+              //     'Powered by De Virtual Club \u00b7 v3.0',
+              //     style: TextStyle(
+              //       color: AppColors.textMuted,
+              //       fontSize: AppDimensions.fontSizeBodyMedium,
+              //     ),
+              //   ),
+              //  ),
             ],
           ),
         ),
@@ -374,7 +374,7 @@ class _QuickAction extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: AppColors.textPrimary,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               fontSize: AppDimensions.fontSizeBodyXSmall,
             ),
           ),

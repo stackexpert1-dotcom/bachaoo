@@ -63,7 +63,7 @@ class DiscountSummaryRowCard extends StatelessWidget {
               percentLabel,
               style: const TextStyle(
                 color: AppColors.warningDark,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: AppDimensions.fontSizeBodyMedium,
               ),
             ),

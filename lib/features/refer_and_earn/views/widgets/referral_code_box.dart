@@ -46,7 +46,7 @@ class ReferralCodeBox extends StatelessWidget {
                     code,
                     style: const TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       letterSpacing: 1.5,
                     ),
                   ),
@@ -66,7 +66,7 @@ class ReferralCodeBox extends StatelessWidget {
                   onPressed: onCopy,
                   child: const Text(
                     'Copy',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -127,10 +127,10 @@ class _ShareChannelButton extends StatelessWidget {
               color: channel.accentColor ?? Colors.black87,
             ),
           if (!channel.isIconOnly) ...[
-            const SizedBox(width: 8),
+            const SizedBox(width: 2),
             Text(
               channel.label,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.w700),
             ),
           ],
         ],

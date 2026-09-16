@@ -1,3 +1,4 @@
+import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/custom_text_feild.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
@@ -66,30 +67,31 @@ class _InboxScreenState extends State<InboxScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Material(
-                    color: AppColors.surfaceColor,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).maybePop(),
-                      customBorder: const CircleBorder(),
-                      child: const SizedBox(
-                        width: 44,
-                        height: 44,
-                        child: Icon(
-                          Icons.chevron_left_rounded,
-                          color: AppColors.textPrimary,
-                          size: 26,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Material(
+                  //   color: AppColors.surfaceColor,
+                  //   shape: const CircleBorder(),
+                  //   child: InkWell(
+                  //     onTap: () => Navigator.of(context).maybePop(),
+                  //     customBorder: const CircleBorder(),
+                  //     child: const SizedBox(
+                  //       width: 44,
+                  //       height: 44,
+                  //       child: Icon(
+                  //         Icons.chevron_left_rounded,
+                  //         color: AppColors.textPrimary,
+                  //         size: 26,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  CustomBackButton(),
                   const SizedBox(width: AppDimensions.spacingMedium),
                   const Expanded(
                     child: Text(
                       'Inbox',
                       style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeHeadlineMedium,
                       ),
                     ),

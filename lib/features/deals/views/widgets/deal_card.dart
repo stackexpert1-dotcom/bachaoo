@@ -41,7 +41,7 @@ class DealCard extends StatelessWidget {
                 Stack(
                   children: [
                     AspectRatio(
-                      aspectRatio: 1.3,
+                      aspectRatio: 1.1,
                       child: Image.network(
                         deal.imageUrl,
                         fit: BoxFit.cover,
@@ -89,8 +89,9 @@ class DealCard extends StatelessWidget {
                           softWrap: false,
                           style: const TextStyle(
                             color: AppColors.textOnSecondary,
-                            fontWeight: FontWeight.w900,
-                            fontSize: AppDimensions.fontSizeLabelSmall,
+                            fontWeight: FontWeight.w700,
+                            fontSize: AppDimensions.fontSizeBodyXSmall,
+                            height: 1.1,
                           ),
                         ),
                       ),
@@ -123,8 +124,9 @@ class DealCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: AppDimensions.fontSizeLabelSmall,
+                            fontWeight: FontWeight.w700,
+                            fontSize: AppDimensions.fontSizeBodyXSmall,
+                            height: 1.1,
                             color: deal.brandColor ?? AppColors.primaryColor,
                           ),
                         ),
@@ -147,8 +149,8 @@ class DealCard extends StatelessWidget {
                         style: const TextStyle(
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.w700,
-                          fontSize: AppDimensions.fontSizeTitleSmall,
-                          height: AppDimensions.lineHeightTight,
+                          fontSize: AppDimensions.fontSizeBodyMedium,
+                          height: 1.25,
                         ),
                       ),
                       // AppDimensions.verticalSpace4,
@@ -158,7 +160,8 @@ class DealCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: AppColors.textSecondary,
-                          fontSize: AppDimensions.fontSizeBodySmall,
+                          fontSize: AppDimensions.fontSizeLabelMedium,
+                          height: 1.3,
                         ),
                       ),
                       // AppDimensions.verticalSpace1,
@@ -170,7 +173,7 @@ class DealCard extends StatelessWidget {
                             deal.currency,
                             style: const TextStyle(
                               color: AppColors.textSecondary,
-                              fontSize: AppDimensions.fontSizeBodySmall,
+                              fontSize: AppDimensions.fontSizeLabelMedium,
                             ),
                           ),
                           const SizedBox(width: 4),
@@ -181,8 +184,8 @@ class DealCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w800,
-                                fontSize: AppDimensions.fontSizeTitleSmall,
+                                fontWeight: FontWeight.w700,
+                                fontSize: AppDimensions.fontSizeBodyMedium,
                               ),
                             ),
                           ),
@@ -195,7 +198,7 @@ class DealCard extends StatelessWidget {
                               style: const TextStyle(
                                 color: AppColors.textMuted,
                                 decoration: TextDecoration.lineThrough,
-                                fontSize: AppDimensions.fontSizeLabelLarge,
+                                fontSize: AppDimensions.fontSizeLabelMedium,
                               ),
                             ),
                           ),

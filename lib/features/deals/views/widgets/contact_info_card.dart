@@ -27,9 +27,8 @@ class ContactInfoCard extends StatelessWidget {
       // ignore: avoid_dynamic_calls
       await launchUrl(uri);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not launch dialer: $e')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Could not launch dialer: $e')));
     }
   }
 
@@ -55,18 +54,23 @@ class ContactInfoCard extends StatelessWidget {
                       color: AppColors.textPrimary,
                       fontSize: AppDimensions.fontSizeBodyLarge,
                     ),
-                    children: [
-                      TextSpan(text: '$name, $role · '),
-                    ],
+                    children: [TextSpan(text: '$name, $role · ')],
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Icon(Icons.phone, size: 16, color: AppColors.textPrimary),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                AppText.titleSmall('Phone: '),
+                // const Icon(
+                //   Icons.phone,
+                //   size: 20,
+                //   color: AppColors.primaryColor,
+                // ),
                 const SizedBox(width: 2),
-                Text(
-                  phone,
-                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: AppDimensions.fontSizeBodyLarge),
-                ),
+                AppText.titleSmall(phone, color: AppColors.primaryColor),
               ],
             ),
             const SizedBox(height: 4),

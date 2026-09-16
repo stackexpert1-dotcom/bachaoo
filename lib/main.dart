@@ -1,4 +1,5 @@
 import 'package:bachaoo/routes/bachaoo_routes.dart';
+import 'package:bachaoo/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +14,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.homeScreen,
+      initialRoute: AppRoutes.splashScreen,
       getPages: AppRoutes.pages,
+      theme: AppTheme.light,
     );
   }
 }

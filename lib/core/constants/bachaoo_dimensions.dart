@@ -27,6 +27,7 @@ class AppDimensions {
   // padding
 
   static const double paddingXXSmall = 4.0;
+  static const double paddingXXXSmall = 1.5;
   static const double paddingXSmall = 8.0;
   static const double paddingSmall = 12.0;
   static const double paddingMedium = 16.0;
@@ -59,7 +60,7 @@ class AppDimensions {
 
   static const double buttonIconSize = 20.0;
 
-  static const double buttonTextSize = 16.0;
+  static const double buttonTextSize = 14.0;
 
   // text fields / inputs
 
@@ -82,20 +83,20 @@ class AppDimensions {
 
   // font sizes--------------font sizes---------
 
-  static const double fontSizeDisplayLarge = 36.0;
-  static const double fontSizeDisplayMedium = 32.0;
+  static const double fontSizeDisplayLarge = 32.0;
+  static const double fontSizeDisplayMedium = 28.0;
   static const double fontSizeDisplaySmall = 28.0;
 
-  static const double fontSizeHeadlineXLarge = 30.0;
-  static const double fontSizeHeadlineXXLarge = 40.0;
-  static const double fontSizeHeadlineLarge = 26.0;
-  static const double fontSizeHeadlineMedium = 24.0;
-  static const double fontSizeHeadlineSmall = 22.0;
-  static const double fontSizeHeadlineXSmall = 20.0;
+  static const double fontSizeHeadlineXLarge = 28.0;
+  static const double fontSizeHeadlineXXLarge = 32.0;
+  static const double fontSizeHeadlineLarge = 24.0;
+  static const double fontSizeHeadlineMedium = 22.0;
+  static const double fontSizeHeadlineSmall = 20.0;
+  static const double fontSizeHeadlineXSmall = 18.0;
 
-  static const double fontSizeTitleLarge = 20.0;
-  static const double fontSizeTitleMedium = 18.0;
-  static const double fontSizeTitleSmall = 16.0;
+  static const double fontSizeTitleLarge = 18.0;
+  static const double fontSizeTitleMedium = 16.0;
+  static const double fontSizeTitleSmall = 15.0;
   static const double fontSizetitleXSmall = 14.0;
   static const double fontSizetitleXXSmall = 12.0;
   static const double fontSizetitleXXXSmall = 10.0;
@@ -103,6 +104,7 @@ class AppDimensions {
   static const double fontSizeBodyLarge = 16.0;
   static const double fontSizeBodyMedium = 14.0;
   static const double fontSizeBodySmall = 13.0;
+  static const double fontSizeBodyExtraSmall = 11.0;
   static const double fontSizeBodyXSmall = 10.0;
 
   static const double fontSizeLabelLarge = 14.0;

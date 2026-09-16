@@ -18,7 +18,7 @@ class ActivityHistoryScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         title: const Text(
           'Recent activity',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
       ),
       body: RefreshIndicator(

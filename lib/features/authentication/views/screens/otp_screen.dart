@@ -23,7 +23,7 @@ class OtpScreen extends GetView<otpController> {
           children: [
             const Text(
               'Verify your number',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
             const Spacer(),
             Text(
@@ -63,7 +63,7 @@ class OtpScreen extends GetView<otpController> {
                       text: controller.phoneNumber,
                       style: const TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const TextSpan(text: '. '),
@@ -71,7 +71,7 @@ class OtpScreen extends GetView<otpController> {
                       text: 'Change',
                       style: const TextStyle(
                         color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = controller.changeNumber,
@@ -108,7 +108,7 @@ class OtpScreen extends GetView<otpController> {
                                   text: 'Resend code',
                                   style: TextStyle(
                                     color: AppColors.primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ]
@@ -118,7 +118,7 @@ class OtpScreen extends GetView<otpController> {
                                   text: controller.timerLabel,
                                   style: const TextStyle(
                                     color: AppColors.textPrimary,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ],

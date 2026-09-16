@@ -44,7 +44,7 @@ class ReferralCodeCard extends StatelessWidget {
                       'Someone referred me',
                       style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeTitleSmall,
                       ),
                     ),

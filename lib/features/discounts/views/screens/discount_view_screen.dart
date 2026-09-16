@@ -130,10 +130,7 @@ class _DiscountViewScreenState extends State<DiscountViewScreen> {
           //     discountAmount: 200,
           //   ),
           // );
-          Get.toNamed(
-            AppRoutes.claimDiscountScreen,
-            arguments: _discount,
-          );
+          Get.toNamed(AppRoutes.claimDiscountScreen, arguments: _discount);
         },
       ),
     );

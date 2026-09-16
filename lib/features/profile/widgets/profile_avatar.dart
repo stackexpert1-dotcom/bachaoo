@@ -32,7 +32,7 @@ class ProfileAvatarWithBadge extends StatelessWidget {
               initials,
               style: const TextStyle(
                 color: AppColors.white,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: AppDimensions.fontSizeHeadlineSmall,
               ),
             ),

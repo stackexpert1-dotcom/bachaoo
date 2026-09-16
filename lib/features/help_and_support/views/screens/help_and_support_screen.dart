@@ -1,4 +1,5 @@
 import 'package:bachaoo/common_widgets/back_button.dart';
+import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/custom_text_feild.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
@@ -33,16 +34,7 @@ class HelpSupportScreen extends StatelessWidget {
                 children: [
                   CustomBackButton(),
                   const SizedBox(width: AppDimensions.spacingMedium),
-                  const Expanded(
-                    child: Text(
-                      'Help & support',
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
-                        fontSize: AppDimensions.fontSizeHeadlineMedium,
-                      ),
-                    ),
-                  ),
+                  Expanded(child: AppText.appBarTitle('Help & support')),
                 ],
               ),
             ),
@@ -71,14 +63,7 @@ class HelpSupportScreen extends StatelessWidget {
 
                   const SizedBox(height: AppDimensions.spacingXXLarge),
 
-                  const Text(
-                    'Common questions',
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
-                      fontSize: AppDimensions.fontSizeHeadlineXSmall,
-                    ),
-                  ),
+                  AppText.headlineXSmall('Common questions'),
                   const SizedBox(height: AppDimensions.spacingMedium),
 
                   Container(
@@ -111,14 +96,7 @@ class HelpSupportScreen extends StatelessWidget {
 
                   const SizedBox(height: AppDimensions.spacingXXLarge),
 
-                  const Text(
-                    'Contact us',
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
-                      fontSize: AppDimensions.fontSizeHeadlineXSmall,
-                    ),
-                  ),
+                  AppText.headlineXSmall('Contact us'),
                   const SizedBox(height: AppDimensions.spacingMedium),
 
                   const ContactBannerCard(
@@ -165,22 +143,10 @@ class HelpSupportScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Report a problem with a visit',
-                          style: TextStyle(
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w800,
-                            fontSize: AppDimensions.fontSizeTitleSmall,
-                          ),
-                        ),
+                        AppText.titleSmall('Report a problem with a visit'),
                         const SizedBox(height: 4),
-                        const Text(
+                        AppText.bodyMedium(
                           'Tell us which partner and what happened. We follow up within a working day.',
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: AppDimensions.fontSizeBodyMedium,
-                            height: AppDimensions.lineHeightNormal,
-                          ),
                         ),
                         const SizedBox(height: AppDimensions.spacingMedium),
                         OutlineButton(label: 'Start a report', onTap: () {}),
@@ -190,14 +156,7 @@ class HelpSupportScreen extends StatelessWidget {
 
                   const SizedBox(height: AppDimensions.spacingXXLarge),
 
-                  const Text(
-                    'Policies',
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
-                      fontSize: AppDimensions.fontSizeHeadlineXSmall,
-                    ),
-                  ),
+                  AppText.headlineXSmall('Policies'),
                   const SizedBox(height: AppDimensions.spacingMedium),
 
                   Container(

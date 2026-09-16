@@ -107,7 +107,7 @@ class _QrScanScreenState extends State<QrScanScreen>
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -146,7 +146,7 @@ class _QrScanScreenState extends State<QrScanScreen>
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
             ),
           ),
           Obx(

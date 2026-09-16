@@ -25,7 +25,7 @@ class CartHeaderWidget extends StatelessWidget {
             'Your cart',
             style: TextStyle(
               color: AppColors.textPrimary,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
               fontSize: AppDimensions.fontSizeHeadlineMedium,
             ),
           ),

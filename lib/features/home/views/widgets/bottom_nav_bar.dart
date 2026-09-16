@@ -114,6 +114,11 @@ class CustomBottomNavBar extends StatelessWidget {
                         onVouchersTap: () {
                           Get.toNamed(AppRoutes.voucherScreen);
                         },
+                        onVirtualCardTap: () =>
+                            Get.toNamed(AppRoutes.memberShipCardScreen),
+                        onCategoriesTap: () =>
+                            Get.toNamed(AppRoutes.categoryScreen),
+                        onReferTap: () => Get.toNamed(AppRoutes.referralScreen),
                       );
                     },
                   ),

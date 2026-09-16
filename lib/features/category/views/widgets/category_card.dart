@@ -22,7 +22,7 @@ class CategoryCard extends StatelessWidget {
       onTap: onTap == null ? null : () => onTap!(index, category),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.paddingSmall,
+          vertical: AppDimensions.paddingXXSmall,
           horizontal: AppDimensions.paddingXSmall,
         ),
         decoration: BoxDecoration(
@@ -36,8 +36,8 @@ class CategoryCard extends StatelessWidget {
           children: [
             // --- Icon ---
             Container(
-              width: 62,
-              height: 62,
+              width: 56,
+              height: 56,
               decoration: BoxDecoration(
                 color: category.iconBackgroundColor,
                 borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
@@ -47,30 +47,39 @@ class CategoryCard extends StatelessWidget {
                   ? IconTheme(
                       data: IconThemeData(
                         color: category.iconColor,
-                        size: AppDimensions.iconSizeLarge,
+                        size: AppDimensions.iconSizeMedium,
                       ),
                       child: category.faIcon ?? const SizedBox.shrink(),
                     )
                   : Icon(
                       category.icon,
                       color: category.iconColor,
-                      size: AppDimensions.iconSizeLarge,
+                      size: AppDimensions.iconSizeMedium,
                     ),
             ),
-            AppDimensions.verticalSpace8,
+            const SizedBox(height: 6),
 
             // --- Title ---
-            AppText.titleXSmall(
-              category.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            SizedBox(
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: AppText.bodySmall(
+                  category.title,
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.visible,
+                ),
+              ),
             ),
             const SizedBox(height: 2),
 
             // --- Offer count ---
             AppText.bodyXSmall(
               '${category.offersCount} offers',
+              color: AppColors.textSecondary,
               textAlign: TextAlign.center,
             ),
           ],

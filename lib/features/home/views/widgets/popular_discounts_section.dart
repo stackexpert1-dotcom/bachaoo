@@ -33,7 +33,7 @@ class PopularDiscountsSection extends StatelessWidget {
               onTap: onSeeAllTap,
               child: AppText.bodySmall(
                 'See All',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
               ),
             ),
@@ -43,7 +43,7 @@ class PopularDiscountsSection extends StatelessWidget {
 
         // --- Horizontal list ---
         SizedBox(
-          height: 236,
+          height: 226,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.zero,

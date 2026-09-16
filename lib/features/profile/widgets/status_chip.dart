@@ -28,7 +28,7 @@ class StatusChip extends StatelessWidget {
         label,
         style: TextStyle(
           color: textColor,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
           fontSize: AppDimensions.fontSizeBodyMedium,
         ),
       ),

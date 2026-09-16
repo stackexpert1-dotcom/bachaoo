@@ -1,4 +1,5 @@
 import 'package:bachaoo/common_widgets/login_required_screen.dart';
+import 'package:bachaoo/common_widgets/splash_screen.dart';
 import 'package:bachaoo/features/authentication/bindings/otp_bindings.dart';
 import 'package:bachaoo/features/authentication/views/screens/login_screen.dart';
 import 'package:bachaoo/features/authentication/views/screens/otp_screen.dart';
@@ -65,6 +66,10 @@ class AppRoutes {
   static const voucherScreen = "/voucherScreen";
 
   static final List<GetPage> pages = [
+    GetPage(
+      name: splashScreen,
+      page: () => const SplashScreen(),
+    ),
     GetPage(
       name: homeScreen,
       page: () => const HomeScreen(),

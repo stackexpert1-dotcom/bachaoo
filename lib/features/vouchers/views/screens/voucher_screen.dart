@@ -1,4 +1,5 @@
 import 'package:bachaoo/common_widgets/app_text.dart';
+import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/features/vouchers/views/models/voucher_model.dart';
 import 'package:bachaoo/features/vouchers/views/widgets/voucher_list_item.dart';
 import 'package:bachaoo/features/vouchers/views/widgets/voucher_tab_selector.dart';
@@ -58,7 +59,7 @@ class _VouchersScreenState extends State<VouchersScreen> {
             // ── Header row ───────────────────────────────
             Row(
               children: [
-                _BackButton(onTap: () => Navigator.of(context).maybePop()),
+                CustomBackButton(),
                 const SizedBox(width: 14),
                 AppText.headlineLarge('Vouchers'),
               ],

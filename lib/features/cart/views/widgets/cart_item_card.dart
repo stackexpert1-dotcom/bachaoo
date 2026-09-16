@@ -92,7 +92,7 @@ class CartItemCard extends StatelessWidget {
                       currentPrice,
                       style: const TextStyle(
                         color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeTitleMedium,
                       ),
                     ),

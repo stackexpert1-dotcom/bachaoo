@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bachaoo/common_widgets/app_text.dart';
+import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 
 class CategoryDetailHeader extends StatelessWidget {
   final String categoryTitle;
@@ -16,8 +17,19 @@ class CategoryDetailHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AppText.headlineMedium(categoryTitle),
-        AppText.bodyLarge('$totalDeals deals & discounts'),
+        Expanded(
+          child: AppText.headlineXSmall(
+            categoryTitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 12),
+        AppText.bodySmall(
+          '$totalDeals deals & discounts',
+          color: AppColors.textSecondary,
+          fontWeight: FontWeight.w500,
+        ),
       ],
     );
   }

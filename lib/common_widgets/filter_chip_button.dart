@@ -20,7 +20,7 @@ class FilterChipButton extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.primaryColor : AppColors.white,
           borderRadius: BorderRadius.circular(AppDimensions.radiusRound),
@@ -28,12 +28,15 @@ class FilterChipButton extends StatelessWidget {
             color: isSelected ? AppColors.primaryColor : AppColors.borderColor,
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? AppColors.white : AppColors.textPrimary,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-            fontSize: AppDimensions.fontSizeBodyMedium,
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? AppColors.white : AppColors.textPrimary,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+              fontSize: AppDimensions.fontSizeBodySmall,
+              height: 1.2,
+            ),
           ),
         ),
       ),

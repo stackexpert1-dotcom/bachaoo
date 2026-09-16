@@ -28,11 +28,7 @@ class ReferralController extends GetxController {
       ),
       accentColor: Color(0xFF25D366),
     ),
-    ShareChannelModel(
-      id: 'sms',
-      label: 'SMS',
-      icon: Icons.sms_outlined,
-    ),
+    ShareChannelModel(id: 'sms', label: 'SMS', icon: Icons.sms_outlined),
     ShareChannelModel(id: 'more', label: '', icon: Icons.ios_share),
   ];
 
@@ -147,8 +143,10 @@ class ReferralController extends GetxController {
       );
       final uri = Uri.parse('https://wa.me/?text=$message');
       try {
-        final opened =
-            await launchUrl(uri, mode: LaunchMode.externalApplication);
+        final opened = await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
         if (opened) return;
       } catch (_) {
         // Fall through to the snackbar so the tap always gives feedback.

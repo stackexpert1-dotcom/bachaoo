@@ -48,7 +48,7 @@ class ContactBannerCard extends StatelessWidget {
                 caption,
                 style: const TextStyle(
                   color: AppColors.white,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.fontSizeTitleSmall,
                 ),
               ),

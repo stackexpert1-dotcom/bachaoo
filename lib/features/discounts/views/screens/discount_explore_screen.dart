@@ -1,6 +1,6 @@
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/business_header_image.dart';
-import 'package:bachaoo/common_widgets/business_view_card.dart';
+import 'package:bachaoo/common_widgets/business_info_card.dart';
 import 'package:bachaoo/common_widgets/member_promo_banner.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';

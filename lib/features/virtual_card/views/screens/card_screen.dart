@@ -19,7 +19,7 @@ class MemberCardScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.appBackroundColor,
         elevation: 0,
-        title: AppText.headlineSmall('Your Card'),
+        title: AppText.appBarTitle('Your Card'),
         centerTitle: false,
         automaticallyImplyLeading: false,
         leading: Padding(
@@ -129,17 +129,14 @@ class _RecentActivitySection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Recent activity',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            AppText.titleLarge('Recent activity'),
             TextButton(
               onPressed: controller.goToFullActivity,
               child: const Text(
                 'All',
                 style: TextStyle(
                   color: Color(0xFF1E5631),
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

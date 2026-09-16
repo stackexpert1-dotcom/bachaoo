@@ -54,7 +54,7 @@ class BusinessCodeDigitsRow extends StatelessWidget {
                       char,
                       style: const TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeHeadlineMedium,
                       ),
                     ),

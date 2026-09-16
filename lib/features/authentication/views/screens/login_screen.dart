@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'B',
                   style: TextStyle(
                     color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     fontSize: AppDimensions.fontSizeHeadlineXLarge,
                   ),
                 ),
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 'Welcome back',
                 style: TextStyle(
                   fontSize: AppDimensions.fontSizeDisplaySmall,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
               ),

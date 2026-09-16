@@ -64,9 +64,10 @@ class BusinessModel {
   /// so this fills in the detail-screen fields (cover image, logo, phone,
   /// deals, open status) before a business is pushed to the explore screen.
   factory BusinessModel.forDetailDemo(BusinessModel business) {
-    final slug = business.name
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9]+'), '-');
+    final slug = business.name.toLowerCase().replaceAll(
+      RegExp(r'[^a-z0-9]+'),
+      '-',
+    );
     return BusinessModel(
       name: business.name,
       location: business.location,

@@ -17,10 +17,10 @@ class ClaimButtonFooter extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.pagePaddingSmall,
-        vertical: AppDimensions.spacingMedium,
-      ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.pagePaddingSmall,
+          vertical: AppDimensions.spacingMedium,
+        ),
         child: PrimaryButton(label: label, onTap: onTap),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/promo_state_card.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
+import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/refer_and_earn/controllers/referral_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class ReferEarnScreen extends StatelessWidget {
       backgroundColor: AppColors.appBackroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.appBackroundColor,
-        title: AppText.headlineMedium('Refer & earn'),
+        title: AppText.appBarTitle('Refer & earn'),
         centerTitle: false,
         automaticallyImplyLeading: false,
         leading: Padding(
@@ -94,14 +95,15 @@ class _ReferralsSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Your referrals',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            AppText.titleLarge('Your referrals'),
             Obx(
               () => Text(
                 '${controller.joinedCount} joined',
-                style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                style: appFont(
+                  color: Colors.grey.shade500,
+                  fontSize: AppDimensions.fontSizeBodySmall,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ],

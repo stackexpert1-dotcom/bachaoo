@@ -60,19 +60,31 @@ class NearbyBusinessCard extends StatelessWidget {
             const SizedBox(width: AppDimensions.spacingSmall),
 
             // --- Discount ---
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  business.discountLabel,
-                  style: const TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: AppDimensions.fontSizeHeadlineXSmall,
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 90),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    business.discountLabel,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: AppDimensions.fontSizeHeadlineXSmall,
+                    ),
                   ),
-                ),
-                AppText.bodyXSmall(business.discountSubtitle),
-              ],
+                  AppText.bodyXSmall(
+                    _truncateSubtitle(business.discountSubtitle),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.right,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -86,6 +98,22 @@ class NearbyBusinessCard extends StatelessWidget {
       height: 64,
       color: AppColors.disabledBackground,
     );
+  }
+
+  // FIX: custom truncation — if the subtitle has more than 3 words OR
+  // more than 16 characters, cut it and append ".."
+  String _truncateSubtitle(String text) {
+    final trimmed = text.trim();
+    final wordCount = trimmed.split(RegExp(r'\s+')).length;
+
+    if (wordCount <= 3 && trimmed.length <= 16) {
+      return trimmed;
+    }
+
+    final cut = trimmed.length > 16
+        ? trimmed.substring(0, 16).trimRight()
+        : trimmed;
+    return '$cut..';
   }
 
   Widget _buildRatingRow() {
@@ -104,7 +132,7 @@ class NearbyBusinessCard extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ..._buildStars(rating.round()),
+        ..._buildStars(rating), // pass the raw double, not rounded
         const SizedBox(width: 2),
         AppText.bodyMedium(
           business.reviewCount != null
@@ -116,14 +144,62 @@ class NearbyBusinessCard extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildStars(int filledCount) {
+  // FIX: draws partial stars. e.g. 4.8 -> 4 full stars + 1 star at 80% fill.
+  List<Widget> _buildStars(double rating) {
     return List.generate(5, (index) {
-      final filled = index < filledCount;
-      return Icon(
-        filled ? Icons.star_rounded : Icons.star_border_rounded,
-        color: AppColors.secondaryColor,
-        size: 16,
+      final fillAmount = (rating - index).clamp(0.0, 1.0);
+
+      if (fillAmount <= 0) {
+        return const Icon(
+          Icons.star_border_rounded,
+          color: AppColors.secondaryColor,
+          size: 16,
+        );
+      }
+
+      if (fillAmount >= 1) {
+        return const Icon(
+          Icons.star_rounded,
+          color: AppColors.secondaryColor,
+          size: 16,
+        );
+      }
+
+      // Partial star: outline underneath, clipped filled star on top.
+      return SizedBox(
+        width: 16,
+        height: 16,
+        child: Stack(
+          children: [
+            const Icon(
+              Icons.star_border_rounded,
+              color: AppColors.secondaryColor,
+              size: 16,
+            ),
+            ClipRect(
+              clipper: _StarClipper(fillAmount),
+              child: const Icon(
+                Icons.star_rounded,
+                color: AppColors.secondaryColor,
+                size: 16,
+              ),
+            ),
+          ],
+        ),
       );
     });
   }
+}
+
+class _StarClipper extends CustomClipper<Rect> {
+  final double fraction;
+  _StarClipper(this.fraction);
+
+  @override
+  Rect getClip(Size size) =>
+      Rect.fromLTRB(0, 0, size.width * fraction, size.height);
+
+  @override
+  bool shouldReclip(covariant _StarClipper oldClipper) =>
+      oldClipper.fraction != fraction;
 }

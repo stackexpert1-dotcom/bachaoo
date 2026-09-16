@@ -131,7 +131,7 @@ class _ClaimDiscountScreenState extends State<ClaimDiscountScreen> {
                 ),
                 textStyle: const TextStyle(
                   color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.fontSizeTitleLarge,
                 ),
               ),
@@ -159,7 +159,7 @@ class _ClaimDiscountScreenState extends State<ClaimDiscountScreen> {
                 ),
                 textStyle: const TextStyle(
                   color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.fontSizeTitleLarge,
                 ),
               ),
@@ -212,7 +212,7 @@ class _ClaimDiscountScreenState extends State<ClaimDiscountScreen> {
                           (_actualDiscount ?? 0).toStringAsFixed(0),
                           style: const TextStyle(
                             color: AppColors.secondaryColor,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             fontSize: 40,
                           ),
                         ),

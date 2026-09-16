@@ -32,7 +32,7 @@ class RegisterScreen extends StatelessWidget {
           children: [
             const Text(
               'Create your card',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
             const Spacer(),
             Text(

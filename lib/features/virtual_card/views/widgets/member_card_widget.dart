@@ -27,7 +27,7 @@ class MemberCardWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -48,7 +48,7 @@ class MemberCardWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.secondaryColor,
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         letterSpacing: 0.5,
                       ),
                     ),
@@ -84,7 +84,7 @@ class MemberCardWidget extends StatelessWidget {
             style: const TextStyle(
               color: Colors.white,
               fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
             ),
           ),
           AppDimensions.verticalSpace16,
@@ -153,12 +153,12 @@ class _CardFooterField extends StatelessWidget {
         AppText.bodyMedium(
           label,
           color: AppColors.white.withValues(alpha: 0.6),
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w700,
         ),
         AppDimensions.verticalSpace4,
         AppText.bodyLarge(
           value,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w700,
           color: AppColors.white,
         ),
       ],

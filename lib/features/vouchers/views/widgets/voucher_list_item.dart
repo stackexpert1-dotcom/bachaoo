@@ -67,7 +67,7 @@ class VoucherListItem extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 26,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         color: _blockTextColor,
                         height: AppDimensions.lineHeightTight,
                       ),
@@ -92,7 +92,8 @@ class VoucherListItem extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(AppDimensions.paddingSmall),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center, // Vertically center the image
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center, // Vertically center the image
                   children: [
                     // Thumbnail
                     ClipRRect(
@@ -125,8 +126,8 @@ class VoucherListItem extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: AppDimensions.fontSizeBodyMedium,
-                              fontWeight: FontWeight.w800,
+                              fontSize: AppDimensions.fontSizeBodySmall,
+                              fontWeight: FontWeight.w700,
                               color: AppColors.textPrimary,
                               height: AppDimensions.lineHeightTight,
                             ),
@@ -139,7 +140,7 @@ class VoucherListItem extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: AppDimensions.fontSizeBodySmall,
+                              fontSize: AppDimensions.fontSizeBodyXSmall,
                               fontWeight: FontWeight.w400,
                               color: AppColors.textHint,
                               height: AppDimensions.lineHeightNormal,
@@ -157,8 +158,9 @@ class VoucherListItem extends StatelessWidget {
                                   child: Text(
                                     voucher.expiryLabel,
                                     style: const TextStyle(
-                                      fontSize: AppDimensions.fontSizeBodySmall,
-                                      fontWeight: FontWeight.w400,
+                                      fontSize:
+                                          AppDimensions.fontSizeBodyXSmall,
+                                      fontWeight: FontWeight.w700,
                                       color: AppColors.textHint,
                                     ),
                                   ),
@@ -170,8 +172,8 @@ class VoucherListItem extends StatelessWidget {
                                 child: const Text(
                                   'Use now',
                                   style: TextStyle(
-                                    fontSize: AppDimensions.fontSizeLabelLarge,
-                                    fontWeight: FontWeight.w800,
+                                    fontSize: AppDimensions.fontSizeBodySmall,
+                                    fontWeight: FontWeight.w700,
                                     color: AppColors.primaryColor,
                                   ),
                                 ),

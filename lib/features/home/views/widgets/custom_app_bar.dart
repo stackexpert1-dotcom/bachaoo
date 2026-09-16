@@ -13,6 +13,7 @@ class CustomAppBar extends StatelessWidget {
         vertical: AppDimensions.spacingSmall,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // --- Avatar ---
           Container(
@@ -36,6 +37,8 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
           ),
+          // FIX: was spacingXSmall — measured gap in the reference is
+          // roughly double that, matching spacingSmall instead.
           const SizedBox(width: AppDimensions.spacingSmall),
 
           // --- Date + greeting ---
@@ -48,7 +51,7 @@ class CustomAppBar extends StatelessWidget {
                   'Thursday, 10 Sep',
                   style: TextStyle(
                     color: AppColors.textHint,
-                    fontSize: AppDimensions.fontSizeBodySmall,
+                    fontSize: AppDimensions.fontSizeBodyExtraSmall,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -59,8 +62,8 @@ class CustomAppBar extends StatelessWidget {
                       'Hi, Shafqat',
                       style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w800,
-                        fontSize: AppDimensions.fontSizeTitleSmall,
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppDimensions.fontSizeBodyLarge,
                       ),
                     ),
                     const SizedBox(width: 4),
@@ -78,7 +81,10 @@ class CustomAppBar extends StatelessWidget {
           // --- Points pill ---
           Container(
             height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            // FIX: was horizontal: 5 — measured padding in the reference
+            // is much more generous; 5 was crushing the icon/text against
+            // the pill's edges.
+            padding: const EdgeInsets.symmetric(horizontal: 3),
             decoration: BoxDecoration(
               color: AppColors.secondaryColor.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
@@ -91,7 +97,9 @@ class CustomAppBar extends StatelessWidget {
                   color: AppColors.secondaryColor,
                   size: 20,
                 ),
-                const SizedBox(width: 4),
+                // FIX: was width: 2 — reference shows noticeably more
+                // breathing room between the star and the text.
+                const SizedBox(width: 6),
                 Text(
                   '2,000 pts',
                   style: TextStyle(
@@ -103,12 +111,15 @@ class CustomAppBar extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: AppDimensions.spacingSmall),
+          const SizedBox(width: AppDimensions.spacingXSmall),
 
           // --- Notification button ---
           Container(
-            height: 50,
-            width: 50,
+            // FIX: was 45x45 — measured against the pill's height, the
+            // reference button is closer to 40x40. 45 made it visibly
+            // larger than its neighbor.
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
               color: AppColors.white,
               shape: BoxShape.rectangle,
@@ -126,12 +137,15 @@ class CustomAppBar extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.notifications_none_rounded,
-                  color: AppColors.iconPrimaryColor,
+                  color: AppColors.textSecondary,
                   size: AppDimensions.iconSizeLarge,
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
+                  // FIX: nudged in slightly (10 -> 8) to match the smaller
+                  // 40x40 container so the dot sits at the same relative
+                  // corner position as before.
+                  top: 8,
+                  right: 8,
                   child: Container(
                     width: 8,
                     height: 8,

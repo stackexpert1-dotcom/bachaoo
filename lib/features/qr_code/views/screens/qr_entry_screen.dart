@@ -79,7 +79,7 @@ class QrEntryScreen extends StatelessWidget {
             },
             child: const Text(
               'Scan',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -98,7 +98,7 @@ class QrEntryScreen extends StatelessWidget {
             onPressed: controller.goToEnterCode,
             child: const Text(
               'Enter partner code',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
         ),

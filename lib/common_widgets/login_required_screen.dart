@@ -55,7 +55,7 @@ class LoginRequiredScreen extends StatelessWidget {
                         'B',
                         style: TextStyle(
                           color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w700,
                           fontSize: AppDimensions.fontSizeTitleLarge,
                         ),
                       ),
@@ -68,7 +68,7 @@ class LoginRequiredScreen extends StatelessWidget {
                           'BACHAOO!',
                           style: TextStyle(
                             color: AppColors.white,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w700,
                             fontSize: AppDimensions.fontSizeTitleLarge,
                             letterSpacing: 0.5,
                           ),
@@ -99,7 +99,7 @@ class LoginRequiredScreen extends StatelessWidget {
                     'Save at 140+ places across Sargodha.',
                     style: TextStyle(
                       color: AppColors.white,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w700,
                       fontSize: AppDimensions.fontSizeHeadlineLarge,
                       height: AppDimensions.lineHeightTight,
                     ),
@@ -126,7 +126,7 @@ class LoginRequiredScreen extends StatelessWidget {
                 PrimaryButton(
                   label: 'Create your card',
                   backgroundColor: AppColors.secondaryColor,
-                  textColor: AppColors.textOnSecondary,
+                  textColor: AppColors.primaryColor,
                   onTap: onCreateCard,
                 ),
                 const SizedBox(height: AppDimensions.spacingMedium),
@@ -192,9 +192,9 @@ class MemberCardPreview extends StatelessWidget {
   const MemberCardPreview({
     super.key,
     this.membershipTier = 'Standard',
-    this.nameLine = 'Your name here',
+    this.nameLine = 'Shafqat Ullah',
     this.referralPlaceholder = '\u2022\u2022\u2022\u2022\u2022\u2022\u2022',
-    this.validTillLabel = 'Valid till',
+    this.validTillLabel = 'Valid till 31 Dec 2026',
   });
 
   @override
@@ -233,7 +233,7 @@ class MemberCardPreview extends StatelessWidget {
                   '\u0633',
                   style: TextStyle(
                     fontSize: 90,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     color: AppColors.white.withValues(alpha: 0.06),
                   ),
                 ),
@@ -252,7 +252,7 @@ class MemberCardPreview extends StatelessWidget {
                               'BACHAOO!',
                               style: TextStyle(
                                 color: AppColors.secondaryColor,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w700,
                                 fontSize: AppDimensions.fontSizeTitleMedium,
                                 letterSpacing: 0.5,
                               ),
@@ -276,7 +276,7 @@ class MemberCardPreview extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                            AppDimensions.radiusRound,
+                            AppDimensions.radiusSmall,
                           ),
                           border: Border.all(
                             color: AppColors.secondaryColor.withValues(
@@ -288,7 +288,7 @@ class MemberCardPreview extends StatelessWidget {
                           membershipTier,
                           style: TextStyle(
                             color: AppColors.secondaryColor,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             fontSize: AppDimensions.fontSizeLabelMedium,
                           ),
                         ),
@@ -314,7 +314,7 @@ class MemberCardPreview extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                  const SizedBox(height: AppDimensions.spacingMedium),
+                  const SizedBox(height: AppDimensions.spacingXSmall),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -329,13 +329,14 @@ class MemberCardPreview extends StatelessWidget {
                                 fontSize: AppDimensions.fontSizeBodySmall,
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            // const SizedBox(height: 2),
+                            AppDimensions.verticalSpace1,
                             Text(
                               referralPlaceholder,
                               style: const TextStyle(
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w700,
-                                fontSize: AppDimensions.fontSizeBodyLarge,
+                                fontSize: AppDimensions.fontSizeBodyMedium,
                                 letterSpacing: 2,
                               ),
                             ),

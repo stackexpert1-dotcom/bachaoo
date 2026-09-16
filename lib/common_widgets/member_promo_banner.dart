@@ -77,7 +77,7 @@ class MemberPromoBanner extends StatelessWidget {
                     brandInitial,
                     style: const TextStyle(
                       color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       fontSize: AppDimensions.fontSizeBodyLarge,
                     ),
                   ),
@@ -91,7 +91,7 @@ class MemberPromoBanner extends StatelessWidget {
               title,
               style: const TextStyle(
                 color: AppColors.white,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
                 fontSize: AppDimensions.fontSizeTitleLarge,
               ),
             ),
