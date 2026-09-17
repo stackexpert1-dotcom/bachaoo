@@ -119,6 +119,7 @@ class CustomBottomNavBar extends StatelessWidget {
                         onCategoriesTap: () =>
                             Get.toNamed(AppRoutes.categoryScreen),
                         onReferTap: () => Get.toNamed(AppRoutes.referralScreen),
+                        onMyDealsTap: () => Get.toNamed(AppRoutes.myDealsScreen),
                       );
                     },
                   ),

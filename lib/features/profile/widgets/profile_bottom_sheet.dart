@@ -19,6 +19,7 @@ class ProfileBottomSheet extends StatelessWidget {
   final VoidCallback? onHelpTap;
   final VoidCallback? onAboutTap;
   final VoidCallback? onPoliciesTap;
+  final VoidCallback? onMyDealsTap;
 
   const ProfileBottomSheet({
     super.key,
@@ -38,6 +39,7 @@ class ProfileBottomSheet extends StatelessWidget {
     this.onHelpTap,
     this.onAboutTap,
     this.onPoliciesTap,
+    this.onMyDealsTap,
   });
 
   static Future<void> show(
@@ -58,6 +60,7 @@ class ProfileBottomSheet extends StatelessWidget {
     VoidCallback? onHelpTap,
     VoidCallback? onAboutTap,
     VoidCallback? onPoliciesTap,
+    VoidCallback? onMyDealsTap,
   }) {
     return showModalBottomSheet(
       context: context,
@@ -80,6 +83,7 @@ class ProfileBottomSheet extends StatelessWidget {
         onHelpTap: onHelpTap,
         onAboutTap: onAboutTap,
         onPoliciesTap: onPoliciesTap,
+        onMyDealsTap: onMyDealsTap,
       ),
     );
   }
@@ -142,6 +146,13 @@ class ProfileBottomSheet extends StatelessWidget {
         background: const Color(0xFFE1E9D6),
         iconColor: const Color(0xFF5C7A3A),
         onTap: () => go(onContactTap),
+      ),
+      _QuickAction(
+        icon: Icons.local_offer_outlined,
+        label: 'My deals',
+        background: const Color(0xFFFBE5D6),
+        iconColor: const Color(0xFFE55C00),
+        onTap: () => go(onMyDealsTap),
       ),
     ];
 

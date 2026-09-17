@@ -7,6 +7,8 @@ import 'package:bachaoo/features/cart/views/widgets/cart_item_card.dart';
 import 'package:bachaoo/features/cart/views/widgets/cart_summary_card.dart';
 import 'package:bachaoo/features/deals/models/deal_detail_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 
 class CartItem {
   final String imageUrl;
@@ -153,6 +155,28 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     );
                   }),
+                  const SizedBox(height: AppDimensions.spacingMedium),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.discountExploreScreen);
+                      },
+                      icon: const Icon(Icons.add_circle_outline_rounded, size: 20),
+                      label: const Text(
+                        'Add more deals',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.primaryColor,
+                        side: const BorderSide(color: AppColors.primaryColor),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppDimensions.buttonRadius),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: AppDimensions.spacingLarge),
                   CartSummaryCard(
                     dealCount: _items.length,

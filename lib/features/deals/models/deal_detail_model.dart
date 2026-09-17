@@ -100,7 +100,7 @@ class DealDetailModel {
         : deal.subtitle;
     return DealDetailModel(
       title: deal.title,
-      businessName: deal.brandTag,
+      businessName: deal.brandTag ?? deal.title,
       location: location,
       imageUrl: deal.imageUrl,
       saveLabel: isDiscounted
@@ -119,7 +119,8 @@ class DealDetailModel {
     );
   }
 
-  static double? _parsePrice(String value) {
+  static double? _parsePrice(String? value) {
+    if (value == null) return null;
     final cleaned = value.replaceAll(RegExp(r'[^0-9.]'), '');
     return double.tryParse(cleaned);
   }

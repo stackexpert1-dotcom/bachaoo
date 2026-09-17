@@ -42,10 +42,11 @@ class DealCard extends StatelessWidget {
                   children: [
                     AspectRatio(
                       aspectRatio: 1.1,
-                      child: Image.network(
-                        deal.imageUrl,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, progress) {
+                      child: deal.imageUrl != null
+                          ? Image.network(
+                              deal.imageUrl!,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (context, child, progress) {
                           if (progress == null) return child;
 
                           return Container(
@@ -64,8 +65,16 @@ class DealCard extends StatelessWidget {
                             Icons.image_not_supported_outlined,
                             color: AppColors.iconMuted,
                           ),
-                        ),
-                      ),
+                            ),
+                          )
+                          : Container(
+                              color: AppColors.disabledBackground,
+                              alignment: Alignment.center,
+                              child: const Icon(
+                                Icons.image_not_supported_outlined,
+                                color: AppColors.iconMuted,
+                              ),
+                            ),
                     ),
 
                     // SAVE / DISCOUNT BADGE — TOP LEFT
@@ -84,7 +93,7 @@ class DealCard extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          deal.badgeLabel,
+                          deal.badgeLabel ?? '',
                           maxLines: 1,
                           softWrap: false,
                           style: const TextStyle(
@@ -179,7 +188,7 @@ class DealCard extends StatelessWidget {
                           const SizedBox(width: 4),
                           Flexible(
                             child: Text(
-                              deal.currentPrice,
+                              deal.currentPrice ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -192,7 +201,7 @@ class DealCard extends StatelessWidget {
                           const SizedBox(width: 6),
                           Flexible(
                             child: Text(
-                              deal.originalPrice,
+                              deal.originalPrice ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

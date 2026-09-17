@@ -1,14 +1,22 @@
 import 'dart:ui';
 
+enum DealStatus { awaitingCode, redeemed }
+
 class DealModel {
-  // --- Original fields — unchanged ---
-  final String imageUrl;
-  final String badgeLabel;
-  final String brandTag;
-  final String title;
-  final String subtitle;
-  final String currentPrice;
-  final String originalPrice;
+  // --- Fields for My Deals / History ---
+  final String? id;
+  final double? amountSaved;
+  final DealStatus status;
+  final DateTime? date;
+  
+  // --- Original fields ---
+  final String? imageUrl;
+  final String? badgeLabel;
+  final String? brandTag;
+  final String title; // mapped to dealTitle / description
+  final String subtitle; // mapped to businessName
+  final String? currentPrice;
+  final String? originalPrice;
   final String currency;
   final bool showOnHome;
   final int? homePriority;
@@ -25,8 +33,9 @@ class DealModel {
 
   /// Short brand tag for the badge on the image — 3 letters max (e.g. "KFC", "DD" stays "DD").
   String get brandTagShort {
-    if (brandTag.length <= 3) return brandTag.toUpperCase();
-    return brandTag.substring(0, 3).toUpperCase();
+    if (brandTag == null) return '';
+    if (brandTag!.length <= 3) return brandTag!.toUpperCase();
+    return brandTag!.substring(0, 3).toUpperCase();
   }
 
   /// Computed from currentPrice/originalPrice, not stored — since both
@@ -34,8 +43,9 @@ class DealModel {
   /// non-numeric characters are stripped before parsing. Returns null
   /// when there's nothing sensible to show (unparsable, or no discount).
   String? get discountPercentLabel {
-    final current = _parsePrice(currentPrice);
-    final original = _parsePrice(originalPrice);
+    if (currentPrice == null || originalPrice == null) return null;
+    final current = _parsePrice(currentPrice!);
+    final original = _parsePrice(originalPrice!);
     if (current == null || original == null) return null;
     if (original <= 0 || current >= original) return null;
     final percent = (((original - current) / original) * 100).round();
@@ -47,14 +57,27 @@ class DealModel {
     return double.tryParse(cleaned);
   }
 
+  String get statusLabel {
+    switch (status) {
+      case DealStatus.awaitingCode:
+        return 'Awaiting code';
+      case DealStatus.redeemed:
+        return 'Redeemed';
+    }
+  }
+
   const DealModel({
-    required this.imageUrl,
-    required this.badgeLabel,
-    required this.brandTag,
+    this.id,
+    this.amountSaved,
+    this.status = DealStatus.awaitingCode,
+    this.date,
+    this.imageUrl,
+    this.badgeLabel,
+    this.brandTag,
     required this.title,
     required this.subtitle,
-    required this.currentPrice,
-    required this.originalPrice,
+    this.currentPrice,
+    this.originalPrice,
     this.currency = 'Rs',
     this.showOnHome = false,
     this.homePriority,

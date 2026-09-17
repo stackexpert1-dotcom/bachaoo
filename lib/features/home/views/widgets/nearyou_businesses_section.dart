@@ -58,7 +58,7 @@ class NearYouSection extends StatelessWidget {
             padding: EdgeInsets.only(
               bottom: index == visible.length - 1
                   ? 0
-                  : AppDimensions.spacingMedium,
+                  : AppDimensions.spacingXSmall,
             ),
             child: NearbyBusinessCard(
               business: business,

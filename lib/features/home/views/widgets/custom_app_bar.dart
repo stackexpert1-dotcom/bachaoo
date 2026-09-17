@@ -79,38 +79,38 @@ class CustomAppBar extends StatelessWidget {
           ),
 
           // --- Points pill ---
-          Container(
-            height: 40,
-            // FIX: was horizontal: 5 — measured padding in the reference
-            // is much more generous; 5 was crushing the icon/text against
-            // the pill's edges.
-            padding: const EdgeInsets.symmetric(horizontal: 3),
-            decoration: BoxDecoration(
-              color: AppColors.secondaryColor.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.star_rounded,
-                  color: AppColors.secondaryColor,
-                  size: 20,
-                ),
-                // FIX: was width: 2 — reference shows noticeably more
-                // breathing room between the star and the text.
-                const SizedBox(width: 6),
-                Text(
-                  '2,000 pts',
-                  style: TextStyle(
-                    color: AppColors.secondaryColor,
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppDimensions.fontSizeLabelLarge,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   height: 40,
+          //   // FIX: was horizontal: 5 — measured padding in the reference
+          //   // is much more generous; 5 was crushing the icon/text against
+          //   // the pill's edges.
+          //   padding: const EdgeInsets.symmetric(horizontal: 3),
+          //   decoration: BoxDecoration(
+          //     color: AppColors.secondaryColor.withValues(alpha: 0.18),
+          //     borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+          //   ),
+          //   // child: Row(
+          //   //   mainAxisSize: MainAxisSize.min,
+          //   //   children: [
+          //   //     const Icon(
+          //   //       Icons.star_rounded,
+          //   //       color: AppColors.secondaryColor,
+          //   //       size: 20,
+          //   //     ),
+          //   //     // // FIX: was width: 2 — reference shows noticeably more
+          //   //     // // breathing room between the star and the text.
+          //   //     // const SizedBox(width: 6),
+          //   //     // Text(
+          //   //     //   '2,000 pts',
+          //   //     //   style: TextStyle(
+          //   //     //     color: AppColors.secondaryColor,
+          //   //     //     fontWeight: FontWeight.w700,
+          //   //     //     fontSize: AppDimensions.fontSizeLabelLarge,
+          //   //     //   ),
+          //   //     // ),
+          //   //   ],
+          //   // ),
+          // ),
           const SizedBox(width: AppDimensions.spacingXSmall),
 
           // --- Notification button ---

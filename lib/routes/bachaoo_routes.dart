@@ -10,8 +10,10 @@ import 'package:bachaoo/features/businesses/views/screens/businesses_partener_sc
 import 'package:bachaoo/features/cart/views/screens/cart_screen.dart';
 import 'package:bachaoo/features/category/views/screens/category_screen.dart';
 import 'package:bachaoo/features/chat/views/screens/inbox_screen.dart';
+import 'package:bachaoo/features/deals/bindings/deal_bindings.dart';
 import 'package:bachaoo/features/deals/models/deal_detail_model.dart';
 import 'package:bachaoo/features/deals/views/screens/explore_deal_screen.dart';
+import 'package:bachaoo/features/deals/views/screens/my_deals_screen.dart';
 import 'package:bachaoo/features/discounts/views/screens/claim_discount_screen.dart';
 import 'package:bachaoo/features/discounts/views/screens/discount_confirmed_screen.dart';
 import 'package:bachaoo/features/discounts/views/screens/discount_explore_screen.dart';
@@ -46,6 +48,7 @@ class AppRoutes {
   static const discountExploreScreen = "/discountExploreScreen";
   static const discountViewScreen = "/discountViewScreen";
   static const dealsExploreScreen = "/dealsExploreScreen";
+  static const myDealsScreen = "/myDealsScreen";
   static const claimDiscountScreen = "/claimDiscountScreen";
   static const discountConfirmedScreen = "/discountConfirmedScreen";
 
@@ -66,10 +69,7 @@ class AppRoutes {
   static const voucherScreen = "/voucherScreen";
 
   static final List<GetPage> pages = [
-    GetPage(
-      name: splashScreen,
-      page: () => const SplashScreen(),
-    ),
+    GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(
       name: homeScreen,
       page: () => const HomeScreen(),
@@ -110,6 +110,11 @@ class AppRoutes {
     ),
     GetPage(name: discountViewScreen, page: () => const DiscountViewScreen()),
     GetPage(name: dealsExploreScreen, page: () => const DealsExploreScreen()),
+    GetPage(
+      name: myDealsScreen,
+      page: () => const DealsScreen(),
+      binding: DealBindings(),
+    ),
     GetPage(name: claimDiscountScreen, page: () => const ClaimDiscountScreen()),
     GetPage(
       name: discountConfirmedScreen,
