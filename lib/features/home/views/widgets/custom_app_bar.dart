@@ -1,6 +1,9 @@
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -114,48 +117,53 @@ class CustomAppBar extends StatelessWidget {
           const SizedBox(width: AppDimensions.spacingXSmall),
 
           // --- Notification button ---
-          Container(
-            // FIX: was 45x45 — measured against the pill's height, the
-            // reference button is closer to 40x40. 45 made it visibly
-            // larger than its neighbor.
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.shadow,
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  Icons.notifications_none_rounded,
-                  color: AppColors.textSecondary,
-                  size: AppDimensions.iconSizeLarge,
-                ),
-                Positioned(
-                  // FIX: nudged in slightly (10 -> 8) to match the smaller
-                  // 40x40 container so the dot sits at the same relative
-                  // corner position as before.
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: AppColors.error,
-                      shape: BoxShape.circle,
+          InkWell(
+            onTap: () {
+              Get.toNamed(AppRoutes.notificationScreen);
+            },
+            child: Container(
+              // FIX: was 45x45 — measured against the pill's height, the
+              // reference button is closer to 40x40. 45 made it visibly
+              // larger than its neighbor.
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadow,
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Icon(
+                    Icons.notifications_none_rounded,
+                    color: AppColors.textSecondary,
+                    size: AppDimensions.iconSizeLarge,
+                  ),
+                  Positioned(
+                    // FIX: nudged in slightly (10 -> 8) to match the smaller
+                    // 40x40 container so the dot sits at the same relative
+                    // corner position as before.
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: AppColors.error,
+                        shape: BoxShape.circle,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

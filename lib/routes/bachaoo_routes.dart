@@ -31,6 +31,8 @@ import 'package:bachaoo/features/refer_and_earn/bindings/referral_bindings.dart'
 import 'package:bachaoo/features/refer_and_earn/views/screens/referral_screen.dart';
 import 'package:bachaoo/features/virtual_card/bindings/card_bindings.dart';
 import 'package:bachaoo/features/virtual_card/views/screens/card_screen.dart';
+import 'package:bachaoo/features/vouchers/notifications/bindings/notification_bindings.dart';
+import 'package:bachaoo/features/vouchers/notifications/views/screens/notification_screen.dart';
 import 'package:bachaoo/features/vouchers/views/screens/voucher_screen.dart';
 import 'package:get/get.dart';
 
@@ -67,6 +69,8 @@ class AppRoutes {
   static const referralScreen = "/referralScreen";
   static const otpScreen = "/otpScreen";
   static const voucherScreen = "/voucherScreen";
+
+  static const notificationScreen = "/notificationScreen";
 
   static final List<GetPage> pages = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -166,5 +170,10 @@ class AppRoutes {
       binding: OtpBindings(),
     ),
     GetPage(name: voucherScreen, page: () => const VouchersScreen()),
+    GetPage(
+      name: notificationScreen,
+      page: () => const NotificationsScreen(),
+      binding: NotificationBinding(),
+    ),
   ];
 }
