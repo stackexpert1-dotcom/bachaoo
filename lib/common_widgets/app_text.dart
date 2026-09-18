@@ -265,6 +265,7 @@ class AppText extends StatelessWidget {
   factory AppText.titleSmall(
     String text, {
     Color color = AppColors.textPrimary,
+    FontWeight? fontWeight,
     TextAlign? textAlign,
     int? maxLines,
     TextOverflow? overflow,
@@ -276,7 +277,7 @@ class AppText extends StatelessWidget {
       overflow: overflow,
       style: appFont(
         fontSize: AppDimensions.fontSizeTitleSmall,
-        fontWeight: FontWeight.w500,
+        fontWeight: fontWeight ?? FontWeight.w500,
         letterSpacing: 0,
         height: 1.2,
         color: color,

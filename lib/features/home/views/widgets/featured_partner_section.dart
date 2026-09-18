@@ -22,47 +22,73 @@ class FeaturedPartnersSection extends StatefulWidget {
 
 class _FeaturedPartnersSectionState extends State<FeaturedPartnersSection> {
   int _currentIndex = 0;
-  VideoPlayerController? _controller;
+  late final PageController _pageController;
+  final Map<int, VideoPlayerController> _controllers = {};
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _currentIndex);
     if (widget.partners.isNotEmpty) {
-      _loadVideo(widget.partners[_currentIndex].videoUrl);
+      _loadVideoForIndex(_currentIndex);
+      // Preload next video if available
+      if (widget.partners.length > 1) {
+        _loadVideoForIndex(1);
+      }
     }
   }
 
-  void _loadVideo(String url) {
-    final controller = VideoPlayerController.networkUrl(Uri.parse(url));
-    _controller = controller;
+  void _loadVideoForIndex(int index) {
+    if (index < 0 || index >= widget.partners.length) return;
+    if (_controllers.containsKey(index)) return;
+
+    final controller = VideoPlayerController.networkUrl(
+      Uri.parse(widget.partners[index].videoUrl),
+    );
+    _controllers[index] = controller;
+
     controller.initialize().then((_) {
-      if (!mounted || _controller != controller) return;
+      if (!mounted) return;
       controller
         ..setLooping(true)
-        ..setVolume(0)
-        ..play();
+        ..setVolume(0);
+      if (index == _currentIndex) {
+        controller.play();
+      }
       setState(() {});
     });
   }
 
-  Future<void> _goToNext() async {
-    if (widget.partners.length <= 1) return;
+  void _onPageChanged(int index) {
+    // Pause previous video
+    _controllers[_currentIndex]?.pause();
 
-    final nextIndex = (_currentIndex + 1) % widget.partners.length;
-    final oldController = _controller;
+    setState(() {
+      _currentIndex = index;
+    });
 
-    setState(() => _currentIndex = nextIndex);
-    _loadVideo(widget.partners[nextIndex].videoUrl);
+    // Play current video
+    final currentController = _controllers[index];
+    if (currentController != null && currentController.value.isInitialized) {
+      currentController.play();
+    } else {
+      _loadVideoForIndex(index);
+    }
 
-    await oldController?.pause();
-    await oldController?.dispose();
+    // Preload adjacent videos
+    _loadVideoForIndex(index + 1);
+    _loadVideoForIndex(index - 1);
 
-    widget.onArrowTap?.call(widget.partners[nextIndex]);
+    widget.onArrowTap?.call(widget.partners[index]);
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _pageController.dispose();
+    for (final controller in _controllers.values) {
+      controller.dispose();
+    }
+    _controllers.clear();
     super.dispose();
   }
 
@@ -71,8 +97,6 @@ class _FeaturedPartnersSectionState extends State<FeaturedPartnersSection> {
     if (widget.partners.isEmpty) return const SizedBox.shrink();
 
     final partner = widget.partners[_currentIndex];
-    final controller = _controller;
-    final isReady = controller != null && controller.value.isInitialized;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,88 +125,104 @@ class _FeaturedPartnersSectionState extends State<FeaturedPartnersSection> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- Video ---
-              Stack(
-                children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 10,
-                    child: isReady
-                        ? FittedBox(
-                            fit: BoxFit.cover,
-                            child: SizedBox(
-                              width: controller.value.size.width,
-                              height: controller.value.size.height,
-                              child: VideoPlayer(controller),
+              // --- Video PageView for Horizontal Swipe ---
+              AspectRatio(
+                aspectRatio: 16 / 10,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: _onPageChanged,
+                  itemCount: widget.partners.length,
+                  itemBuilder: (context, index) {
+                    final p = widget.partners[index];
+                    final controller = _controllers[index];
+                    final isReady =
+                        controller != null && controller.value.isInitialized;
+
+                    return Stack(
+                      children: [
+                        Positioned.fill(
+                          child: isReady
+                              ? FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: SizedBox(
+                                    width: controller.value.size.width,
+                                    height: controller.value.size.height,
+                                    child: VideoPlayer(controller),
+                                  ),
+                                )
+                              : Container(
+                                  color: AppColors.disabledBackground,
+                                  alignment: Alignment.center,
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                        ),
+                        if (p.isFeatured)
+                          Positioned(
+                            top: AppDimensions.spacingMedium,
+                            left: AppDimensions.spacingMedium,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.warningLight,
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusRound,
+                                ),
+                              ),
+                              child: const Text(
+                                'Featured',
+                                style: TextStyle(
+                                  color: AppColors.warningDark,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppDimensions.fontSizeLabelLarge,
+                                ),
+                              ),
                             ),
-                          )
-                        : Container(
-                            color: AppColors.disabledBackground,
-                            alignment: Alignment.center,
-                            child: const CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: AppColors.primaryColor,
-                            ),
                           ),
-                  ),
-                  if (partner.isFeatured)
-                    Positioned(
-                      top: AppDimensions.spacingMedium,
-                      left: AppDimensions.spacingMedium,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.warningLight,
-                          borderRadius: BorderRadius.circular(
-                            AppDimensions.radiusRound,
-                          ),
-                        ),
-                        child: const Text(
-                          'Featured',
-                          style: TextStyle(
-                            color: AppColors.warningDark,
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.fontSizeLabelLarge,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
+                      ],
+                    );
+                  },
+                ),
               ),
 
-              // --- Title, subtitle, next button ---
+              AppDimensions.verticalSpace12,
+
+              // --- Dot indicators (below video, above text) ---
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(widget.partners.length, (index) {
+                  final isActive = index == _currentIndex;
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    width: isActive ? 20 : 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: isActive
+                          ? AppColors.primaryColor
+                          : AppColors.disabledBackground,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusRound,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+
+              // --- Title & subtitle ---
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.paddingLarge),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText.titleLarge(partner.title),
-                          const SizedBox(height: 4),
-                          AppText.bodyMedium(partner.subtitle),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: AppDimensions.spacingMedium),
-                    GestureDetector(
-                      onTap: _goToNext,
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        decoration: const BoxDecoration(
-                          color: AppColors.primaryColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.arrow_forward_rounded,
-                          color: AppColors.white,
-                        ),
-                      ),
-                    ),
+                    AppText.titleLarge(partner.title),
+                    const SizedBox(height: 4),
+                    AppText.bodyMedium(partner.subtitle),
                   ],
                 ),
               ),

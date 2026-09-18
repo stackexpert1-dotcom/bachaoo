@@ -68,7 +68,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     selected: currentIndex == 1,
                     onTap: () {
                       onTap(1);
-                      Get.toNamed(AppRoutes.cardScreen);
+                      Get.toNamed(AppRoutes.loginRequiredScreen);
                     },
                   ),
                   const SizedBox(
@@ -115,11 +115,12 @@ class CustomBottomNavBar extends StatelessWidget {
                           Get.toNamed(AppRoutes.voucherScreen);
                         },
                         onVirtualCardTap: () =>
-                            Get.toNamed(AppRoutes.memberShipCardScreen),
+                            Get.toNamed(AppRoutes.subscriptionScreen),
                         onCategoriesTap: () =>
                             Get.toNamed(AppRoutes.categoryScreen),
                         onReferTap: () => Get.toNamed(AppRoutes.referralScreen),
-                        onMyDealsTap: () => Get.toNamed(AppRoutes.myDealsScreen),
+                        onMyDealsTap: () =>
+                            Get.toNamed(AppRoutes.myDealsScreen),
                       );
                     },
                   ),

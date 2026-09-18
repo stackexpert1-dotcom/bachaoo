@@ -15,6 +15,12 @@ class DiscountModel {
   final String? contactAddress;
   final List<String>? terms;
 
+  // --- Added for the catalog (search/filter/sort) screen ---
+  final String? category;
+  final double? rating;
+  final DateTime? createdAt;
+  final int? popularityScore;
+
   const DiscountModel({
     required this.imageUrl,
     required this.discountLabel,
@@ -27,7 +33,10 @@ class DiscountModel {
     this.contactPhone,
     this.contactAddress,
     this.terms,
-    // required Future<dynamic>? Function() onTap,
+    this.category,
+    this.rating,
+    this.createdAt,
+    this.popularityScore,
   });
 
   factory DiscountModel.fromJson(Map<String, dynamic> json) {
@@ -43,6 +52,12 @@ class DiscountModel {
       contactPhone: json['contact_phone'] as String?,
       contactAddress: json['contact_address'] as String?,
       terms: (json['terms'] as List?)?.cast<String>(),
+      category: json['category'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      createdAt: json['created_at'] != null
+          ? DateTime.tryParse(json['created_at'] as String)
+          : null,
+      popularityScore: json['popularity_score'] as int?,
     );
   }
 }

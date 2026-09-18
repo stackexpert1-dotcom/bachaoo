@@ -5,7 +5,10 @@ import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/profile/widgets/account_list_item.dart';
 import 'package:bachaoo/features/profile/widgets/profile_avatar.dart';
 import 'package:bachaoo/features/profile/widgets/status_chip.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -199,7 +202,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     child: Column(
                       children: [
-                        AccountListItem(title: 'Change password', onTap: () {}),
+                        AccountListItem(
+                          title: 'Change password',
+                          onTap: () {
+                            Get.toNamed(AppRoutes.changePasswordScreen);
+                          },
+                        ),
                         const AccountDivider(),
                         AccountListItem(
                           title: 'Notifications',

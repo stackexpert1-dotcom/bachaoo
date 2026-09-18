@@ -127,7 +127,7 @@ class ReferralController extends GetxController {
     Get.snackbar(
       'Copied',
       'Referral code copied to clipboard',
-      snackPosition: SnackPosition.BOTTOM,
+      // snackPosition: SnackPosition.BOTTOM,
     );
   }
 

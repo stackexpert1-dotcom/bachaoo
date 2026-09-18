@@ -14,6 +14,9 @@ import 'package:bachaoo/features/reviews/views/widgets/review_section.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bachaoo/features/cart/controllers/cart_controller.dart';
+import 'package:bachaoo/features/cart/models/cart_item_model.dart';
+import 'package:bachaoo/common_widgets/primary_button.dart';
 
 class DiscountExploreScreen extends StatefulWidget {
   const DiscountExploreScreen({super.key});
@@ -25,6 +28,12 @@ class DiscountExploreScreen extends StatefulWidget {
 class _DiscountExploreScreenState extends State<DiscountExploreScreen> {
   int _selectedTabIndex = 0;
   late final BusinessModel _business;
+  final Set<DiscountModel> _selectedItems = {};
+
+  /// True when the screen was opened from the cart screen ("Add more deals").
+  /// Only then do taps select deals to add to the cart; otherwise they open
+  /// the deal/discount detail instead.
+  bool _selectionMode = false;
 
   @override
   void initState() {
@@ -32,24 +41,55 @@ class _DiscountExploreScreenState extends State<DiscountExploreScreen> {
     final arg = Get.arguments;
     if (arg is BusinessModel) {
       _business = arg;
+    } else if (arg is Map) {
+      // Reached from the cart screen ("Add more deals") → selection mode.
+      _selectionMode = arg['fromCart'] as bool? ?? false;
+      final business = arg['business'];
+      _business = business is BusinessModel ? business : _demoBusiness();
     } else {
-      _business = const BusinessModel(
-        name: 'Dhuaan N Dhukan',
-        location: 'Old Satellite Town',
-        address: 'Zafarullah Chowk, Block A, Old Satellite Town',
-        distanceKm: 2.8,
-        isOpenNow: true,
-        dealsCount: 3,
-        rating: 5.0,
-        reviewCount: 4,
-        phoneNumber: '0304 7665454',
-        discountLabel: 'Up to 15%',
-        discountSubtitle: 'on select deals',
-        isFeatured: true,
-        coverImageUrl: 'https://picsum.photos/seed/dhuaan-cover/1200/600',
-        logoUrl: 'https://picsum.photos/seed/dhuaan-logo/200/200',
-      );
+      _business = _demoBusiness();
     }
+  }
+
+  BusinessModel _demoBusiness() => const BusinessModel(
+    name: 'Dhuaan N Dhukan',
+    location: 'Old Satellite Town',
+    address: 'Zafarullah Chowk, Block A, Old Satellite Town',
+    distanceKm: 2.8,
+    isOpenNow: true,
+    dealsCount: 3,
+    rating: 5.0,
+    reviewCount: 4,
+    phoneNumber: '0304 7665454',
+    discountLabel: 'Up to 15%',
+    discountSubtitle: 'on select deals',
+    isFeatured: true,
+    coverImageUrl: 'https://picsum.photos/seed/dhuaan-cover/1200/600',
+    logoUrl: 'https://picsum.photos/seed/dhuaan-logo/200/200',
+  );
+
+  /// Builds a full deal-detail for the explore screen when browsing a compact
+  /// deal card (e.g. from home / businesses). Compact cards don't carry the
+  /// detail sections, so those reuse the shared dummy data.
+  DealDetailModel _buildDealDetail(DiscountModel deal) {
+    return DealDetailModel(
+      title: deal.title,
+      businessName: _business.name,
+      location: _business.location,
+      imageUrl: deal.imageUrl,
+      saveLabel: deal.discountLabel,
+      price: 333,
+      originalPrice: 483,
+      discountPercentLabel: '31% less',
+      includedItems: DealDetailModel.fallbackIncludedItems,
+      claimSteps: DealDetailModel.fallbackClaimSteps,
+      contactName: deal.contactName ?? DealDetailModel.fallbackContactName,
+      contactRole: deal.contactRole ?? DealDetailModel.fallbackContactRole,
+      contactPhone: deal.contactPhone ?? DealDetailModel.fallbackContactPhone,
+      contactAddress:
+          deal.contactAddress ?? DealDetailModel.fallbackContactAddress,
+      terms: deal.terms ?? DealDetailModel.fallbackTerms,
+    );
   }
 
   final List<DiscountModel> _deals = const [
@@ -195,42 +235,27 @@ class _DiscountExploreScreenState extends State<DiscountExploreScreen> {
                         return DiscountCard(
                           discount: deal,
                           width: cardWidth,
+                          isSelected:
+                              _selectionMode && _selectedItems.contains(deal),
                           onTap: () {
-                            final dummyDeal = const DealDetailModel(
-                              title: 'Bachaoo Deal from Discount',
-                              businessName: 'Dhuaan N Dhukan',
-                              location: 'Satellite Town',
-                              imageUrl: 'https://picsum.photos/seed/deal-from-discount/1200/900',
-                              saveLabel: 'Save Rs 150',
-                              price: 333,
-                              originalPrice: 483,
-                              discountPercentLabel: '31% less',
-                              includedItems: [
-                                '300g Dhuaan rice',
-                                '2 chicken tikka',
-                                'Maghoolta',
-                                '345ml drink',
-                              ],
-                              claimSteps: [
-                                'Scan the Bachaoo QR at the counter, or add this deal to your cart.',
-                                'Ask staff for the 4-digit business code.',
-                                'Enter it, pay the discounted amount.',
-                              ],
-                              contactName: 'Naveed Anwar',
-                              contactRole: 'CEO',
-                              contactPhone: '0304 7665454',
-                              contactAddress: 'Main Zafar Ullah Chowk, Satellite Town, Sargodha',
-                              terms: [
-                                'Credit is not allowed for Bachaoo members.',
-                                'Membership must be shown and verified at billing.',
-                                'Cannot be combined with other offers.',
-                                'Dine‑in and takeaway only.',
-                              ],
-                            );
-                            Get.toNamed(
-                              AppRoutes.dealsExploreScreen,
-                              arguments: dummyDeal,
-                            );
+                            if (!_selectionMode) {
+                              // Browse mode (home/businesses/QR): open the
+                              // deal detail instead of selecting for the cart.
+                              Get.toNamed(
+                                AppRoutes.dealsExploreScreen,
+                                arguments: _buildDealDetail(deal),
+                              );
+                              return;
+                            }
+                            // Selection mode (from cart "Add more deals"):
+                            // toggle the deal for adding to the cart.
+                            setState(() {
+                              if (_selectedItems.contains(deal)) {
+                                _selectedItems.remove(deal);
+                              } else {
+                                _selectedItems.add(deal);
+                              }
+                            });
                           },
                         );
                       }).toList(),
@@ -272,6 +297,49 @@ class _DiscountExploreScreenState extends State<DiscountExploreScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: _selectionMode && _selectedItems.isNotEmpty
+          ? Container(
+              padding: const EdgeInsets.all(AppDimensions.pagePadding),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, -5),
+                  ),
+                ],
+              ),
+              child: PrimaryButton(
+                label: 'Add ${_selectedItems.length} Deals to Cart',
+                onTap: () {
+                  // Fallback to `put`: GetX reuses the instance registered by
+                  // CartBinding (bound to this route), so this can never throw
+                  // "CartController not found" regardless of how the screen was
+                  // opened.
+                  final cartController = Get.put<CartController>(
+                    CartController(),
+                  );
+                  for (final item in _selectedItems) {
+                    // Convert DiscountModel to CartItemModel.
+                    // Note: price parsing logic is basic, assuming dummy data prices for now.
+                    cartController.addItem(
+                      CartItemModel(
+                        imageUrl: item.imageUrl,
+                        title: item.title,
+                        subtitle: item.subtitle,
+                        currentPrice: '333', // Dummy default price
+                        originalPrice: '483', // Dummy default price
+                        quantity: 1,
+                      ),
+                    );
+                  }
+                  setState(() => _selectedItems.clear());
+                  Get.back(); // Or stay and show a snackbar, but popping back to cart makes sense if initiated from cart.
+                },
+              ),
+            )
+          : null,
     );
   }
 }

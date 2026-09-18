@@ -153,10 +153,15 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppText.headlineXSmall('Categories'),
-                        AppText.bodySmall(
-                          'See All',
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w700,
+                        InkWell(
+                          child: AppText.bodySmall(
+                            'See All',
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          onTap: () {
+                            Get.toNamed('/categoryScreen');
+                          },
                         ),
                       ],
                     ),
@@ -255,7 +260,7 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                       onSeeAllTap: () {
-                        Get.toNamed(AppRoutes.discountExploreScreen);
+                        Get.toNamed(AppRoutes.allDiscountsScreen);
                       },
                     ),
                     AppDimensions.verticalSpace24,
@@ -320,7 +325,7 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                       onSeeAllTap: () {
-                        // navigate to see all discounts screen
+                        Get.toNamed(AppRoutes.allDealsScreen);
                       },
                     ),
                     AppDimensions.verticalSpace24,

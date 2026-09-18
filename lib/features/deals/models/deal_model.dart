@@ -8,7 +8,7 @@ class DealModel {
   final double? amountSaved;
   final DealStatus status;
   final DateTime? date;
-  
+
   // --- Original fields ---
   final String? imageUrl;
   final String? badgeLabel;
@@ -30,6 +30,12 @@ class DealModel {
   final String? contactPhone;
   final String? contactAddress;
   final List<String>? terms;
+
+  // --- Added for the catalog (search/filter/sort) screen ---
+  final String? category;
+  final double? rating;
+  final DateTime? createdAt;
+  final int? popularityScore;
 
   /// Short brand tag for the badge on the image — 3 letters max (e.g. "KFC", "DD" stays "DD").
   String get brandTagShort {
@@ -89,6 +95,10 @@ class DealModel {
     this.contactPhone,
     this.contactAddress,
     this.terms,
+    this.category,
+    this.rating,
+    this.createdAt,
+    this.popularityScore,
   });
 
   factory DealModel.fromJson(Map<String, dynamic> json) {
@@ -114,6 +124,12 @@ class DealModel {
       contactPhone: json['contact_phone'] as String?,
       contactAddress: json['contact_address'] as String?,
       terms: (json['terms'] as List?)?.cast<String>(),
+      category: json['category'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      createdAt: json['created_at'] != null
+          ? DateTime.tryParse(json['created_at'] as String)
+          : null,
+      popularityScore: json['popularity_score'] as int?,
     );
   }
 

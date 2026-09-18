@@ -10,24 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 
-class CartItem {
-  final String imageUrl;
-  final String title;
-  final String subtitle;
-  final String currentPrice;
-  final String originalPrice;
-  int quantity;
-
-  CartItem({
-    required this.imageUrl,
-    required this.title,
-    required this.subtitle,
-    required this.currentPrice,
-    required this.originalPrice,
-    this.quantity = 1,
-  });
-}
-
+import 'package:bachaoo/features/cart/controllers/cart_controller.dart';
+import 'package:bachaoo/features/cart/models/cart_item_model.dart';
 class CartScreen extends StatefulWidget {
   final String vendorName;
   final String vendorLocation;
@@ -47,29 +31,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  late final List<CartItem> _items;
+  late final CartController _cartController;
 
   @override
   void initState() {
     super.initState();
+    _cartController = Get.find<CartController>();
+    
+    // Only initialize with a deal if the cart is empty and a deal was passed.
     final deal = widget.deal;
-    if (deal == null) {
-      // Fallback demo item used when the cart is opened without a deal
-      // (e.g. directly from the tab bar / deep link).
-      _items = [
-        CartItem(
-          imageUrl: 'https://example.com/deal1.jpg',
-          title: 'Bachaoo Deal 1',
-          subtitle: 'Rice, 2 tikka, drink',
-          currentPrice: '333',
-          originalPrice: '483',
-        ),
-      ];
-    } else {
-      // The deal tapped "Add to cart" on — e.g. "Bachaoo Deal 1" — with the
-      // quantity that was selected on the deal screen.
-      _items = [
-        CartItem(
+    if (deal != null && _cartController.items.isEmpty) {
+      _cartController.addItem(
+        CartItemModel(
           imageUrl: deal.imageUrl ?? 'https://example.com/deal1.jpg',
           title: deal.title,
           subtitle: deal.includedItems.take(3).join(', '),
@@ -77,24 +50,24 @@ class _CartScreenState extends State<CartScreen> {
           originalPrice: deal.originalPrice.toStringAsFixed(0),
           quantity: widget.initialQuantity,
         ),
-      ];
+      );
+    } else if (_cartController.items.isEmpty) {
+      // Fallback demo item used when the cart is opened without a deal
+      // (e.g. directly from the tab bar / deep link).
+      _cartController.addItem(
+        CartItemModel(
+          imageUrl: 'https://example.com/deal1.jpg',
+          title: 'Bachaoo Deal 1',
+          subtitle: 'Rice, 2 tikka, drink',
+          currentPrice: '333',
+          originalPrice: '483',
+        ),
+      );
     }
   }
 
-  int get _subtotal => _items.fold(
-    0,
-    (sum, item) => sum + (int.parse(item.originalPrice) * item.quantity),
-  );
-
-  int get _total => _items.fold(
-    0,
-    (sum, item) => sum + (int.parse(item.currentPrice) * item.quantity),
-  );
-
-  int get _savings => _subtotal - _total;
-
   void _clearCart() {
-    setState(() => _items.clear());
+    _cartController.clearCart();
   }
 
   @override
@@ -133,34 +106,43 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   const SizedBox(height: AppDimensions.spacingMedium),
-                  ..._items.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final item = entry.value;
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        bottom: index == _items.length - 1
-                            ? 0
-                            : AppDimensions.spacingXXSmall,
-                      ),
-                      child: CartItemCard(
-                        imageUrl: item.imageUrl,
-                        title: item.title,
-                        subtitle: item.subtitle,
-                        currentPrice: item.currentPrice,
-                        originalPrice: item.originalPrice,
-                        quantity: item.quantity,
-                        onQuantityChanged: (v) {
-                          setState(() => item.quantity = v);
-                        },
-                      ),
-                    );
-                  }),
+                  Obx(() => Column(
+                        children: [
+                          ..._cartController.items.asMap().entries.map((entry) {
+                            final index = entry.key;
+                            final item = entry.value;
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom: index == _cartController.items.length - 1
+                                    ? 0
+                                    : AppDimensions.spacingXXSmall,
+                              ),
+                              child: CartItemCard(
+                                imageUrl: item.imageUrl,
+                                title: item.title,
+                                subtitle: item.subtitle,
+                                currentPrice: item.currentPrice,
+                                originalPrice: item.originalPrice,
+                                quantity: item.quantity,
+                                onQuantityChanged: (v) {
+                                  _cartController.updateQuantity(item, v);
+                                },
+                              ),
+                            );
+                          }),
+                        ],
+                      )),
                   const SizedBox(height: AppDimensions.spacingMedium),
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.discountExploreScreen);
+                        // Open the explore screen in "selection mode" so deals
+                        // can be tapped and added to this cart.
+                        Get.toNamed(
+                          AppRoutes.discountExploreScreen,
+                          arguments: const {'fromCart': true},
+                        );
                       },
                       icon: const Icon(Icons.add_circle_outline_rounded, size: 20),
                       label: const Text(
@@ -178,12 +160,12 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   const SizedBox(height: AppDimensions.spacingLarge),
-                  CartSummaryCard(
-                    dealCount: _items.length,
-                    subtotal: _subtotal.toString(),
-                    savings: _savings.toString(),
-                    total: _total.toString(),
-                  ),
+                  Obx(() => CartSummaryCard(
+                        dealCount: _cartController.items.length,
+                        subtotal: _cartController.subtotal.toString(),
+                        savings: _cartController.savings.toString(),
+                        total: _cartController.total.toString(),
+                      )),
                   const SizedBox(height: AppDimensions.spacingLarge),
                   BusinessCodeCard(),
                 ],
@@ -196,12 +178,12 @@ class _CartScreenState extends State<CartScreen> {
                 AppDimensions.pagePadding,
                 AppDimensions.spacingMedium,
               ),
-              child: PrimaryButton(
-                label: 'Confirm and pay Rs $_total',
-                backgroundColor: AppColors.secondaryColor,
-                textColor: AppColors.primaryColor,
-                onTap: () {},
-              ),
+              child: Obx(() => PrimaryButton(
+                    label: 'Confirm and pay Rs ${_cartController.total}',
+                    backgroundColor: AppColors.secondaryColor,
+                    textColor: AppColors.primaryColor,
+                    onTap: () {},
+                  )),
             ),
           ],
         ),

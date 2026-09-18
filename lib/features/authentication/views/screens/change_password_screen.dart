@@ -1,3 +1,6 @@
+import 'package:bachaoo/common_widgets/app_text.dart';
+import 'package:bachaoo/common_widgets/back_button.dart';
+import 'package:bachaoo/common_widgets/custom_text_feild.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -34,43 +37,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   // Reusable Text Form Field
   Widget _buildPasswordField({
     required TextEditingController controller,
+    required String hintText,
     required String labelText,
     String? Function(String?)? validator,
   }) {
-    return TextFormField(
+    return CustomTextFormField(
       controller: controller,
-      obscureText: true,
-      style: const TextStyle(color: AppColors.primaryColor),
-      cursorColor: AppColors.primaryColor, // Primary text color
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.grey),
-        floatingLabelStyle: const TextStyle(color: AppColors.primaryColor),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey.shade300),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey.shade300),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: AppColors.primaryColor,
-            width: 2,
-          ), // Primary focus border
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.red),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.red, width: 2),
-        ),
-      ),
-      validator: validator,
+      isPassword: true,
+      label: labelText,
+      hintText: hintText,
     );
   }
 
@@ -78,9 +53,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Change Password'),
-        backgroundColor: AppColors.primaryColor,
-        foregroundColor: Colors.white,
+        title: AppText.headlineSmall('Change Password'),
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: SizedBox(width: 26, height: 26, child: CustomBackButton()),
+        ),
+        backgroundColor: AppColors.appBackroundColor,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -93,7 +72,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 // 1. Your Password
                 _buildPasswordField(
                   controller: _currentPassController,
-                  labelText: 'Your Password',
+                  labelText: ' Current Password',
+                  hintText: 'Enter your current password',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your current password';
@@ -110,6 +90,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 _buildPasswordField(
                   controller: _newPassController,
                   labelText: 'New Password',
+                  hintText: 'Enter your new password',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a new password';
@@ -126,6 +107,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 _buildPasswordField(
                   controller: _confirmPassController,
                   labelText: 'Confirm New Password',
+                  hintText: 'Confirm your new password',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your new password';

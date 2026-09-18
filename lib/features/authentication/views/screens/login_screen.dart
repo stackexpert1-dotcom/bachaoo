@@ -5,6 +5,7 @@ import 'package:bachaoo/common_widgets/primary_button.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/authentication/views/widgets/google_auth_button.dart';
+import 'package:bachaoo/features/authentication/views/widgets/social_auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -128,7 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       minimumSize: const Size(0, 0),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.forgotPasswordScreen);
+                    },
                     child: const Text(
                       'Forgot password?',
                       style: TextStyle(
@@ -168,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               AppDimensions.verticalSpace20,
               // --- Google ---
-              GoogleAuthButton(onTap: () {}),
+              SocialAuthButton(onGoogleTap: () {}, onAppleTap: () {}),
 
               AppDimensions.verticalSpace24,
 

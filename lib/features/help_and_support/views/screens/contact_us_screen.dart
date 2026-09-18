@@ -4,6 +4,7 @@ import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/profile/widgets/status_chip.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 enum ContactActionType { whatsapp, call }
@@ -180,11 +181,12 @@ class ContactActionCard extends StatelessWidget {
                 color: AppColors.successLight,
                 borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
               ),
-              child: Icon(
-                isWhatsapp ? Icons.chat_rounded : Icons.call_rounded,
-                color: AppColors.successDark,
-                size: AppDimensions.iconSizeMedium,
-              ),
+              child: isWhatsapp
+                  ? FaIcon(
+                      FontAwesomeIcons.whatsapp,
+                      color: AppColors.primaryColor,
+                    )
+                  : Icon(Icons.phone, color: AppColors.primaryColor),
             ),
             const SizedBox(width: AppDimensions.spacingMedium),
             Expanded(

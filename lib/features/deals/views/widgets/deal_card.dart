@@ -47,26 +47,27 @@ class DealCard extends StatelessWidget {
                               deal.imageUrl!,
                               fit: BoxFit.cover,
                               loadingBuilder: (context, child, progress) {
-                          if (progress == null) return child;
+                                if (progress == null) return child;
 
-                          return Container(
-                            color: AppColors.disabledBackground,
-                            alignment: Alignment.center,
-                            child: const CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: AppColors.primaryColor,
-                            ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: AppColors.disabledBackground,
-                          alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.image_not_supported_outlined,
-                            color: AppColors.iconMuted,
-                          ),
-                            ),
-                          )
+                                return Container(
+                                  color: AppColors.disabledBackground,
+                                  alignment: Alignment.center,
+                                  child: const CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Container(
+                                    color: AppColors.disabledBackground,
+                                    alignment: Alignment.center,
+                                    child: const Icon(
+                                      Icons.image_not_supported_outlined,
+                                      color: AppColors.iconMuted,
+                                    ),
+                                  ),
+                            )
                           : Container(
                               color: AppColors.disabledBackground,
                               alignment: Alignment.center,
@@ -165,7 +166,7 @@ class DealCard extends StatelessWidget {
                       // AppDimensions.verticalSpace4,
                       Text(
                         deal.subtitle,
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: AppColors.textSecondary,

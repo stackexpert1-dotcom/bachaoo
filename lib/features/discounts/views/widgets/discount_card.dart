@@ -9,12 +9,14 @@ class DiscountCard extends StatelessWidget {
   final DiscountModel discount;
   final VoidCallback? onTap;
   final double width;
+  final bool isSelected;
 
   const DiscountCard({
     super.key,
     required this.discount,
     this.onTap,
     this.width = 160,
+    this.isSelected = false,
   });
 
   @override
@@ -25,9 +27,12 @@ class DiscountCard extends StatelessWidget {
         width: width,
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.white,
+            color: isSelected ? AppColors.primaryColor.withOpacity(0.05) : AppColors.white,
             borderRadius: BorderRadius.circular(AppDimensions.radiusXLarge),
-            border: Border.all(color: AppColors.borderColor),
+            border: Border.all(
+              color: isSelected ? AppColors.primaryColor : AppColors.borderColor,
+              width: isSelected ? 2 : 1,
+            ),
           ),
           clipBehavior: Clip.antiAlias,
           child: Column(
@@ -65,6 +70,23 @@ class DiscountCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (isSelected)
+                    Positioned(
+                      top: AppDimensions.spacingSmall,
+                      right: AppDimensions.spacingSmall,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: AppColors.primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.check,
+                          color: AppColors.white,
+                          size: 16,
+                        ),
+                      ),
+                    ),
                 ],
               ),
 

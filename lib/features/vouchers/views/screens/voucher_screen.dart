@@ -103,36 +103,36 @@ class _VouchersScreenState extends State<VouchersScreen> {
   }
 }
 
-class _BackButton extends StatelessWidget {
-  final VoidCallback onTap;
+// class _BackButton extends StatelessWidget {
+//   final VoidCallback onTap;
 
-  const _BackButton({required this.onTap});
+//   const _BackButton({required this.onTap});
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        alignment: Alignment.center,
-        child: const Icon(
-          Icons.chevron_left_rounded,
-          color: AppColors.textPrimary,
-          size: 28,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         width: 48,
+//         height: 48,
+//         decoration: BoxDecoration(
+//           color: AppColors.surfaceColor,
+//           borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
+//           boxShadow: [
+//             BoxShadow(
+//               color: AppColors.shadow,
+//               blurRadius: 6,
+//               offset: const Offset(0, 2),
+//             ),
+//           ],
+//         ),
+//         alignment: Alignment.center,
+//         child: const Icon(
+//           Icons.chevron_left_rounded,
+//           color: AppColors.textPrimary,
+//           size: 28,
+//         ),
+//       ),
+//     );
+//   }
+// }
