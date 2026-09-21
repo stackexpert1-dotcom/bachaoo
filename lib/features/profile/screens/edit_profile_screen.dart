@@ -124,14 +124,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: AppDimensions.spacingXXLarge),
+                  const SizedBox(height: AppDimensions.spacingLarge),
 
                   // first / last name
                   CustomTextFormField(
                     label: 'Name',
                     controller: _firstNameController,
                   ),
-                  const SizedBox(height: AppDimensions.spacingLarge),
+                  const SizedBox(height: AppDimensions.spacingSmall),
 
                   CustomTextFormField(
                     label: 'Email',
@@ -147,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: AppDimensions.spacingLarge),
+                  const SizedBox(height: AppDimensions.spacingSmall),
 
                   CustomTextFormField(
                     label: 'Phone',
@@ -163,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: AppDimensions.spacingLarge),
+                  const SizedBox(height: AppDimensions.spacingSmall),
 
                   CustomTextFormField(
                     label: 'City',
@@ -191,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: AppDimensions.spacingMedium),
+                  const SizedBox(height: AppDimensions.spacingSmall),
 
                   Container(
                     decoration: BoxDecoration(

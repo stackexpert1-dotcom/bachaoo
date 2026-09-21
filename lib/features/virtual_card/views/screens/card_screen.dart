@@ -52,7 +52,7 @@ class MemberCardScreen extends StatelessWidget {
               children: [
                 MemberCardWidget(card: card),
                 const SizedBox(height: 16),
-                _ActionButtonsRow(controller: controller),
+                // _ActionButtonsRow(controller: controller),
                 const SizedBox(height: 16),
                 PointsProgressCard(card: card),
                 const SizedBox(height: 24),
@@ -66,56 +66,56 @@ class MemberCardScreen extends StatelessWidget {
   }
 }
 
-class _ActionButtonsRow extends StatelessWidget {
-  final CardController controller;
-  const _ActionButtonsRow({required this.controller});
+// class _ActionButtonsRow extends StatelessWidget {
+//   final CardController controller;
+//   const _ActionButtonsRow({required this.controller});
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _actionButton(
-            icon: Icons.qr_code_scanner,
-            label: 'Scan partner QR',
-            onTap: controller.goToScanPartner,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _actionButton(
-            icon: Icons.account_balance_wallet_outlined,
-            label: 'Add to wallet',
-            onTap: controller.addToWallet,
-          ),
-        ),
-      ],
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Expanded(
+//           child: _actionButton(
+//             icon: Icons.qr_code_scanner,
+//             label: 'Scan partner QR',
+//             onTap: controller.goToScanPartner,
+//           ),
+//         ),
+//         const SizedBox(width: 12),
+//         Expanded(
+//           child: _actionButton(
+//             icon: Icons.account_balance_wallet_outlined,
+//             label: 'Add to wallet',
+//             onTap: controller.addToWallet,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
 
-  Widget _actionButton({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return OutlinedButton.icon(
-      onPressed: onTap,
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
-        side: BorderSide(color: Colors.grey.shade300),
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-      icon: Icon(icon, size: 18),
-      label: Text(
-        label,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
-  }
-}
+//   Widget _actionButton({
+//     required IconData icon,
+//     required String label,
+//     required VoidCallback onTap,
+//   }) {
+//     return OutlinedButton.icon(
+//       onPressed: onTap,
+//       style: OutlinedButton.styleFrom(
+//         backgroundColor: Colors.white,
+//         foregroundColor: Colors.black87,
+//         side: BorderSide(color: Colors.grey.shade300),
+//         padding: const EdgeInsets.symmetric(vertical: 16),
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//       ),
+//       icon: Icon(icon, size: 18),
+//       label: Text(
+//         label,
+//         style: const TextStyle(fontWeight: FontWeight.w600),
+//         overflow: TextOverflow.ellipsis,
+//       ),
+//     );
+//   }
+// }
 
 class _RecentActivitySection extends StatelessWidget {
   final CardController controller;

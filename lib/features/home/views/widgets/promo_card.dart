@@ -86,8 +86,8 @@ class PromoCard extends StatelessWidget {
                   ),
                 ),
 
-              // --- Top-right brand pill ---
-              if (promo.brandName != null)
+              // Category describes the visual without relying on a logo.
+              if (promo.category != null)
                 Positioned(
                   top: AppDimensions.spacingMedium,
                   right: AppDimensions.spacingMedium,
@@ -103,9 +103,9 @@ class PromoCard extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      promo.brandName!,
+                      promo.category!,
                       style: const TextStyle(
-                        color: AppColors.error,
+                        color: AppColors.primaryColor,
                         fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.fontSizeLabelMedium,
                         height: 1.2,
@@ -124,7 +124,18 @@ class PromoCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (promo.subtitle != null)
+                      if (promo.brandName != null)
+                        Text(
+                          promo.brandName!,
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: AppDimensions.fontSizeTitleLarge,
+                            height: 1.2,
+                          ),
+                        ),
+                      if (promo.subtitle != null) ...[
+                        const SizedBox(height: 2),
                         Text(
                           promo.subtitle!,
                           style: const TextStyle(
@@ -133,16 +144,62 @@ class PromoCard extends StatelessWidget {
                             height: 1.3,
                           ),
                         ),
+                      ],
                       if (promo.offerTitle != null) ...[
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 6),
                         Text(
                           promo.offerTitle!,
                           style: const TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.fontSizeTitleLarge,
+                            fontSize: AppDimensions.fontSizeBodyMedium,
                             height: 1.2,
                           ),
+                        ),
+                      ],
+                      if (promo.rating != null ||
+                          promo.distanceLabel != null) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            if (promo.rating != null) ...[
+                              const Icon(
+                                Icons.star_rounded,
+                                color: Color(0xFFFFD45B),
+                                size: 17,
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                promo.rating!.toStringAsFixed(1),
+                                style: const TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppDimensions.fontSizeLabelMedium,
+                                ),
+                              ),
+                            ],
+                            if (promo.rating != null &&
+                                promo.distanceLabel != null)
+                              const SizedBox(width: 12),
+                            if (promo.distanceLabel != null) ...[
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: AppColors.white.withValues(alpha: 0.9),
+                                size: 16,
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                promo.distanceLabel!,
+                                style: TextStyle(
+                                  color: AppColors.white.withValues(
+                                    alpha: 0.95,
+                                  ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: AppDimensions.fontSizeLabelMedium,
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
                       ],
                     ],

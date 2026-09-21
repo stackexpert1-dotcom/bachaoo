@@ -2,6 +2,7 @@ import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/checkbox.dart';
 import 'package:bachaoo/common_widgets/custom_text_feild.dart';
 import 'package:bachaoo/common_widgets/primary_button.dart';
+import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/authentication/views/widgets/google_auth_button.dart';
@@ -42,24 +43,49 @@ class _LoginScreenState extends State<LoginScreen> {
               AppDimensions.verticalSpace28,
 
               // --- Brand badge ---
-              Container(
-                width: 64,
-                height: 64,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.secondaryColor,
-                  borderRadius: BorderRadius.circular(
-                    AppDimensions.radiusLarge,
+              Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.appBackroundColor,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusMedium,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Image.asset(
+                        AppAssets.bachaooLogo,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'B',
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppDimensions.fontSizeHeadlineXLarge,
+                  AppDimensions.horizontalSpace8,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'BACHAOO!',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: AppDimensions.fontSizeTitleLarge,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      Text(
+                        'Bachat Ka "\u0633" On Hai',
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: AppDimensions.fontSizeBodyMedium,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
 
               AppDimensions.verticalSpace24,
@@ -147,7 +173,12 @@ class _LoginScreenState extends State<LoginScreen> {
               AppDimensions.verticalSpace24,
 
               // --- Sign in ---
-              PrimaryButton(label: 'Sign in', onTap: () {}),
+              PrimaryButton(
+                label: 'Sign in',
+                onTap: () {
+                  Get.offAllNamed(AppRoutes.memberShipCardScreen);
+                },
+              ),
 
               const SizedBox(height: 20),
 
@@ -171,7 +202,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
               AppDimensions.verticalSpace20,
               // --- Google ---
-              SocialAuthButton(onGoogleTap: () {}, onAppleTap: () {}),
+              SocialAuthButton(
+                onGoogleTap: () {
+                  Get.offAllNamed(AppRoutes.memberShipCardScreen);
+                },
+                onAppleTap: () {
+                  Get.offAllNamed(AppRoutes.memberShipCardScreen);
+                },
+              ),
 
               AppDimensions.verticalSpace24,
 

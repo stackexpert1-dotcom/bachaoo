@@ -1,8 +1,9 @@
 import 'package:bachaoo/common_widgets/back_button.dart';
+import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/features/category/models/sub_category_model.dart';
 import 'package:bachaoo/features/category/views/widgets/category_detail_header.dart';
 import 'package:bachaoo/features/category/views/widgets/sub_category_card.dart';
-import 'package:bachaoo/features/home/views/widgets/category_grid.dart';
+import 'package:bachaoo/features/home/views/widgets/category_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Food',
       offersCount: 46,
       icon: Icons.lunch_dining_rounded,
+      iconAsset: AppAssets.categoryFood,
       iconColor: const Color(0xFFB33A2E),
       iconBackgroundColor: const Color(0xFFFBE2DE),
       isFeatured: true,
@@ -35,6 +37,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Supermarket',
       offersCount: 12,
       icon: Icons.shopping_cart_rounded,
+      iconAsset: AppAssets.categorySupermarket,
       iconColor: const Color(0xFF9A6A12),
       iconBackgroundColor: const Color(0xFFFAF2DE),
       isFeatured: true,
@@ -43,6 +46,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Beauty & care',
       offersCount: 9,
       faIcon: const FaIcon(FontAwesomeIcons.paintbrush),
+      iconAsset: AppAssets.categoryBeauty,
       iconColor: const Color(0xFF6B4FA0),
       iconBackgroundColor: const Color(0xFFE9E2F7),
       isFeatured: true,
@@ -51,6 +55,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Health',
       offersCount: 14,
       faIcon: const FaIcon(FontAwesomeIcons.heartPulse),
+      iconAsset: AppAssets.categoryHealth,
+      iconColor: const Color(0xFF247A45),
+      iconBackgroundColor: const Color(0xFFE5F1E8),
+      isFeatured: true,
+    ),
+    CategoryModel(
+      title: 'Hospitals',
+      offersCount: 10,
+      icon: Icons.local_hospital_rounded,
+      iconAsset: AppAssets.categoryHospital,
+      iconColor: const Color(0xFFB33A2E),
+      iconBackgroundColor: const Color(0xFFFBE2DE),
+      isFeatured: true,
+    ),
+    CategoryModel(
+      title: 'Labs',
+      offersCount: 8,
+      icon: Icons.science_rounded,
+      // Health artwork is intentionally reused for the medical theme.
+      iconAsset: AppAssets.categoryHealth,
       iconColor: const Color(0xFF247A45),
       iconBackgroundColor: const Color(0xFFE5F1E8),
       isFeatured: true,
@@ -59,6 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Automobiles',
       offersCount: 7,
       icon: Icons.directions_car_rounded,
+      iconAsset: AppAssets.categoryAutomobiles,
       iconColor: const Color(0xFF3578A8),
       iconBackgroundColor: const Color(0xFFE8F1F7),
       isFeatured: true,
@@ -67,6 +92,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Fashion',
       offersCount: 18,
       icon: Icons.checkroom_rounded,
+      iconAsset: AppAssets.categoryFashion,
       iconColor: const Color(0xFFB0632B),
       iconBackgroundColor: const Color(0xFFFBE9DD),
       isFeatured: true,
@@ -75,6 +101,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Education',
       offersCount: 18,
       icon: Icons.school_outlined,
+      iconAsset: AppAssets.categoryEducation,
       iconColor: Color(0xFF1C4777),
       iconBackgroundColor: Color(0xFFD6E7F5),
       isFeatured: false,
@@ -83,6 +110,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Entertainment',
       offersCount: 18,
       icon: Icons.movie_outlined,
+      iconAsset: AppAssets.categoryEntertainment,
+      iconColor: Color(0xFF96265A),
+      iconBackgroundColor: Color(0xFFF7DDEA),
+      isFeatured: false,
+    ),
+    CategoryModel(
+      title: 'Cinema',
+      offersCount: 6,
+      icon: Icons.movie_rounded,
+      iconAsset: AppAssets.categoryCinema,
       iconColor: Color(0xFF96265A),
       iconBackgroundColor: Color(0xFFF7DDEA),
       isFeatured: false,
@@ -91,6 +128,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       title: 'Services',
       offersCount: 18,
       icon: Icons.build_outlined,
+      iconAsset: AppAssets.categoryServices,
       iconColor: Color(0xFF4F702E),
       iconBackgroundColor: Color(0xFFE4EFD9),
       isFeatured: false,
@@ -104,11 +142,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
   );
   int _selectedIndex = 0;
 
+  /// Number of filter chips shown at the top of the screen. Categories beyond
+  /// this are listed in the "More Categories" section further down.
+  static const int _topChipCount = 6;
+
   @override
   void initState() {
     super.initState();
     final arg = Get.arguments;
-    if (arg is int && arg >= 0 && arg < _demoCategories.length) {
+    if (arg is String) {
+      final index = _demoCategories.indexWhere(
+        (category) => category.title == arg,
+      );
+      if (index != -1) _selectedIndex = index;
+    } else if (arg is int && arg >= 0 && arg < _demoCategories.length) {
       _selectedIndex = arg;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -240,6 +287,50 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ];
 
+      case 'Hospitals':
+        return const [
+          SubCategoryModel(
+            title: 'General Hospitals',
+            subtitle: 'Inpatient care, emergency and specialist services',
+            dealsCount: 4,
+            imageUrl: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Specialist Clinics',
+            subtitle: 'Consultations with trusted specialists',
+            dealsCount: 3,
+            imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Maternity & Children',
+            subtitle: 'Maternal, newborn and child healthcare',
+            dealsCount: 3,
+            imageUrl: 'https://images.unsplash.com/photo-1516841273335-e39b37888115?w=800',
+          ),
+        ];
+
+      case 'Labs':
+        return const [
+          SubCategoryModel(
+            title: 'Diagnostic Labs',
+            subtitle: 'Blood tests and routine diagnostics',
+            dealsCount: 4,
+            imageUrl: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Imaging & Scans',
+            subtitle: 'X-ray, ultrasound and advanced imaging',
+            dealsCount: 2,
+            imageUrl: 'https://images.unsplash.com/photo-1583912267550-dc2bd6c5a33f?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Home Sample Collection',
+            subtitle: 'Convenient lab testing at your doorstep',
+            dealsCount: 2,
+            imageUrl: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=800',
+          ),
+        ];
+
       case 'Automobiles':
         return const [
           SubCategoryModel(
@@ -316,6 +407,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ];
 
+      case 'Cinema':
+        return const [
+          SubCategoryModel(
+            title: 'Movie Tickets',
+            subtitle: 'Savings on the latest big-screen releases',
+            dealsCount: 3,
+            imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Private Screenings',
+            subtitle: 'Group bookings and private cinema experiences',
+            dealsCount: 1,
+            imageUrl: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=800',
+          ),
+          SubCategoryModel(
+            title: 'Cinema Snacks',
+            subtitle: 'Popcorn, drinks and combo offers',
+            dealsCount: 2,
+            imageUrl: 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=800',
+          ),
+        ];
+
       case 'Services':
         return const [
           SubCategoryModel(
@@ -372,7 +485,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     // ignore: deprecated_member_use
                     cacheExtent: 2000.0,
                     scrollDirection: Axis.horizontal,
-                    itemCount: _demoCategories.length,
+                    itemCount: _topChipCount,
                     separatorBuilder: (context, index) =>
                         const SizedBox(width: 8),
                     itemBuilder: (context, index) {
@@ -409,11 +522,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 Builder(
                   builder: (context) {
                     final extraCategories = _demoCategories
-                        .where((c) => !c.isFeatured)
+                        .skip(_topChipCount)
                         .toList();
                     return CategoriesGrid(
                       categories: extraCategories,
-                      featuredOnly: false,
+                      // featuredOnly: false,
                       onCategoryTap: (idx, category) {
                         final realIndex = _demoCategories.indexOf(category);
                         if (realIndex != -1) {

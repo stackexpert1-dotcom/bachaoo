@@ -1,3 +1,7 @@
+import 'package:bachaoo/features/deals/models/deal_model.dart';
+import 'package:bachaoo/features/discounts/models/discount_model.dart';
+import 'package:bachaoo/features/home/models/partner_model.dart';
+
 class BusinessModel {
   // --- Fields from the "Near you" card ---
   final String name;
@@ -11,7 +15,6 @@ class BusinessModel {
   final String discountSubtitle; // e.g. "off bill"
   final bool isFeatured; // admin-controlled: show in "Near you" or not
 
-  // --- Fields added for the business detail screen ---
   final String?
   address; // full address, e.g. "Zafarullah Chowk, Block A, Old Satellite Town"
   final String? coverImageUrl; // large header banner on the detail screen
@@ -82,8 +85,67 @@ class BusinessModel {
       isOpenNow: true,
       dealsCount: 3,
       phoneNumber: '03195006813',
+      // Prefer the real business logo when present; otherwise fall back to
+      // the generated demo avatar so detail screens always show a logo.
+      logoUrl:
+          business.logoUrl ?? 'https://picsum.photos/seed/$slug-logo/512/512',
       coverImageUrl: 'https://picsum.photos/seed/$slug-cover/1200/600',
-      logoUrl: 'https://picsum.photos/seed/$slug-logo/512/512',
+    );
+  }
+
+  /// Adapts an existing deal for the business/discount explore screen without
+  /// replacing any of the deal's visible content.
+  factory BusinessModel.fromDeal(DealModel deal) {
+    return BusinessModel(
+      name: deal.title,
+      location: deal.subtitle,
+      distanceKm: 0,
+      imageUrl: deal.imageUrl,
+      coverImageUrl: deal.imageUrl,
+      logoUrl: deal.logoUrl,
+      discountLabel: deal.badgeLabel ?? '',
+      discountSubtitle: deal.subtitle,
+      rating: deal.rating,
+      isOpenNow: true,
+    );
+  }
+
+  /// Adapts catalog discount data for the shared business/deal card and
+  /// explore screen while keeping its image, label, title, and subtitle.
+  factory BusinessModel.fromDiscount(DiscountModel discount) {
+    return BusinessModel(
+      name: discount.title,
+      location: discount.subtitle,
+      distanceKm: 0,
+      imageUrl: discount.imageUrl,
+      coverImageUrl: discount.imageUrl,
+      logoUrl: discount.logoUrl,
+      discountLabel: discount.discountLabel,
+      discountSubtitle: discount.subtitle,
+      rating: discount.rating,
+      isOpenNow: true,
+    );
+  }
+
+  /// Adapts a featured home-feed partner into a business for the discount
+  /// explore screen with complete header images, logo, and store details.
+  factory BusinessModel.fromPartner(PartnerModel partner) {
+    return BusinessModel(
+      name: partner.title,
+      location: partner.subtitle,
+      distanceKm: 1.2,
+      discountLabel: partner.discountLabel ?? 'Special Offer',
+      discountSubtitle: partner.subtitle,
+      isFeatured: partner.isFeatured,
+      isOpenNow: true,
+      imageUrl: partner.imageUrl,
+      coverImageUrl: partner.coverImageUrl,
+      logoUrl: partner.logoUrl,
+      rating: partner.rating ?? 4.8,
+      reviewCount: partner.reviewCount ?? 85,
+      address: partner.address,
+      phoneNumber: partner.phoneNumber ?? '0300 1234567',
+      dealsCount: 3,
     );
   }
 }

@@ -72,7 +72,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
         top: AppDimensions.spacingSmall,
         bottom:
             MediaQuery.of(context).viewInsets.bottom +
-            AppDimensions.pagePaddingSmall,
+            AppDimensions.spacingXSmall,
       ),
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -106,7 +106,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
             'your discount was honoured.',
             color: AppColors.textSecondary,
           ),
-          AppDimensions.verticalSpace20,
+          AppDimensions.verticalSpace12,
 
           // --- Bill summary ---
           Container(
@@ -129,7 +129,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
               ],
             ),
           ),
-          AppDimensions.verticalSpace20,
+          AppDimensions.verticalSpace16,
 
           // --- Code input ---
           BusinessCodeInput(
@@ -137,7 +137,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
             unfocusOnComplete: true,
             onChanged: (value) => setState(() => _code = value),
           ),
-          AppDimensions.verticalSpace20,
+          AppDimensions.verticalSpace16,
 
           // --- Confirm ---
           PrimaryButton(
@@ -148,7 +148,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
             onTap: () async {
               // _codeFocusNode.unfocus();
               // FocusManager.instance.primaryFocus?.unfocus();
-              await Future.delayed(const Duration(milliseconds: 100));
+              await Future.delayed(const Duration(milliseconds: 500));
               if (!context.mounted) return;
               Navigator.of(context).pop();
               widget.onConfirm?.call(_code);
@@ -179,7 +179,7 @@ class _BusinessCodeBottomSheetState extends State<BusinessCodeBottomSheet> {
               ),
             ),
           ),
-          // AppDimensions.verticalSpace48,
+          AppDimensions.verticalSpace16,
         ],
       ),
     );

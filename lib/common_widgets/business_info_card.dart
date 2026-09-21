@@ -202,7 +202,14 @@ class BusinessInfoCard extends StatelessWidget {
   }
 
   Widget _logoPlaceholder() {
-    // Fallback: brand initial on a muted background instead of an empty box.
+    final fallbackUrl = business.imageUrl ?? business.coverImageUrl;
+    if (fallbackUrl != null && fallbackUrl.isNotEmpty) {
+      return AppImage(
+        imagePath: fallbackUrl,
+        width: 64,
+        height: 64,
+      );
+    }
     final name = business.name;
     final initial = name.isEmpty ? '?' : name.substring(0, 1).toUpperCase();
     return Container(

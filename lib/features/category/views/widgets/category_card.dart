@@ -20,70 +20,60 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap == null ? null : () => onTap!(index, category),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.paddingXXSmall,
-          horizontal: AppDimensions.paddingXSmall,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(AppDimensions.radiusXLarge),
-          border: Border.all(color: AppColors.borderColor),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // --- Icon ---
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: category.iconBackgroundColor,
-                borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
-              ),
-              alignment: Alignment.center,
-              child: category.icon == null
-                  ? IconTheme(
-                      data: IconThemeData(
-                        color: category.iconColor,
-                        size: AppDimensions.iconSizeMedium,
-                      ),
-                      child: category.faIcon ?? const SizedBox.shrink(),
-                    )
-                  : Icon(
-                      category.icon,
-                      color: category.iconColor,
-                      size: AppDimensions.iconSizeMedium,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Icon — always primary background, white foreground
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
+            ),
+            alignment: Alignment.center,
+            child: category.iconAsset != null
+                ? Image.asset(
+                    category.iconAsset!,
+                    width: AppDimensions.iconSizeXLarge,
+                    height: AppDimensions.iconSizeXLarge,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) => Icon(
+                      Icons.category_rounded,
+                      color: const Color(0xFF333333),
+                      size: AppDimensions.iconSizeLarge,
                     ),
-            ),
-            const SizedBox(height: 6),
-
-            // --- Title ---
-            SizedBox(
-              width: double.infinity,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: AppText.bodySmall(
-                  category.title,
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.visible,
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-
-            // --- Offer count ---
-            AppText.bodyXSmall(
-              '${category.offersCount} offers',
-              color: AppColors.textSecondary,
+                  )
+                : category.icon == null
+                ? IconTheme(
+                    data: const IconThemeData(
+                      color: Color(0xFF333333), // black 60%
+                      size: AppDimensions.iconSizeLarge,
+                    ),
+                    child: category.faIcon ?? const SizedBox.shrink(),
+                  )
+                : Icon(
+                    category.icon,
+                    color: Color(0xFF333333),
+                    size: AppDimensions.iconSizeLarge,
+                  ),
+          ),
+          const SizedBox(height: 4),
+          // Title — constrained to the icon's width so it wraps to a
+          // second line instead of overflowing horizontally or forcing
+          // the card wider than the icon above it
+          SizedBox(
+            width: 70,
+            child: AppText.bodySmall(
+              category.title,
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:bachaoo/features/deals/views/widgets/bullet_list.dart';
 import 'package:bachaoo/features/discounts/models/claim_summary_model.dart';
-import 'package:bachaoo/features/discounts/views/widgets/business_code_bottom_sheet.dart';
+import 'package:bachaoo/features/discounts/views/widgets/discount_business_code_bottom_sheet.dart';
 import 'package:bachaoo/features/discounts/views/widgets/claim_button_footer.dart';
 import 'package:bachaoo/features/discounts/views/widgets/discount_contact_details_card.dart';
 import 'package:bachaoo/features/discounts/views/widgets/discount_header_image.dart';

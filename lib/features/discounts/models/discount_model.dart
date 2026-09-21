@@ -6,6 +6,11 @@ class DiscountModel {
   final String
   subtitle; // e.g. "All buckets & meals" or "Chobara Restaurant · Queen Road"
 
+  // --- Business logo (backend key: `logo_url`) ---
+  // Shown in the small round badge on cards and in the explore screen's
+  // business info card. Null → the UI falls back to a letter avatar.
+  final String? logoUrl;
+
   // --- Added for the discount view (detail) screen ---
   final String? description; // e.g. "What to expect" paragraph
   final List<String>? tags; // e.g. ["Dine-in", "Cash & card", "Cap Rs 1,500"]
@@ -26,6 +31,7 @@ class DiscountModel {
     required this.discountLabel,
     required this.title,
     required this.subtitle,
+    this.logoUrl,
     this.description,
     this.tags,
     this.contactName,
@@ -45,6 +51,7 @@ class DiscountModel {
       discountLabel: json['discount_label'] as String,
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
+      logoUrl: json['logo_url'] as String?,
       description: json['description'] as String?,
       tags: (json['tags'] as List?)?.cast<String>(),
       contactName: json['contact_name'] as String?,

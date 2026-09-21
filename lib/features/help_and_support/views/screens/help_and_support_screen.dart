@@ -1,10 +1,11 @@
 import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/custom_text_feild.dart';
+import 'package:bachaoo/common_widgets/primary_button.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/help_and_support/views/widgets/contact_banner_card.dart';
-import 'package:bachaoo/features/help_and_support/views/widgets/contact_method_tile.dart';
+// import 'package:bachaoo/features/help_and_support/views/widgets/contact_method_tile.dart';
 import 'package:bachaoo/features/help_and_support/views/widgets/outline_button.dart';
 import 'package:bachaoo/features/profile/widgets/account_list_item.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
@@ -100,33 +101,39 @@ class HelpSupportScreen extends StatelessWidget {
                   const SizedBox(height: AppDimensions.spacingMedium),
 
                   const ContactBannerCard(
-                    imageUrl: 'https://example.com/support-team.jpg',
+                    imageUrl: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80',
                     caption: 'Bachaoo support team, Sargodha',
                   ),
 
                   const SizedBox(height: AppDimensions.spacingMedium),
 
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: ContactMethodTile(
-                          tag: 'WhatsApp',
-                          title: 'Chat with us',
-                          subtitle: '9am \u2013 9pm, daily',
-                          onTap: () {},
-                        ),
-                      ),
-                      const SizedBox(width: AppDimensions.spacingMedium),
-                      Expanded(
-                        child: ContactMethodTile(
-                          tag: 'Call',
-                          title: '0300 0000000',
-                          subtitle: 'Sargodha office',
-                          onTap: () {},
-                        ),
-                      ),
-                    ],
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Expanded(
+                  //       child: ContactMethodTile(
+                  //         tag: 'WhatsApp',
+                  //         title: 'Chat with us',
+                  //         subtitle: '9am \u2013 9pm, daily',
+                  //         onTap: () {},
+                  //       ),
+                  //     ),
+                  //     const SizedBox(width: AppDimensions.spacingMedium),
+                  //     Expanded(
+                  //       child: ContactMethodTile(
+                  //         tag: 'Call',
+                  //         title: '0300 0000000',
+                  //         subtitle: 'Sargodha office',
+                  //         onTap: () {},
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  PrimaryButton(
+                    label: 'Contact Us',
+                    onTap: () {
+                      Get.toNamed(AppRoutes.contactUsScreen);
+                    },
                   ),
 
                   const SizedBox(height: AppDimensions.spacingMedium),

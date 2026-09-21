@@ -1,3 +1,4 @@
+import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,29 +75,34 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         height: 44,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: AppColors.secondaryColor,
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.radiusMedium,
                           ),
                         ),
-                        child: const Text(
-                          'B',
-                          style: TextStyle(
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.fontSizeTitleLarge,
-                          ),
-                        ),
+                        child: Image.asset(AppAssets.bachaooLogo),
                       ),
                       const SizedBox(width: AppDimensions.spacingMedium),
-                      const Text(
-                        'BACHAOO!',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: AppDimensions.fontSizeTitleLarge,
-                          letterSpacing: 0.5,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'BACHAOO!',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: AppDimensions.fontSizeTitleLarge,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          Text(
+                            'Bachat Ka "س" On Hai',
+                            style: TextStyle(
+                              color: AppColors.white.withValues(alpha: 0.7),
+                              fontSize: AppDimensions.fontSizeBodyMedium,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

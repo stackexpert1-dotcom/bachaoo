@@ -8,7 +8,7 @@ import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/deals/models/deal_model.dart';
-import 'package:bachaoo/features/deals/models/deal_detail_model.dart';
+import 'package:bachaoo/features/businesses/models/nearby_business_model.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 
 class AllDealsScreen extends StatelessWidget {
@@ -57,29 +57,28 @@ class AllDealsScreen extends StatelessWidget {
                     ),
                   );
                 }
-                return GridView.builder(
+                return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(
                     AppDimensions.pagePaddingSmall,
                     0,
                     AppDimensions.pagePaddingSmall,
                     AppDimensions.spacingMedium,
                   ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: AppDimensions.spacingSmall,
-                    crossAxisSpacing: AppDimensions.spacingSmall,
-                    childAspectRatio: 0.68,
-                  ),
                   itemCount: items.length,
-                  itemBuilder: (context, index) => DealCard(
-                    deal: items[index],
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.dealsExploreScreen,
-                        arguments: DealDetailModel.fromDealModel(items[index]),
-                      );
-                    },
-                  ),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: AppDimensions.spacingMedium),
+                  itemBuilder: (context, index) {
+                    final deal = items[index];
+                    return DealCard.fromDeal(
+                      deal,
+                      onTap: () {
+                        Get.toNamed(
+                          AppRoutes.discountExploreScreen,
+                          arguments: BusinessModel.fromDeal(deal),
+                        );
+                      },
+                    );
+                  },
                 );
               }),
             ),

@@ -1,5 +1,6 @@
 import 'package:bachaoo/common_widgets/primary_button.dart';
 import 'package:bachaoo/common_widgets/back_button.dart';
+import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:flutter/material.dart';
@@ -46,17 +47,16 @@ class LoginRequiredScreen extends StatelessWidget {
                       height: 44,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: AppColors.secondaryColor,
+                        color: AppColors.white,
                         borderRadius: BorderRadius.circular(
                           AppDimensions.radiusMedium,
                         ),
                       ),
-                      child: const Text(
-                        'B',
-                        style: TextStyle(
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w700,
-                          fontSize: AppDimensions.fontSizeTitleLarge,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Image.asset(
+                          AppAssets.bachaooLogo,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -236,6 +236,17 @@ class MemberCardPreview extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: AppColors.white.withValues(alpha: 0.06),
                   ),
+                ),
+              ),
+              // large illustration, bled off the right edge
+              Positioned(
+                right: 16,
+                top: 30,
+                bottom: 36,
+                child: Image.asset(
+                  AppAssets.loginRequiredScreenquala,
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment.centerRight,
                 ),
               ),
               Column(

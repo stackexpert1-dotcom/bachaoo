@@ -1,8 +1,8 @@
 import 'package:bachaoo/common_widgets/primary_button.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:bachaoo/features/virtual_card/controllers/card_controller.dart';
 import 'package:bachaoo/features/virtual_card/models/virtuall_card_model.dart';
 
 class PointsProgressCard extends StatelessWidget {
@@ -12,7 +12,6 @@ class PointsProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CardController>();
     final remaining = card.referralsRemaining;
 
     return Container(
@@ -113,7 +112,10 @@ class PointsProgressCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          PrimaryButton(label: 'Refer Friend', onTap: () {}),
+          PrimaryButton(
+            label: 'Refer Friend',
+            onTap: () => Get.toNamed(AppRoutes.referralScreen),
+          ),
         ],
       ),
     );

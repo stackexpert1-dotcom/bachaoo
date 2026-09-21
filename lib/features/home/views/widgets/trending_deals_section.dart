@@ -5,7 +5,7 @@ import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 
-class TrendingDealsSection extends StatelessWidget {
+class TrendingDealsSection extends StatefulWidget {
   final List<DealModel> deals;
   final void Function(DealModel deal)? onDealTap;
   final VoidCallback? onSeeAllTap;
@@ -18,25 +18,36 @@ class TrendingDealsSection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    // Only admin-flagged deals are eligible for the home grid, sorted by
-    // the admin-set priority, capped at 4 to fill the 2x2 grid.
-    final homeDeals = deals.where((d) => d.showOnHome).toList()
-      ..sort((a, b) => (a.homePriority ?? 0).compareTo(b.homePriority ?? 0));
-    final gridDeals = homeDeals.take(4).toList();
+  State<TrendingDealsSection> createState() => _TrendingDealsSectionState();
+}
 
-    if (gridDeals.isEmpty) return const SizedBox.shrink();
+class _TrendingDealsSectionState extends State<TrendingDealsSection> {
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // FIX: was .take(4) — the grid needed exactly 4 to fill a 2x2 layout.
+    // A slider has no such cap; every admin-flagged home deal is swipeable.
+    final homeDeals = widget.deals.where((d) => d.showOnHome).toList()
+      ..sort((a, b) => (a.homePriority ?? 0).compareTo(b.homePriority ?? 0));
+
+    if (homeDeals.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // --- Header (host screen applies the shared horizontal padding) ---
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppText.headlineXSmall('Trending deals'),
             GestureDetector(
-              onTap: onSeeAllTap,
+              onTap: widget.onSeeAllTap,
               child: AppText.bodySmall(
                 'See all',
                 fontWeight: FontWeight.w700,
@@ -47,24 +58,30 @@ class TrendingDealsSection extends StatelessWidget {
         ),
         AppDimensions.verticalSpace16,
 
-        // --- 2x2 grid ---
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: gridDeals.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: AppDimensions.spacingMedium,
-            crossAxisSpacing: AppDimensions.spacingMedium,
-            childAspectRatio: 0.64,
+        // FIX: was a shrinkWrap GridView (2x2) — now a full-width, one
+        // card at a time PageView. viewportFraction: 1.0 means each
+        // card takes the entire available width, matching "should come
+        // full on screen".
+        SizedBox(
+          height: 320,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: homeDeals.length,
+            itemBuilder: (context, index) {
+              final deal = homeDeals[index];
+              return Padding(
+                // A little horizontal inset so the card doesn't touch
+                // the screen edges even at full "page" width.
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: DealCard.fromDeal(
+                  deal,
+                  onTap: widget.onDealTap == null
+                      ? null
+                      : () => widget.onDealTap!(deal),
+                ),
+              );
+            },
           ),
-          itemBuilder: (context, index) {
-            final deal = gridDeals[index];
-            return DealCard(
-              deal: deal,
-              onTap: onDealTap == null ? null : () => onDealTap!(deal),
-            );
-          },
         ),
       ],
     );

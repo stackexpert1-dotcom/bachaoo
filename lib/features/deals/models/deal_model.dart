@@ -22,6 +22,10 @@ class DealModel {
   final int? homePriority;
   final Color? brandColor;
 
+  // --- Business logo (backend key: `logo_url`) ---
+  // Shown in the small round badge on cards; null → letter/tag fallback.
+  final String? logoUrl;
+
   // --- Added for the full explore screen ---
   final List<String>? includedItems;
   final List<String>? claimSteps;
@@ -88,6 +92,7 @@ class DealModel {
     this.showOnHome = false,
     this.homePriority,
     this.brandColor,
+    this.logoUrl,
     this.includedItems,
     this.claimSteps,
     this.contactName,
@@ -113,6 +118,7 @@ class DealModel {
       currency: json['currency'] as String? ?? 'Rs',
       showOnHome: json['show_on_home'] as bool? ?? false,
       homePriority: json['home_priority'] as int?,
+      logoUrl: json['logo_url'] as String?,
       // Was `json['brand_color'] as Color?` — JSON has no Color type,
       // so that cast would throw at runtime. Parsed from a hex string
       // instead, same as your other models' color fields.

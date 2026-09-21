@@ -1,10 +1,12 @@
 import 'package:bachaoo/common_widgets/login_required_screen.dart';
+import 'package:bachaoo/common_widgets/onboarding_screen.dart';
 import 'package:bachaoo/common_widgets/splash_screen.dart';
 import 'package:bachaoo/features/authentication/bindings/otp_bindings.dart';
 import 'package:bachaoo/features/authentication/views/screens/change_password_screen.dart';
 import 'package:bachaoo/features/authentication/views/screens/forgot_password_screen.dart';
 import 'package:bachaoo/features/authentication/views/screens/login_screen.dart';
 import 'package:bachaoo/features/authentication/views/screens/otp_screen.dart';
+import 'package:bachaoo/features/activity/views/screens/activity_history_screen.dart';
 // import 'package:bachaoo/features/authentication/views/screens/otp_screen.dart';
 import 'package:bachaoo/features/authentication/views/screens/register_screen.dart';
 import 'package:bachaoo/features/businesses/views/screens/businesses_partener_screen.dart';
@@ -18,7 +20,9 @@ import 'package:bachaoo/features/catelog/views/screens/all_discount_screen.dart'
 import 'package:bachaoo/features/chat/views/screens/inbox_screen.dart';
 import 'package:bachaoo/features/deals/bindings/deal_bindings.dart';
 import 'package:bachaoo/features/deals/models/deal_detail_model.dart';
+import 'package:bachaoo/features/deals/models/deal_model.dart';
 import 'package:bachaoo/features/deals/views/screens/explore_deal_screen.dart';
+import 'package:bachaoo/features/deals/views/screens/deal_summary_screen.dart';
 import 'package:bachaoo/features/deals/views/screens/my_deals_screen.dart';
 import 'package:bachaoo/features/discounts/views/screens/claim_discount_screen.dart';
 import 'package:bachaoo/features/discounts/views/screens/discount_confirmed_screen.dart';
@@ -61,6 +65,7 @@ class AppRoutes {
   static const discountViewScreen = "/discountViewScreen";
   static const dealsExploreScreen = "/dealsExploreScreen";
   static const myDealsScreen = "/myDealsScreen";
+  static const dealSummaryScreen = "/dealSummaryScreen";
   static const claimDiscountScreen = "/claimDiscountScreen";
   static const discountConfirmedScreen = "/discountConfirmedScreen";
 
@@ -76,6 +81,7 @@ class AppRoutes {
   static const enterPartnerCodeScreen = "/enterPartnerCodeScreen";
 
   static const memberShipCardScreen = "/memberShipCardScreen";
+  static const activityHistoryScreen = "/activityHistoryScreen";
   static const referralScreen = "/referralScreen";
   static const otpScreen = "/otpScreen";
   static const voucherScreen = "/voucherScreen";
@@ -87,6 +93,7 @@ class AppRoutes {
   static const forgotPasswordScreen = "/forgotPasswordScreen";
   static const subscriptionScreen = "/subscriptionScreen";
   static const paymentSubmissionScreen = "/paymentSubmissionScreen";
+  static const onboardingScreen = "/onboardingScreen";
 
   static final List<GetPage> pages = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -148,6 +155,10 @@ class AppRoutes {
       page: () => const DealsScreen(),
       binding: DealBindings(),
     ),
+    GetPage(
+      name: dealSummaryScreen,
+      page: () => DealSummaryScreen(deal: Get.arguments as DealModel),
+    ),
     GetPage(name: claimDiscountScreen, page: () => const ClaimDiscountScreen()),
     GetPage(
       name: discountConfirmedScreen,
@@ -189,6 +200,11 @@ class AppRoutes {
       binding: CardBindings(),
     ),
     GetPage(
+      name: activityHistoryScreen,
+      page: () => const ActivityHistoryScreen(),
+      binding: CardBindings(),
+    ),
+    GetPage(
       name: referralScreen,
       page: () => const ReferEarnScreen(),
       binding: ReferralBindings(),
@@ -223,6 +239,12 @@ class AppRoutes {
     GetPage(
       name: paymentSubmissionScreen,
       page: () => const PaymentSubmissionScreen(),
+    ),
+    GetPage(
+      name: onboardingScreen,
+      page: () => OnboardingScreen(
+        onFinished: () => Get.offAllNamed(AppRoutes.homeScreen),
+      ),
     ),
   ];
 }

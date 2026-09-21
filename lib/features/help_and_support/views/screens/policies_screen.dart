@@ -1,3 +1,4 @@
+import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/filter_chip_button.dart';
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
@@ -5,7 +6,9 @@ import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/help_and_support/models/policy_section_model.dart';
 import 'package:bachaoo/features/help_and_support/views/screens/contact_us_screen.dart';
 import 'package:bachaoo/features/help_and_support/views/widgets/policy_section_list.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 enum PolicyTab { about, contact, privacy, terms, refund, cancellation }
@@ -392,23 +395,7 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Material(
-                    color: AppColors.surfaceColor,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).maybePop(),
-                      customBorder: const CircleBorder(),
-                      child: const SizedBox(
-                        width: 44,
-                        height: 44,
-                        child: Icon(
-                          Icons.chevron_left_rounded,
-                          color: AppColors.textPrimary,
-                          size: 26,
-                        ),
-                      ),
-                    ),
-                  ),
+                  CustomBackButton(),
                   const SizedBox(width: AppDimensions.spacingMedium),
                   Expanded(
                     child: AppText.appBarTitle(_screenTitles[_selected]!),
@@ -486,6 +473,14 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(AppRoutes.inboxScreen);
+        },
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: AppColors.white,
+        child: FaIcon(FontAwesomeIcons.solidMessage),
       ),
     );
   }

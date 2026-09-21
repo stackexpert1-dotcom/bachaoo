@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 
@@ -54,6 +55,18 @@ class MemberCardPreview extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: AppColors.white.withValues(alpha: 0.06),
                   ),
+                ),
+              ),
+              // Add a celebratory member illustration to the subscription
+              // card, with a right-edge crop that preserves the card details.
+              Positioned(
+                right: 16,
+                top: 30,
+                bottom: 36,
+                child: Image.asset(
+                  AppAssets.loginRequiredScreenquala,
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment.centerRight,
                 ),
               ),
               Column(

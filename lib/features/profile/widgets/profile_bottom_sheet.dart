@@ -312,15 +312,15 @@ class ProfileBottomSheet extends StatelessWidget {
 
               const SizedBox(height: AppDimensions.spacingXLarge),
 
-              // Center(
-              //   child: Text(
-              //     'Powered by De Virtual Club \u00b7 v3.0',
-              //     style: TextStyle(
-              //       color: AppColors.textMuted,
-              //       fontSize: AppDimensions.fontSizeBodyMedium,
-              //     ),
-              //   ),
-              //  ),
+              Center(
+                child: Text(
+                  'Powered by De Virtual Club \u00b7 v3.0',
+                  style: TextStyle(
+                    color: AppColors.textMuted,
+                    fontSize: AppDimensions.fontSizeBodyMedium,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

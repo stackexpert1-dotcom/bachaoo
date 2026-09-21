@@ -1,8 +1,13 @@
+import 'package:bachaoo/common_widgets/app_text.dart';
+import 'package:bachaoo/common_widgets/back_button.dart';
+import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/features/activity/views/widgets/activity_list_tile.dart';
 import 'package:bachaoo/features/virtual_card/controllers/card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// Full activity history — every card/points/referral event, not just the
+/// short preview shown on the card screen.
 class ActivityHistoryScreen extends StatelessWidget {
   const ActivityHistoryScreen({super.key});
 
@@ -11,14 +16,16 @@ class ActivityHistoryScreen extends StatelessWidget {
     final controller = Get.find<CardController>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.appBackroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.appBackroundColor,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text(
-          'Recent activity',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        title: AppText.appBarTitle('All Activity'),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(width: 40, height: 40, child: CustomBackButton()),
         ),
       ),
       body: RefreshIndicator(
@@ -44,14 +51,24 @@ class ActivityHistoryScreen extends StatelessWidget {
               ],
             );
           }
-          return ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
+          return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            itemCount: controller.activities.length,
-            separatorBuilder: (_, __) =>
-                Divider(height: 1, color: Colors.grey.shade200),
-            itemBuilder: (context, index) =>
-                ActivityListTile(item: controller.activities[index]),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey.shade200),
+              ),
+              child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: controller.activities.length,
+                separatorBuilder: (_, _) =>
+                    Divider(height: 1, color: Colors.grey.shade200),
+                itemBuilder: (context, index) =>
+                    ActivityListTile(item: controller.activities[index]),
+              ),
+            ),
           );
         }),
       ),

@@ -112,7 +112,7 @@ class RegisterScreen extends StatelessWidget {
                       'phoneNumber': phoneController.text,
                       'onChangeNumber': () => Get.back(),
                       'onVerifyCode': (String code) async {
-                        Get.toNamed(AppRoutes.memberShipCardScreen);
+                        Get.offAllNamed(AppRoutes.onboardingScreen);
                       },
                       'onResendCode': () async {
                         Get.snackbar(

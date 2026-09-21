@@ -1,4 +1,5 @@
 import 'package:bachaoo/features/virtual_card/models/virtuall_card_model.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:get/get.dart';
 
 import '../../activity/models/activity_item_model.dart';
@@ -101,7 +102,7 @@ class CardController extends GetxController {
 
   void goToScanPartner() => Get.toNamed('/scan-partner');
 
-  void goToFullActivity() => Get.toNamed('/activity-history');
+  void goToFullActivity() => Get.toNamed(AppRoutes.activityHistoryScreen);
 
   Future<void> addToWallet() async {
     // TODO: hook up google_wallet / passkit here.

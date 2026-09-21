@@ -43,10 +43,10 @@ class NearYouSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppText.headlineXSmall('Near you'),
-            GestureDetector(
-              onTap: onMapTap,
-              child: AppText.titleSmall('Map', color: AppColors.primaryColor),
-            ),
+            // GestureDetector(
+            //   onTap: onMapTap,
+            //   child: AppText.titleSmall('Map', color: AppColors.primaryColor),
+            // ),
           ],
         ),
         AppDimensions.verticalSpace16,

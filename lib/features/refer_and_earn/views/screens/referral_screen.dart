@@ -1,6 +1,6 @@
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/back_button.dart';
-import 'package:bachaoo/common_widgets/promo_state_card.dart';
+import 'package:bachaoo/common_widgets/referal_hero_card.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:bachaoo/features/refer_and_earn/controllers/referral_controller.dart';
@@ -55,8 +55,7 @@ class ReferEarnScreen extends StatelessWidget {
                 // The big "1,000 points" number is only shown because we
                 // pass statValue here — omit it (or pass null) elsewhere to
                 // get the same card shell without the stat.
-                PromoStatCard(
-                  watermarkIcon: Icons.card_giftcard,
+                ReferralHeroCard(
                   eyebrowText: 'Each friend who joins earns you',
                   statValue: controller.formatNumber(summary.pointsPerReferral),
                   statLabel: 'points',

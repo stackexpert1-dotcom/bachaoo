@@ -17,10 +17,10 @@ class SegmentedTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         color: AppColors.successLight,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusRound),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
       ),
       child: Row(
         children: List.generate(tabs.length, (index) {
@@ -30,11 +30,13 @@ class SegmentedTabBar extends StatelessWidget {
               onTap: () => onChanged(index),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 150),
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 9),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.white : Colors.transparent,
+                  color: isSelected
+                      ? AppColors.secondaryColor
+                      : Colors.transparent,
                   borderRadius: BorderRadius.circular(
-                    AppDimensions.radiusRound,
+                    AppDimensions.radiusSmall,
                   ),
                 ),
                 alignment: Alignment.center,
@@ -43,10 +45,10 @@ class SegmentedTabBar extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: isSelected
-                        ? AppColors.successDark
+                        ? AppColors.primaryColor
                         : AppColors.textSecondary,
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    fontSize: AppDimensions.fontSizeBodyMedium,
+                    fontSize: AppDimensions.fontSizeBodySmall,
                   ),
                 ),
               ),

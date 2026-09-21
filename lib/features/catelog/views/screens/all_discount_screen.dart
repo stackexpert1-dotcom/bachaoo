@@ -1,7 +1,8 @@
 import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/features/catelog/controllers/catelog_controller.dart';
 import 'package:bachaoo/features/catelog/views/widgets/catelog_search_filter_bar.dart';
-import 'package:bachaoo/features/discounts/views/widgets/discount_card.dart';
+import 'package:bachaoo/features/businesses/models/nearby_business_model.dart';
+import 'package:bachaoo/features/deals/views/widgets/deal_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bachaoo/common_widgets/app_text.dart';
@@ -58,29 +59,26 @@ class AllDiscountsScreen extends StatelessWidget {
                     ),
                   );
                 }
-                return GridView.builder(
+                return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(
                     AppDimensions.pagePaddingSmall,
                     0,
                     AppDimensions.pagePaddingSmall,
                     AppDimensions.spacingMedium,
                   ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: AppDimensions.spacingSmall,
-                    crossAxisSpacing: AppDimensions.spacingSmall,
-                    childAspectRatio: 0.68,
-                  ),
                   itemCount: items.length,
-                  itemBuilder: (context, index) => DiscountCard(
-                    discount: items[index],
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.discountViewScreen,
-                        arguments: items[index],
-                      );
-                    },
-                  ),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: AppDimensions.spacingMedium),
+                  itemBuilder: (context, index) {
+                    final discount = items[index];
+                    return DealCard.fromBusiness(
+                      BusinessModel.fromDiscount(discount),
+                      onTap: () => Get.toNamed(
+                        AppRoutes.discountExploreScreen,
+                        arguments: BusinessModel.fromDiscount(discount),
+                      ),
+                    );
+                  },
                 );
               }),
             ),

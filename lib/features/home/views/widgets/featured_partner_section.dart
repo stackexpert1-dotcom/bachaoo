@@ -8,11 +8,13 @@ import 'package:bachaoo/features/home/models/partner_model.dart';
 class FeaturedPartnersSection extends StatefulWidget {
   final List<PartnerModel> partners;
   final void Function(PartnerModel partner)? onArrowTap;
+  final void Function(PartnerModel partner)? onPartnerTap;
 
   const FeaturedPartnersSection({
     super.key,
     required this.partners,
     this.onArrowTap,
+    this.onPartnerTap,
   });
 
   @override
@@ -115,118 +117,135 @@ class _FeaturedPartnersSectionState extends State<FeaturedPartnersSection> {
         AppDimensions.verticalSpace12,
 
         // --- Card ---
-        Container(
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(AppDimensions.radiusXLarge),
-            border: Border.all(color: AppColors.borderColor),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // --- Video PageView for Horizontal Swipe ---
-              AspectRatio(
-                aspectRatio: 16 / 10,
-                child: PageView.builder(
-                  controller: _pageController,
-                  onPageChanged: _onPageChanged,
-                  itemCount: widget.partners.length,
-                  itemBuilder: (context, index) {
-                    final p = widget.partners[index];
-                    final controller = _controllers[index];
-                    final isReady =
-                        controller != null && controller.value.isInitialized;
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => widget.onPartnerTap?.call(partner),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(AppDimensions.radiusXLarge),
+              border: Border.all(color: AppColors.borderColor),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // --- Video PageView for Horizontal Swipe ---
+                AspectRatio(
+                  aspectRatio: 16 / 10,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: _onPageChanged,
+                    itemCount: widget.partners.length,
+                    itemBuilder: (context, index) {
+                      final p = widget.partners[index];
+                      final controller = _controllers[index];
+                      final isReady =
+                          controller != null && controller.value.isInitialized;
 
-                    return Stack(
-                      children: [
-                        Positioned.fill(
-                          child: isReady
-                              ? FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: SizedBox(
-                                    width: controller.value.size.width,
-                                    height: controller.value.size.height,
-                                    child: VideoPlayer(controller),
-                                  ),
-                                )
-                              : Container(
-                                  color: AppColors.disabledBackground,
-                                  alignment: Alignment.center,
-                                  child: const CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: AppColors.primaryColor,
+                      return Stack(
+                        children: [
+                          Positioned.fill(
+                            child: isReady
+                                ? FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: SizedBox(
+                                      width: controller.value.size.width,
+                                      height: controller.value.size.height,
+                                      child: VideoPlayer(controller),
+                                    ),
+                                  )
+                                : (p.coverImageUrl != null || p.imageUrl != null)
+                                    ? Image.network(
+                                        p.coverImageUrl ?? p.imageUrl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stack) =>
+                                            Container(
+                                          color: AppColors.disabledBackground,
+                                          alignment: Alignment.center,
+                                          child: const CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        color: AppColors.disabledBackground,
+                                        alignment: Alignment.center,
+                                        child: const CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: AppColors.primaryColor,
+                                        ),
+                                      ),
+                          ),
+                          if (p.isFeatured)
+                            Positioned(
+                              top: AppDimensions.spacingMedium,
+                              left: AppDimensions.spacingMedium,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.warningLight,
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.radiusRound,
                                   ),
                                 ),
-                        ),
-                        if (p.isFeatured)
-                          Positioned(
-                            top: AppDimensions.spacingMedium,
-                            left: AppDimensions.spacingMedium,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.warningLight,
-                                borderRadius: BorderRadius.circular(
-                                  AppDimensions.radiusRound,
-                                ),
-                              ),
-                              child: const Text(
-                                'Featured',
-                                style: TextStyle(
-                                  color: AppColors.warningDark,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: AppDimensions.fontSizeLabelLarge,
+                                child: const Text(
+                                  'Featured',
+                                  style: TextStyle(
+                                    color: AppColors.warningDark,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: AppDimensions.fontSizeLabelLarge,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
+                AppDimensions.verticalSpace12,
 
-              AppDimensions.verticalSpace12,
-
-              // --- Dot indicators (below video, above text) ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(widget.partners.length, (index) {
-                  final isActive = index == _currentIndex;
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    margin: const EdgeInsets.symmetric(horizontal: 3),
-                    width: isActive ? 20 : 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: isActive
-                          ? AppColors.primaryColor
-                          : AppColors.disabledBackground,
-                      borderRadius: BorderRadius.circular(
-                        AppDimensions.radiusRound,
+                // --- Dot indicators (below video, above text) ---
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(widget.partners.length, (index) {
+                    final isActive = index == _currentIndex;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      width: isActive ? 20 : 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: isActive
+                            ? AppColors.primaryColor
+                            : AppColors.disabledBackground,
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.radiusRound,
+                        ),
                       ),
-                    ),
-                  );
-                }),
-              ),
-
-              // --- Title & subtitle ---
-              Padding(
-                padding: const EdgeInsets.all(AppDimensions.paddingLarge),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText.titleLarge(partner.title),
-                    const SizedBox(height: 4),
-                    AppText.bodyMedium(partner.subtitle),
-                  ],
+                    );
+                  }),
                 ),
-              ),
-            ],
+
+                // --- Title & subtitle ---
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.paddingLarge),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.titleLarge(partner.title),
+                      const SizedBox(height: 4),
+                      AppText.bodyMedium(partner.subtitle),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

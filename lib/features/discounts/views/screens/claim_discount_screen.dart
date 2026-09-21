@@ -1,7 +1,7 @@
 import 'package:bachaoo/common_widgets/back_button.dart';
 import 'package:bachaoo/common_widgets/custom_text_feild.dart';
 import 'package:bachaoo/features/discounts/models/claim_summary_model.dart';
-import 'package:bachaoo/features/discounts/views/widgets/business_code_bottom_sheet.dart';
+import 'package:bachaoo/features/discounts/views/widgets/discount_business_code_bottom_sheet.dart';
 import 'package:bachaoo/features/discounts/views/widgets/discount_summary_row.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';

@@ -49,6 +49,7 @@ List<DealModel> fetchMockDeals() {
       badgeLabel: '1+1 FREE',
       brandTag: 'KFC',
       brandColor: const Color(0xFFC8102E),
+      logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
       title: 'Zinger Burger Deal 1x1',
       subtitle: 'KFC Satellite Town',
       currentPrice: '899',
