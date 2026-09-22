@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class ProfileAvatarWithBadge extends StatelessWidget {
   final String initials;
+  final String? imageUrl;
   final VoidCallback onEditTap;
 
   const ProfileAvatarWithBadge({
     super.key,
     required this.initials,
+    this.imageUrl,
     required this.onEditTap,
   });
 
@@ -20,20 +22,21 @@ class ProfileAvatarWithBadge extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
+          SizedBox(
             width: AppDimensions.avatarXXLarge,
             height: AppDimensions.avatarXXLarge,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: AppColors.secondaryColor,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              initials,
-              style: const TextStyle(
-                color: AppColors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: AppDimensions.fontSizeHeadlineSmall,
+            child: ClipOval(
+              child: Container(
+                alignment: Alignment.center,
+                color: AppColors.secondaryColor,
+                child: imageUrl == null
+                    ? _Initials(initials: initials)
+                    : Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) =>
+                            _Initials(initials: initials),
+                      ),
               ),
             ),
           ),
@@ -63,6 +66,24 @@ class ProfileAvatarWithBadge extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _Initials extends StatelessWidget {
+  final String initials;
+
+  const _Initials({required this.initials});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      initials,
+      style: const TextStyle(
+        color: AppColors.white,
+        fontWeight: FontWeight.w700,
+        fontSize: AppDimensions.fontSizeHeadlineSmall,
       ),
     );
   }

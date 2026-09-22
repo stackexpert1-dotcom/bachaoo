@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ProfileBottomSheet extends StatelessWidget {
   final String initials;
   final String fullName;
+  final String? profileImageUrl;
   final String membershipLabel;
   final int points;
   final VoidCallback onEditProfile;
@@ -25,6 +26,7 @@ class ProfileBottomSheet extends StatelessWidget {
     super.key,
     required this.initials,
     required this.fullName,
+    this.profileImageUrl,
     required this.membershipLabel,
     required this.points,
     required this.onEditProfile,
@@ -46,6 +48,7 @@ class ProfileBottomSheet extends StatelessWidget {
     BuildContext context, {
     required String initials,
     required String fullName,
+    String? profileImageUrl,
     required String membershipLabel,
     required int points,
     required VoidCallback onEditProfile,
@@ -69,6 +72,7 @@ class ProfileBottomSheet extends StatelessWidget {
       builder: (_) => ProfileBottomSheet(
         initials: initials,
         fullName: fullName,
+        profileImageUrl: profileImageUrl,
         membershipLabel: membershipLabel,
         points: points,
         onEditProfile: onEditProfile,
@@ -101,15 +105,15 @@ class ProfileBottomSheet extends StatelessWidget {
       _QuickAction(
         icon: Icons.person_outline_rounded,
         label: 'Profile',
-        background: const Color(0xFFDCE8F5),
-        iconColor: const Color(0xFF2B5E8C),
+        background: AppColors.successLight,
+        iconColor: AppColors.primaryColor,
         onTap: () => go(onEditProfile),
       ),
       _QuickAction(
         icon: Icons.confirmation_number_outlined,
         label: 'Vouchers',
-        background: const Color(0xFFF7DCE4),
-        iconColor: const Color(0xFFB13B5C),
+        background: AppColors.warningLight,
+        iconColor: AppColors.warningDark,
         onTap: () => go(onVouchersTap),
       ),
       _QuickAction(
@@ -122,36 +126,36 @@ class ProfileBottomSheet extends StatelessWidget {
       _QuickAction(
         icon: Icons.chat_bubble_outline_rounded,
         label: 'Inbox',
-        background: const Color(0xFFDDE1E6),
-        iconColor: const Color(0xFF3A4652),
+        background: const Color(0xFFE5F1E8),
+        iconColor: AppColors.successDark,
         onTap: () => go(onInboxTap),
       ),
       _QuickAction(
         icon: Icons.grid_view_rounded,
         label: 'Categories',
-        background: const Color(0xFFE6DFF5),
-        iconColor: const Color(0xFF6A4CA0),
+        background: const Color(0xFFE8F1F7),
+        iconColor: AppColors.info,
         onTap: () => go(onCategoriesTap),
       ),
       _QuickAction(
         icon: Icons.share_outlined,
         label: 'Refer & earn',
-        background: const Color(0xFFF6DFD3),
-        iconColor: const Color(0xFFC1602A),
+        background: const Color(0xFFFAF2DE),
+        iconColor: AppColors.warningDark,
         onTap: () => go(onReferTap),
       ),
       _QuickAction(
         icon: Icons.phone_outlined,
         label: 'Contact us',
-        background: const Color(0xFFE1E9D6),
-        iconColor: const Color(0xFF5C7A3A),
+        background: const Color(0xFFE5F1E8),
+        iconColor: AppColors.successDark,
         onTap: () => go(onContactTap),
       ),
       _QuickAction(
         icon: Icons.local_offer_outlined,
         label: 'My deals',
-        background: const Color(0xFFFBE5D6),
-        iconColor: const Color(0xFFE55C00),
+        background: const Color(0xFFFAF2DE),
+        iconColor: AppColors.warningDark,
         onTap: () => go(onMyDealsTap),
       ),
     ];
@@ -175,88 +179,140 @@ class ProfileBottomSheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // drag handle
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  margin: const EdgeInsets.only(
-                    bottom: AppDimensions.spacingLarge,
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                  bottom: AppDimensions.spacingLarge,
+                ),
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFF0A321A), AppColors.primaryColor],
                   ),
-                  decoration: BoxDecoration(
-                    color: AppColors.borderStrong,
-                    borderRadius: BorderRadius.circular(
-                      AppDimensions.radiusRound,
-                    ),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusXLarge,
                   ),
                 ),
-              ),
-
-              // profile row
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: AppDimensions.avatarLarge,
-                    height: AppDimensions.avatarLarge,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      color: AppColors.secondaryColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      initials,
-                      style: const TextStyle(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.fontSizeTitleLarge,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: AppDimensions.spacingMedium),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          fullName,
-                          style: const TextStyle(
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.fontSizeTitleLarge,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // drag handle
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        margin: const EdgeInsets.only(
+                          bottom: AppDimensions.spacingLarge,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withValues(alpha: 0.45),
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radiusRound,
                           ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '$membershipLabel \u00b7 ${_formatPoints(points)} pts',
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: AppDimensions.fontSizeBodySmall,
+                      ),
+                    ),
+
+                    // profile row
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: AppDimensions.avatarLarge,
+                          height: AppDimensions.avatarLarge,
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            color: AppColors.secondaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: profileImageUrl == null
+                              ? Text(
+                                  initials,
+                                  style: const TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: AppDimensions.fontSizeTitleLarge,
+                                  ),
+                                )
+                              : ClipOval(
+                                  child: Image.network(
+                                    profileImageUrl!,
+                                    width: AppDimensions.avatarLarge,
+                                    height: AppDimensions.avatarLarge,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, _, _) => Center(
+                                      child: Text(
+                                        initials,
+                                        style: const TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize:
+                                              AppDimensions.fontSizeTitleLarge,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        const SizedBox(width: AppDimensions.spacingMedium),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                fullName,
+                                style: const TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppDimensions.fontSizeTitleLarge,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                '$membershipLabel \u00b7 ${_formatPoints(points)} pts',
+                                style: const TextStyle(
+                                  color: Color(0xD9FFFFFF),
+                                  fontSize: AppDimensions.fontSizeBodySmall,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: onEditProfile,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppDimensions.spacingXSmall,
+                              vertical: AppDimensions.spacingXXSmall,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.edit_outlined,
+                                  color: AppColors.white,
+                                  size: AppDimensions.iconSizeXSmall,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  'Edit',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: AppDimensions.fontSizeBodySmall,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: onEditProfile,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppDimensions.spacingXXSmall,
-                      ),
-                      child: Text(
-                        'Edit profile',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimensions.fontSizeBodySmall,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-
-              const SizedBox(height: AppDimensions.spacingXXLarge),
 
               // quick actions grid
               GridView.builder(
@@ -285,22 +341,26 @@ class ProfileBottomSheet extends StatelessWidget {
                 child: Column(
                   children: [
                     _MenuListItem(
+                      icon: Icons.help_outline_rounded,
                       title: 'Help & support',
                       onTap: () => go(onHelpTap),
                     ),
                     const _MenuDivider(),
                     _MenuListItem(
+                      icon: Icons.info_outline_rounded,
                       title: 'About Bachaoo',
                       onTap: () => go(onAboutTap),
                     ),
                     const _MenuDivider(),
                     _MenuListItem(
+                      icon: Icons.shield_outlined,
                       title: 'Policies',
                       subtitle: 'Privacy \u00b7 Terms \u00b7 Refund \u00b7 Cancellation',
                       onTap: () => go(onPoliciesTap),
                     ),
                     const _MenuDivider(),
                     _MenuListItem(
+                      icon: Icons.logout_rounded,
                       title: 'Log out',
                       titleColor: AppColors.error,
                       showChevron: false,
@@ -396,6 +456,7 @@ class _QuickAction extends StatelessWidget {
 }
 
 class _MenuListItem extends StatelessWidget {
+  final IconData icon;
   final String title;
   final String? subtitle;
   final Color? titleColor;
@@ -403,6 +464,7 @@ class _MenuListItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   const _MenuListItem({
+    required this.icon,
     required this.title,
     this.subtitle,
     this.titleColor,
@@ -421,6 +483,22 @@ class _MenuListItem extends StatelessWidget {
         ),
         child: Row(
           children: [
+            Container(
+              width: 36,
+              height: 36,
+              margin: const EdgeInsets.only(right: AppDimensions.spacingSmall),
+              decoration: BoxDecoration(
+                color: (titleColor ?? AppColors.primaryColor).withValues(
+                  alpha: 0.10,
+                ),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+              ),
+              child: Icon(
+                icon,
+                color: titleColor ?? AppColors.primaryColor,
+                size: AppDimensions.iconSizeSmall,
+              ),
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

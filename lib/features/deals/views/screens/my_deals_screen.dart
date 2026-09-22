@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
 
 class DealsScreen extends StatelessWidget {
   const DealsScreen({super.key});
@@ -102,6 +103,10 @@ class DealsScreen extends StatelessWidget {
                       for (final deal in controller.activeDeals) ...[
                         ActiveDealCard(
                           deal: deal,
+                          onTap: () => Get.toNamed(
+                            AppRoutes.dealSummaryScreen,
+                            arguments: deal,
+                          ),
                           onEnterCodeTap: () =>
                               controller.onEnterBusinessCode(deal),
                         ),
@@ -113,6 +118,10 @@ class DealsScreen extends StatelessWidget {
                           HistoryMonthSection(
                             monthLabel: entry.key,
                             deals: entry.value,
+                            onDealTap: (deal) => Get.toNamed(
+                              AppRoutes.dealSummaryScreen,
+                              arguments: deal,
+                            ),
                           ),
                           AppDimensions.verticalSpace20,
                         ],
@@ -145,6 +154,10 @@ class DealsScreen extends StatelessWidget {
                       HistoryMonthSection(
                         monthLabel: entry.key,
                         deals: entry.value,
+                        onDealTap: (deal) => Get.toNamed(
+                          AppRoutes.dealSummaryScreen,
+                          arguments: deal,
+                        ),
                       ),
                       AppDimensions.verticalSpace20,
                     ],

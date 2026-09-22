@@ -1,45 +1,54 @@
 import 'package:bachaoo/common_widgets/app_text.dart';
 import 'package:bachaoo/common_widgets/back_button.dart';
-import 'package:bachaoo/features/vouchers/views/models/voucher_model.dart';
-import 'package:bachaoo/features/vouchers/views/widgets/voucher_list_item.dart';
-import 'package:bachaoo/features/vouchers/views/widgets/voucher_tab_selector.dart';
-import 'package:flutter/material.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
+import 'package:bachaoo/features/vouchers/views/models/voucher_model.dart';
+import 'package:bachaoo/features/vouchers/views/widgets/voucher_provider_card.dart';
+import 'package:bachaoo/routes/bachaoo_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class VouchersScreen extends StatefulWidget {
+/// Voucher provider discovery. API integration should return
+/// [VoucherProviderModel] records from GET /voucher-providers.
+class VouchersScreen extends StatelessWidget {
   const VouchersScreen({super.key});
 
-  @override
-  State<VouchersScreen> createState() => _VouchersScreenState();
-}
-
-class _VouchersScreenState extends State<VouchersScreen> {
-  int _selectedTab = 0;
-
-  // Replace with real data from your repository / bloc / provider.
-  final List<VoucherModel> _available = const [
-    VoucherModel(
-      id: 'v1',
-      type: VoucherType.price,
-      amountLabel: 'Rs 500',
-      amountCaption: 'voucher',
-      imageUrl:
-          'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200',
-      title: 'Welcome voucher',
-      subtitle: 'Any partner · minimum bill Rs 1,500',
-      expiryLabel: 'Expires 30 Sep',
+  static const List<VoucherProviderModel> _providers = [
+    VoucherProviderModel(
+      businessId: 'mcdonalds-sargodha',
+      businessName: "McDonald's",
+      imageUrl: 'https://www.narcity.com/media-library/the-exterior-of-a-mcdonald-s.jpg?coordinates=0%2C353%2C0%2C0&height=600&id=51173894&width=1200',
+      category: 'Fast food',
+      description: 'Member rewards on value meals and favourites',
+      activeVoucherCount: 2,
+      startingPoints: 500,
     ),
-    VoucherModel(
-      id: 'v2',
-      type: VoucherType.free,
-      amountLabel: 'Free',
-      amountCaption: 'dessert',
-      imageUrl:
-          'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=200',
-      title: 'Cake Planet · birthday treat',
-      subtitle: 'Show at counter with your card',
-      expiryLabel: 'Expires 14 Sep',
+    VoucherProviderModel(
+      businessId: 'kfc-club-road',
+      businessName: 'KFC',
+      imageUrl: 'https://www.retail4growth.com/public/uploads/editor/2021-03-31/1617167390.jpg',
+      category: 'Fried chicken',
+      description: 'Exclusive bucket and meal rewards',
+      activeVoucherCount: 2,
+      startingPoints: 750,
+    ),
+    VoucherProviderModel(
+      businessId: 'sapphire-university-road',
+      businessName: 'Sapphire',
+      imageUrl: 'https://cdn.shopify.com/s/files/1/1592/0041/files/1_2bb9308c-2663-4910-93b0-7bcf7ba61fd2.jpg?v=1701169889',
+      category: 'Fashion',
+      description: 'Member-only savings on selected collections',
+      activeVoucherCount: 1,
+      startingPoints: 1000,
+    ),
+    VoucherProviderModel(
+      businessId: 'cinepax-lahore',
+      businessName: 'Cinepax',
+      imageUrl: 'https://primelandproperties.pk/wp-content/uploads/2025/10/lahore-top-malls-by-prime-land-properties-1024x666.webp',
+      category: 'Cinema',
+      description: 'Enjoy more screen time for fewer points',
+      activeVoucherCount: 1,
+      startingPoints: 600,
     ),
   ];
 
@@ -56,83 +65,36 @@ class _VouchersScreenState extends State<VouchersScreen> {
             AppDimensions.paddingXXLarge,
           ),
           children: [
-            // ── Header row ───────────────────────────────
             Row(
               children: [
                 CustomBackButton(),
-                const SizedBox(width: 14),
-                AppText.headlineLarge('Vouchers'),
+                const SizedBox(width: AppDimensions.spacingSmall),
+                AppText.headlineLarge('Voucher providers'),
               ],
             ),
-            AppDimensions.verticalSpace24,
-
-            // ── Tab selector ─────────────────────────────
-            VoucherTabSelector(
-              tabs: const [
-                VoucherTab(label: 'Available', count: 2),
-                VoucherTab(label: 'Used', count: 3),
-                VoucherTab(label: 'Expired'),
-              ],
-              selectedIndex: _selectedTab,
-              onChanged: (index) => setState(() => _selectedTab = index),
-            ),
-            AppDimensions.verticalSpace24,
-
-            // ── Voucher list ─────────────────────────────
-            ..._available.map(
-              (voucher) => Padding(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.spacingMedium,
-                ),
-                child: VoucherListItem(voucher: voucher),
-              ),
-            ),
-
-            // ── Premium banner (commented out per user request) ──
-            // AppDimensions.verticalSpace8,
-            // PremiumVoucherBanner(
-            //   currentPoints: 2000,
-            //   targetPoints: 5000,
-            //   description: "Unlock at 5,000 points. You're at 2,000 — three referrals away.",
-            //   onReferFriend: () {},
+            // AppDimensions.verticalSpace16,
+            // const Text(
+            //   'Choose a business to explore the vouchers you can redeem.',
+            //   style: TextStyle(
+            //     color: AppColors.textSecondary,
+            //     fontSize: AppDimensions.fontSizeBodyMedium,
+            //     height: AppDimensions.lineHeightNormal,
+            //   ),
             // ),
+            AppDimensions.verticalSpace48,
+            for (final provider in _providers) ...[
+              VoucherProviderCard(
+                provider: provider,
+                onTap: () => Get.toNamed(
+                  AppRoutes.providerVouchersScreen,
+                  arguments: provider,
+                ),
+              ),
+              AppDimensions.verticalSpace16,
+            ],
           ],
         ),
       ),
     );
   }
 }
-
-// class _BackButton extends StatelessWidget {
-//   final VoidCallback onTap;
-
-//   const _BackButton({required this.onTap});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         width: 48,
-//         height: 48,
-//         decoration: BoxDecoration(
-//           color: AppColors.surfaceColor,
-//           borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
-//           boxShadow: [
-//             BoxShadow(
-//               color: AppColors.shadow,
-//               blurRadius: 6,
-//               offset: const Offset(0, 2),
-//             ),
-//           ],
-//         ),
-//         alignment: Alignment.center,
-//         child: const Icon(
-//           Icons.chevron_left_rounded,
-//           color: AppColors.textPrimary,
-//           size: 28,
-//         ),
-//       ),
-//     );
-//   }
-// }

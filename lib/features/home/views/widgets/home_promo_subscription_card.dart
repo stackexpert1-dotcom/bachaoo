@@ -130,7 +130,7 @@ class SubscriptionPromoCard extends StatelessWidget {
                       Positioned(
                         left: 20,
                         right: 20,
-                        bottom: 35,
+                        bottom: 10,
                         child: Row(
                           children: [
                             const Expanded(

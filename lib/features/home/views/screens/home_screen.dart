@@ -251,6 +251,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.appBackroundColor,
+      // The floating navigation is an overlay, so the page continues behind
+      // it instead of stopping above a solid bottom-navigation background.
+      extendBody: true,
       // The hero and page content share one scroll view. This keeps the
       // greeting, brand message, and mascot together while scrolling instead
       // of collapsing the header beneath the content.
@@ -642,6 +645,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+            const SizedBox(height: 150),
           ],
         ),
       ),

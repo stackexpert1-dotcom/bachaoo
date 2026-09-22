@@ -239,16 +239,16 @@ class MemberCardPreview extends StatelessWidget {
                 ),
               ),
               // large illustration, bled off the right edge
-              Positioned(
-                right: 16,
-                top: 30,
-                bottom: 36,
-                child: Image.asset(
-                  AppAssets.loginRequiredScreenquala,
-                  fit: BoxFit.fitHeight,
-                  alignment: Alignment.centerRight,
-                ),
-              ),
+              // Positioned(
+              //   right: 16,
+              //   top: 30,
+              //   bottom: 36,
+              //   child: Image.asset(
+              //     AppAssets.loginRequiredScreenquala,
+              //     fit: BoxFit.fitHeight,
+              //     alignment: Alignment.centerRight,
+              //   ),
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

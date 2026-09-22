@@ -33,27 +33,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   static const List<_OnboardingPageData> _pages = [
     _OnboardingPageData(
       image: AppAssets.onboarding1,
-      title: 'Bachaoo More',
+      title: 'Welcome to Bachaoo!',
       highlight: 'Bachaoo',
-      description:
-          'Find the best deals and discounts from your favorite local '
-          'businesses, all in one place.',
+      description: 'Discover a world of opportunities with our virtual platform. Connect, collaborate, and grow with ease!',
     ),
     _OnboardingPageData(
       image: AppAssets.onboarding2,
-      title: 'Save More with Bachaoo',
-      highlight: 'Bachaoo',
-      description:
-          'Enjoy exclusive discounts and special offers while getting more '
-          'value from every purchase.',
+      title: 'Just One Tap',
+      highlight: 'Tap',
+      description: 'Access exclusive content, shop, and explore endless possibilities—all with a simple tap!.',
     ),
     _OnboardingPageData(
       image: AppAssets.onboarding3,
-      title: 'Your Deals. Your Savings.',
-      highlight: 'Your Savings.',
-      description:
-          'Discover great offers, save money, and enjoy more of what you '
-          'love with Bachaoo.',
+      title: 'Enjoy & Relax',
+      highlight: 'Relax',
+      description: 'Sit back and experience a seamless, hassle-free journey with our platform. Everything you need is just a tap away.',
     ),
   ];
 

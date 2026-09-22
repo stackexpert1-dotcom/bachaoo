@@ -18,13 +18,9 @@ class SubscriptionScreen extends StatefulWidget {
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
   bool _isProcessing = false;
 
-  // Gold plan only — hardcoded per this screen's scope. If a second
-  // tier needs to come back later, reintroduce the plan-model/toggle
-  // approach from the earlier version instead of adding fields here.
   static const _pricePerYear = 7500;
   static const _originalPricePerYear = 11500;
-  static const _currencyUnit =
-      'PTS'; // matches the reference image — confirm vs "Rs" with design
+  static const _currencyUnit = 'PTS';
   static const _benefits = [
     'Exclusive Discounts',
     'Cashback Rewards',
@@ -32,11 +28,6 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   ];
 
   Future<void> _completeCheckout() async {
-    // setState(() => _isProcessing = true);
-    // // TODO: replace with real payment/subscription API call.
-    // await Future.delayed(const Duration(seconds: 2));
-    // if (!mounted) return;
-    // setState(() => _isProcessing = false);
     Get.toNamed(AppRoutes.paymentSubmissionScreen);
   }
 
@@ -46,8 +37,6 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        // FIX: same dark primary-color gradient as LoginRequiredScreen,
-        // per "background should be primary color with gradient".
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -110,7 +99,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   const SizedBox(height: AppDimensions.spacingXXLarge),
 
                   // --- Card preview: shared widget, tagged Gold ---
-                  const MemberCardPreview(membershipTier: 'Gold'),
+                  const MemberCardPreview(
+                    membershipTier: 'Gold',
+                    showMascot: false,
+                  ),
 
                   const SizedBox(height: AppDimensions.spacingXXLarge),
 

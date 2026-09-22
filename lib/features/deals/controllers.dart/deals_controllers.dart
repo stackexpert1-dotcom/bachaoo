@@ -22,7 +22,8 @@ class DealsController extends GetxController {
         title: 'Bachaoo Deal 1 x 1',
         subtitle: 'Dhuaan N Dhukan',
         amountSaved: 333,
-        imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',
+        imageUrl:
+            'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',
       ),
     ];
 
@@ -31,6 +32,7 @@ class DealsController extends GetxController {
         id: '2',
         subtitle: 'Nawaab Royal Restaurant',
         title: '10% discount',
+        status: DealStatus.redeemed,
         date: DateTime(2026, 9, 9),
         amountSaved: 100,
         imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400',
@@ -39,6 +41,7 @@ class DealsController extends GetxController {
         id: '3',
         subtitle: 'Chobara Restaurant',
         title: '12% discount',
+        status: DealStatus.redeemed,
         date: DateTime(2026, 9, 4),
         amountSaved: 384,
         imageUrl: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400',
@@ -47,14 +50,17 @@ class DealsController extends GetxController {
         id: '4',
         subtitle: 'Dhuaan N Dhukan',
         title: 'Deal 2',
+        status: DealStatus.redeemed,
         date: DateTime(2026, 8, 28),
         amountSaved: 300,
-        imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400',
+        imageUrl:
+            'https://images.unsplash.com/photo-1547592180-85f173990554?w=400',
       ),
       DealModel(
         id: '5',
         subtitle: 'Suzuki Falcon Motors',
         title: '20% labour',
+        status: DealStatus.redeemed,
         date: DateTime(2026, 8, 19),
         amountSaved: 1200,
         imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400',

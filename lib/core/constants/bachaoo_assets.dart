@@ -30,4 +30,6 @@ class AppAssets {
   static const String referScreenquala = 'assets/images/refer_screen_quala.png';
   static const String loginRequiredScreenquala =
       'assets/images/login_required_screen_quala.png';
+
+  static const String bachaooIcon = 'assets/icons/ic_bachao.png';
 }

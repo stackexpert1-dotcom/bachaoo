@@ -8,6 +8,7 @@ class MemberCardPreview extends StatelessWidget {
   final String nameLine;
   final String referralPlaceholder;
   final String validTillLabel;
+  final bool showMascot;
 
   const MemberCardPreview({
     super.key,
@@ -15,6 +16,7 @@ class MemberCardPreview extends StatelessWidget {
     this.nameLine = 'Shafqat Ullah',
     this.referralPlaceholder = '\u2022\u2022\u2022\u2022\u2022\u2022\u2022',
     this.validTillLabel = 'Valid till 31 Dec 2026',
+    required this.showMascot,
   });
 
   @override
@@ -59,16 +61,18 @@ class MemberCardPreview extends StatelessWidget {
               ),
               // Add a celebratory member illustration to the subscription
               // card, with a right-edge crop that preserves the card details.
-              Positioned(
-                right: 16,
-                top: 30,
-                bottom: 36,
-                child: Image.asset(
-                  AppAssets.loginRequiredScreenquala,
-                  fit: BoxFit.fitHeight,
-                  alignment: Alignment.centerRight,
-                ),
-              ),
+              showMascot
+                  ? Positioned(
+                      right: 16,
+                      top: 30,
+                      bottom: 36,
+                      child: Image.asset(
+                        AppAssets.loginRequiredScreenquala,
+                        fit: BoxFit.fitHeight,
+                        alignment: Alignment.centerRight,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

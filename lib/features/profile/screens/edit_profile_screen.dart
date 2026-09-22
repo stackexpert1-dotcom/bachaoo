@@ -102,6 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Center(
                     child: ProfileAvatarWithBadge(
                       initials: 'SU',
+                      imageUrl: 'https://i.pravatar.cc/300?img=12',
                       onEditTap: () {},
                     ),
                   ),
@@ -180,7 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: AppDimensions.spacingXXLarge),
+                  const SizedBox(height: AppDimensions.spacingLarge),
 
                   const Text(
                     'Account',
