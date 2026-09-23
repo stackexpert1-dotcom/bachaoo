@@ -5,6 +5,7 @@ import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -152,6 +153,27 @@ class CustomBottomNavBar extends StatelessWidget {
                               Get.toNamed(AppRoutes.referralScreen),
                           onMyDealsTap: () =>
                               Get.toNamed(AppRoutes.myDealsScreen),
+                          onWhatsappTap: () async {
+                            // WhatsApp's wa.me link needs a digits-only number
+                            // (country code, no '+' or spaces), otherwise the app may
+                            // not open or may fail to resolve the chat.
+                            final Uri url = Uri.parse(
+                              'https://wa.me/923111578578?text=Hello%20there!',
+                            );
+
+                            final launched = await launchUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+
+                            if (!launched && context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Couldn't open WhatsApp"),
+                                ),
+                              );
+                            }
+                          },
                         );
                       },
                     ),

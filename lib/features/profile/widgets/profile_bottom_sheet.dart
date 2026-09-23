@@ -1,6 +1,7 @@
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileBottomSheet extends StatelessWidget {
   final String initials;
@@ -21,6 +22,13 @@ class ProfileBottomSheet extends StatelessWidget {
   final VoidCallback? onAboutTap;
   final VoidCallback? onPoliciesTap;
   final VoidCallback? onMyDealsTap;
+  final VoidCallback? onWhatsappTap;
+
+  /// Scroll controller supplied by the enclosing [DraggableScrollableSheet].
+  /// Lets the sheet expand/collapse when the user drags the content up/down,
+  /// and keeps the inner content scrolling once fully expanded.
+
+  final ScrollController? scrollController;
 
   const ProfileBottomSheet({
     super.key,
@@ -42,6 +50,8 @@ class ProfileBottomSheet extends StatelessWidget {
     this.onAboutTap,
     this.onPoliciesTap,
     this.onMyDealsTap,
+    this.onWhatsappTap,
+    this.scrollController,
   });
 
   static Future<void> show(
@@ -64,30 +74,42 @@ class ProfileBottomSheet extends StatelessWidget {
     VoidCallback? onAboutTap,
     VoidCallback? onPoliciesTap,
     VoidCallback? onMyDealsTap,
+    required VoidCallback onWhatsappTap,
   }) {
     return showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => ProfileBottomSheet(
-        initials: initials,
-        fullName: fullName,
-        profileImageUrl: profileImageUrl,
-        membershipLabel: membershipLabel,
-        points: points,
-        onEditProfile: onEditProfile,
-        onLogout: onLogout,
-        onProfileTap: onProfileTap,
-        onVouchersTap: onVouchersTap,
-        onVirtualCardTap: onVirtualCardTap,
-        onInboxTap: onInboxTap,
-        onCategoriesTap: onCategoriesTap,
-        onReferTap: onReferTap,
-        onContactTap: onContactTap,
-        onHelpTap: onHelpTap,
-        onAboutTap: onAboutTap,
-        onPoliciesTap: onPoliciesTap,
-        onMyDealsTap: onMyDealsTap,
+      // Cap the sheet at ~70% of the screen height; the inner
+      // bottom. Dragging / scrolling up expands its height: full content first,
+      // No fixed height cap — the enclosing DraggableScrollableSheet manages
+      // the sheet's height (starts at~70%, expands on drag up).
+      builder: (_) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.7,
+        minChildSize: 0.3,
+        maxChildSize: 1.0,
+        builder: (_, scrollController) => ProfileBottomSheet(
+          initials: initials,
+          fullName: fullName,
+          profileImageUrl: profileImageUrl,
+          membershipLabel: membershipLabel,
+          points: points,
+          onEditProfile: onEditProfile,
+          onLogout: onLogout,
+          onProfileTap: onProfileTap,
+          onVouchersTap: onVouchersTap,
+          onVirtualCardTap: onVirtualCardTap,
+          onInboxTap: onInboxTap,
+          onCategoriesTap: onCategoriesTap,
+          onReferTap: onReferTap,
+          onContactTap: onContactTap,
+          onHelpTap: onHelpTap,
+          onAboutTap: onAboutTap,
+          onPoliciesTap: onPoliciesTap,
+          onMyDealsTap: onMyDealsTap,
+          scrollController: scrollController,
+        ),
       ),
     );
   }
@@ -158,17 +180,28 @@ class ProfileBottomSheet extends StatelessWidget {
         iconColor: AppColors.warningDark,
         onTap: () => go(onMyDealsTap),
       ),
+      _QuickAction(
+        faIcon: FontAwesomeIcons.whatsapp,
+        label: "WhatsApp",
+        background: const Color(0xffE5F1E8),
+        iconColor: Colors.green,
+        onTap: () => go(onWhatsappTap),
+      ),
     ];
 
     return SafeArea(
       top: false,
+      bottom: false,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+        // Full width of the screen — no side margins.
         decoration: BoxDecoration(
           color: AppColors.surfaceColor,
-          borderRadius: BorderRadius.circular(AppDimensions.bottomSheetRadius),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppDimensions.bottomSheetRadius),
+          ),
         ),
         child: SingleChildScrollView(
+          controller: scrollController,
           padding: const EdgeInsets.fromLTRB(
             AppDimensions.pagePadding,
             AppDimensions.spacingSmall,
@@ -328,7 +361,7 @@ class ProfileBottomSheet extends StatelessWidget {
                 itemBuilder: (context, index) => actions[index],
               ),
 
-              const SizedBox(height: AppDimensions.spacingLarge),
+              const SizedBox(height: AppDimensions.spacingSmall),
 
               // menu list card
               Container(
@@ -401,15 +434,17 @@ class ProfileBottomSheet extends StatelessWidget {
 }
 
 class _QuickAction extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
+  final FaIconData? faIcon;
   final String label;
   final Color background;
   final Color iconColor;
   final VoidCallback? onTap;
 
   const _QuickAction({
-    required this.icon,
+    this.icon,
     required this.label,
+    this.faIcon,
     required this.background,
     required this.iconColor,
     this.onTap,
@@ -431,11 +466,17 @@ class _QuickAction extends StatelessWidget {
               color: background,
               borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
             ),
-            child: Icon(
-              icon,
-              color: iconColor,
-              size: AppDimensions.iconSizeLarge,
-            ),
+            child: faIcon != null
+                ? FaIcon(
+                    faIcon,
+                    color: iconColor,
+                    size: AppDimensions.iconSizeLarge,
+                  )
+                : Icon(
+                    icon,
+                    color: iconColor,
+                    size: AppDimensions.iconSizeLarge,
+                  ),
           ),
           const SizedBox(height: AppDimensions.spacingXSmall),
           Text(
@@ -456,7 +497,7 @@ class _QuickAction extends StatelessWidget {
 }
 
 class _MenuListItem extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
   final String? subtitle;
   final Color? titleColor;
@@ -464,7 +505,7 @@ class _MenuListItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   const _MenuListItem({
-    required this.icon,
+    this.icon,
     required this.title,
     this.subtitle,
     this.titleColor,

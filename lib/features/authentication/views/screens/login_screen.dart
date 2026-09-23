@@ -5,7 +5,7 @@ import 'package:bachaoo/common_widgets/primary_button.dart';
 import 'package:bachaoo/core/constants/bachaoo_assets.dart';
 import 'package:bachaoo/core/constants/bachaoo_colors.dart';
 import 'package:bachaoo/core/constants/bachaoo_dimensions.dart';
-import 'package:bachaoo/features/authentication/views/widgets/google_auth_button.dart';
+// import 'package:bachaoo/features/authentication/views/widgets/google_auth_button.dart';
 import 'package:bachaoo/features/authentication/views/widgets/social_auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: AppColors.appBackroundColor,
+                      color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(
                         AppDimensions.radiusMedium,
                       ),

@@ -47,7 +47,7 @@ class LoginRequiredScreen extends StatelessWidget {
                       height: 44,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: AppColors.white,
+                        color: AppColors.secondaryColor,
                         borderRadius: BorderRadius.circular(
                           AppDimensions.radiusMedium,
                         ),

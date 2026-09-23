@@ -25,6 +25,7 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
     'Top Rated',
     'Biggest Savings',
   ];
+  final ScrollController _filterScrollController = ScrollController();
 
   List<BusinessModel> _getBusinessesForSubCategory() {
     // The list cards only carry the compact fields, so fill in the
@@ -45,9 +46,11 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           location: 'Sargodha · Mall Road',
           address: 'Mall Road, Near Club Chowk, Sargodha',
           distanceKm: 0.4,
-          imageUrl: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800',
+          imageUrl:
+              'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200',
-          logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
+          logoUrl:
+              'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
           rating: 4.8,
           reviewCount: 320,
           discountLabel: '15%',
@@ -77,7 +80,8 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           distanceKm: 1.8,
           imageUrl: 'https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=1200',
-          logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
+          logoUrl:
+              'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
           rating: 4.6,
           reviewCount: 195,
           discountLabel: '20%',
@@ -105,9 +109,11 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           location: 'Sargodha · University Road',
           address: 'University Road, Sargodha',
           distanceKm: 2.5,
-          imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
+          imageUrl:
+              'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200',
-          logoUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',
+          logoUrl:
+              'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',
           rating: 4.6,
           reviewCount: 89,
           discountLabel: '15%',
@@ -142,7 +148,8 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           distanceKm: 2.2,
           imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200',
-          logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
+          logoUrl:
+              'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
           rating: 4.9,
           reviewCount: 340,
           discountLabel: '15%',
@@ -203,9 +210,11 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           location: 'Sargodha · Mall Road',
           address: 'Mall Road, Sargodha',
           distanceKm: 0.4,
-          imageUrl: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800',
+          imageUrl:
+              'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200',
-          logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
+          logoUrl:
+              'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
           rating: 4.8,
           reviewCount: 320,
           discountLabel: '15%',
@@ -235,7 +244,8 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
           distanceKm: 1.8,
           imageUrl: 'https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=800',
           coverImageUrl: 'https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=1200',
-          logoUrl: 'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
+          logoUrl:
+              'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
           rating: 4.6,
           reviewCount: 195,
           discountLabel: '20%',
@@ -275,6 +285,44 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
         ),
       ];
     }
+  }
+
+  @override
+  void dispose() {
+    _filterScrollController.dispose();
+    super.dispose();
+  }
+
+  void _selectFilter(String filter) {
+    setState(() {
+      _selectedFilter = filter;
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_filterScrollController.hasClients) return;
+
+      switch (filter) {
+        case 'All':
+        case 'Nearest':
+          // Scroll back to the beginning so "All" is visible.
+          _filterScrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.easeOutCubic,
+          );
+          break;
+
+        case 'Top Rated':
+        case 'Biggest Savings':
+          // Scroll toward the end so "Biggest Savings" is visible.
+          _filterScrollController.animateTo(
+            _filterScrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.easeOutCubic,
+          );
+          break;
+      }
+    });
   }
 
   List<BusinessModel> _getFilteredBusinesses(List<BusinessModel> list) {
@@ -346,16 +394,18 @@ class _BusinessPartenerScreenState extends State<BusinessPartenerScreen> {
               SizedBox(
                 height: 40,
                 child: ListView.separated(
+                  controller: _filterScrollController,
                   scrollDirection: Axis.horizontal,
                   itemCount: _filterOptions.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
                   itemBuilder: (context, index) {
                     final filter = _filterOptions[index];
+
                     return FilterChipButton(
                       label: filter,
                       isSelected: _selectedFilter == filter,
-                      onTap: () => setState(() => _selectedFilter = filter),
+                      onTap: () => _selectFilter(filter),
                     );
                   },
                 ),

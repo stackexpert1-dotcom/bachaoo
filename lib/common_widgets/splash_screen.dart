@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen>
   // CONTENT
   // ============================================================
 
-  static const String _word = 'Bachaoo';
-  static const String _tagline = 'Save With Every Buy';
+  static const String _word = 'BACHAOO';
+  static const String _tagline = 'SAVE WITH EVERY BUY';
 
   // ============================================================
   // TIMING
@@ -297,8 +297,8 @@ class _SplashScreenState extends State<SplashScreen>
                               child: Transform.scale(
                                 scale: _logoScale.value,
                                 child: Container(
-                                  width: 140,
-                                  height: 140,
+                                  width: 300,
+                                  height: 300,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     boxShadow: [
@@ -347,9 +347,10 @@ class _SplashScreenState extends State<SplashScreen>
                         return LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
-                          colors: const [
-                            Colors.white, // painted (final color below)
-                            Colors.white,
+                          colors: [
+                            AppColors
+                                .secondaryColor, // painted (final color below)
+                            AppColors.secondaryColor,
                             Colors.transparent,
                           ],
                           stops: [s0, s1, s2],
@@ -394,9 +395,7 @@ class _SplashScreenState extends State<SplashScreen>
                         _tagline.substring(0, charCount),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: AppColors.secondaryColor.withValues(
-                            alpha: 0.90,
-                          ),
+                          color: AppColors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.2,
