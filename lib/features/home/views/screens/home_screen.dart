@@ -19,6 +19,7 @@ import 'package:bachaoo/features/home/views/widgets/nearyou_businesses_section.d
 import 'package:bachaoo/features/home/views/widgets/popular_discounts_section.dart';
 import 'package:bachaoo/features/home/views/widgets/promo_carosel.dart';
 import 'package:bachaoo/features/home/controllers/bottom_nav_controller.dart';
+import 'package:bachaoo/features/home/views/widgets/top_bachats.dart';
 import 'package:bachaoo/features/home/views/widgets/trending_deals_section.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
 import 'package:flutter/material.dart';
@@ -130,6 +131,23 @@ class _HomeScreenState extends State<HomeScreen> {
       'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com';
   static const String _gloriaJeansLogoUrl =
       'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com';
+
+  // Random online brand logos (Google favicon service) for the auto-scrolling
+  // "Top Bachats" marquee on the home screen.
+  static final List<String> _topBachatLogoUrls = [
+    'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=burgerking.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=subway.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=starbucks.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=nike.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=adidas.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=dominos.com',
+    'https://www.google.com/s2/favicons?sz=128&domain=7-eleven.com',
+  ];
 
   static final List<CategoryModel> _demoCategories = [
     CategoryModel(
@@ -551,7 +569,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.toNamed(AppRoutes.allDealsScreen);
                     },
                   ),
-                  // AppDimensions.verticalSpace8,
+                  AppDimensions.verticalSpace24,
+
+                  // --- Top Bachats ---
+                  TopBachatsSection(
+                    imagePaths: _topBachatLogoUrls,
+                    onTileTap: (index) {
+                      Get.toNamed(AppRoutes.allDealsScreen);
+                    },
+                  ),
+                  AppDimensions.verticalSpace24,
 
                   // --- Subscribe ---
                   Align(
