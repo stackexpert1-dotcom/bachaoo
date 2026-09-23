@@ -621,7 +621,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   TopBachatsSection(
                     logos: _topBachatLogos,
                     onTileTap: (index) {
-                      Get.toNamed(AppRoutes.allDealsScreen);
+                      Get.toNamed(AppRoutes.discountExploreScreen);
                     },
                   ),
                   AppDimensions.verticalSpace24,

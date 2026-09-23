@@ -16,7 +16,7 @@ class PromoCarousel extends StatefulWidget {
 
 class _PromoCarouselState extends State<PromoCarousel> {
   late final PageController _controller = PageController(viewportFraction: 1.0);
-  int _currentPage = 0;
+  // int _currentPage = 0;
 
   @override
   void dispose() {
@@ -35,7 +35,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
           child: PageView.builder(
             controller: _controller,
             itemCount: widget.promos.length,
-            onPageChanged: (index) => setState(() => _currentPage = index),
+            // onPageChanged: (index) => setState(() => _currentPage = index),
             itemBuilder: (context, index) {
               final promo = widget.promos[index];
               // viewportFraction 1.0 shows exactly ONE image on screen —
@@ -56,27 +56,27 @@ class _PromoCarouselState extends State<PromoCarousel> {
             },
           ),
         ),
-        AppDimensions.verticalSpace12,
+        // AppDimensions.verticalSpace12,
 
-        // --- Dot indicators ---
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(widget.promos.length, (index) {
-            final isActive = index == _currentPage;
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: isActive ? 20 : 6,
-              height: 6,
-              decoration: BoxDecoration(
-                color: isActive
-                    ? AppColors.primaryColor
-                    : AppColors.disabledBackground,
-                borderRadius: BorderRadius.circular(AppDimensions.radiusRound),
-              ),
-            );
-          }),
-        ),
+        // // --- Dot indicators ---
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: List.generate(widget.promos.length, (index) {
+        //     final isActive = index == _currentPage;
+        //     return AnimatedContainer(
+        //       duration: const Duration(milliseconds: 200),
+        //       margin: const EdgeInsets.symmetric(horizontal: 3),
+        //       width: isActive ? 20 : 6,
+        //       height: 6,
+        //       decoration: BoxDecoration(
+        //         color: isActive
+        //             ? AppColors.primaryColor
+        //             : AppColors.disabledBackground,
+        //         borderRadius: BorderRadius.circular(AppDimensions.radiusRound),
+        //       ),
+        //     );
+        //   }),
+        // ),
       ],
     );
   }
