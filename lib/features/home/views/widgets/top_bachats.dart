@@ -63,20 +63,21 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
     position.isScrollingNotifier.removeListener(_handleScrollChange);
   }
 
-  // Pauses the auto-scroll marquee while the user is dragging, then resumes it
-  // from the position the user left when they let go.
+  // Pauses the auto-scroll marquee while the user is scrolling, then resumes it
+  // from the position the list is actually at when the user lets go.
   void _handleScrollChange() {
     final controller = _autoScrollController;
     if (controller == null || !_scrollController.hasClients) return;
 
-    if (_scrollController.position.isScrollingNotifier.value) {
-      // Freeze the marquee and remember the dragged offset as animation
-      // progress. The modulo maps a position inside the second (loop) set
-      // back onto the semantically identical first set.
-      controller.value =
-          (_scrollController.offset % _oneSetWidth) / _oneSetWidth;
-    } else {
-      // User let go: resume the marquee from the current value.
+    // Always keep the animation progress in sync with the list's current
+    // offset (this also stops the animation while the user is scrolling).
+    // The modulo maps an offset inside the second (loop) set back onto the
+    // identical first set, so the resume below has no visible jump.
+    controller.value =
+        (_scrollController.offset % _oneSetWidth) / _oneSetWidth;
+
+    if (!_scrollController.position.isScrollingNotifier.value) {
+      // Drag/fling settled: resume the marquee from where the user left it.
       controller.repeat();
     }
   }
