@@ -64,7 +64,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         height: 44,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: AppColors.white,
+                          color: AppColors.secondaryColor,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.radiusMedium,
                           ),

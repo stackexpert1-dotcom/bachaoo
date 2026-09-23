@@ -76,11 +76,11 @@ class ReferralHeroCard extends StatelessWidget {
 
             // Image, bottom-right
             Positioned(
-              right: 4,
+              right: 2,
               bottom: 0,
               child: Image.asset(
                 AppAssets.referScreenquala,
-                height: 170,
+                height: 130,
                 fit: BoxFit.contain,
                 alignment: Alignment.bottomRight,
               ),
