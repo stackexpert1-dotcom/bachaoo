@@ -19,6 +19,7 @@ import 'package:bachaoo/features/home/views/widgets/nearyou_businesses_section.d
 import 'package:bachaoo/features/home/views/widgets/popular_discounts_section.dart';
 import 'package:bachaoo/features/home/views/widgets/promo_carosel.dart';
 import 'package:bachaoo/features/home/controllers/bottom_nav_controller.dart';
+import 'package:bachaoo/features/home/models/top_bachat_model.dart';
 import 'package:bachaoo/features/home/views/widgets/top_bachats.dart';
 import 'package:bachaoo/features/home/views/widgets/trending_deals_section.dart';
 import 'package:bachaoo/routes/bachaoo_routes.dart';
@@ -132,21 +133,58 @@ class _HomeScreenState extends State<HomeScreen> {
   static const String _gloriaJeansLogoUrl =
       'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com';
 
-  // Random online brand logos (Google favicon service) for the auto-scrolling
-  // "Top Bachats" marquee on the home screen.
-  static final List<String> _topBachatLogoUrls = [
-    'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=burgerking.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=subway.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=starbucks.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=nike.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=adidas.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=dominos.com',
-    'https://www.google.com/s2/favicons?sz=128&domain=7-eleven.com',
+  // Random online brand logos (Google favicon service) for the horizontally
+  // scrollable "Top Bachats" row on the home screen. Each brand carries its
+  // own color, rendered as the tile background behind the logo.
+  static final List<TopBachatModel> _topBachatLogos = [
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
+      brandColor: const Color(0xFFDA291C), // McDonald's red
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
+      brandColor: const Color(0xFFE4002B), // KFC red
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
+      brandColor: const Color(0xFFE22026), // Pizza Hut red
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=burgerking.com',
+      brandColor: const Color(0xFFF5821F), // Burger King orange
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=subway.com',
+      brandColor: const Color(0xFF008C38), // Subway green
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=starbucks.com',
+      brandColor: const Color(0xFF00704A), // Starbucks green
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com',
+      brandColor: const Color(0xFF7E1E2D), // Gloria Jean's maroon
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
+      brandColor: const Color(0xFF1E6B3A), // Tehzeeb green
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=nike.com',
+      brandColor: const Color(0xFF111111), // Nike black
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=adidas.com',
+      brandColor: const Color(0xFF231F20), // Adidas black
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=dominos.com',
+      brandColor: const Color(0xFF0078C8), // Domino's blue
+    ),
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=7-eleven.com',
+      brandColor: const Color(0xFFE31837), // 7-Eleven red
+    ),
   ];
 
   static final List<CategoryModel> _demoCategories = [
@@ -569,11 +607,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.toNamed(AppRoutes.allDealsScreen);
                     },
                   ),
-                  AppDimensions.verticalSpace24,
+                  // AppDimensions,
 
                   // --- Top Bachats ---
                   TopBachatsSection(
-                    imagePaths: _topBachatLogoUrls,
+                    logos: _topBachatLogos,
                     onTileTap: (index) {
                       Get.toNamed(AppRoutes.allDealsScreen);
                     },
