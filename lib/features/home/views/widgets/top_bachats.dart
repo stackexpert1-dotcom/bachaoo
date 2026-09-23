@@ -156,15 +156,12 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF14213D),
-            ),
+        Text(
+          widget.title,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF14213D),
           ),
         ),
         const SizedBox(height: 12),
@@ -174,7 +171,10 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            // Matches the small card inset used by "Trending deals" so the
+            // tiles line up with the other sections (the page column already
+            // supplies the horizontal page padding).
+            padding: const EdgeInsets.symmetric(horizontal: 2),
             itemCount: tileCount,
             itemBuilder: (context, index) => _buildTile(index),
           ),
