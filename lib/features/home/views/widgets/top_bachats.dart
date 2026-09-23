@@ -13,7 +13,7 @@ class TopBachatsSection extends StatefulWidget {
     this.title = 'Top Bachats',
     required this.logos,
     this.tileSize = 84,
-    this.tileSpacing = 14,
+    this.tileSpacing = 8,
     this.onTileTap,
   });
 
@@ -21,17 +21,76 @@ class TopBachatsSection extends StatefulWidget {
   State<TopBachatsSection> createState() => _TopBachatsSectionState();
 }
 
-class _TopBachatsSectionState extends State<TopBachatsSection> {
+class _TopBachatsSectionState extends State<TopBachatsSection>
+    with SingleTickerProviderStateMixin {
   late final ScrollController _scrollController;
+  AnimationController? _autoScrollController;
+
+  double get _oneSetWidth =>
+      (widget.tileSize + widget.tileSpacing) * widget.logos.length;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+
+    // onAttach/onDetach let us listen to the horizontal list's position so
+    // the marquee can pause while the user drags it and resume afterwards.
+    _scrollController = ScrollController(
+      onAttach: _handlePositionAttach,
+      onDetach: _handlePositionDetach,
+    );
+
+    if (widget.logos.isNotEmpty) {
+      final durationMs = (_oneSetWidth / 30 * 1000).round();
+
+      _autoScrollController = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: durationMs),
+      )..addListener(_onTick);
+
+      // Start after the first frame so the ScrollController is attached.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _autoScrollController?.repeat();
+      });
+    }
+  }
+
+  void _handlePositionAttach(ScrollPosition position) {
+    position.isScrollingNotifier.addListener(_handleScrollChange);
+  }
+
+  void _handlePositionDetach(ScrollPosition position) {
+    position.isScrollingNotifier.removeListener(_handleScrollChange);
+  }
+
+  // Pauses the auto-scroll marquee while the user is dragging, then resumes it
+  // from the position the user left when they let go.
+  void _handleScrollChange() {
+    final controller = _autoScrollController;
+    if (controller == null || !_scrollController.hasClients) return;
+
+    if (_scrollController.position.isScrollingNotifier.value) {
+      // Freeze the marquee and remember the dragged offset as animation
+      // progress. The modulo maps a position inside the second (loop) set
+      // back onto the semantically identical first set.
+      controller.value =
+          (_scrollController.offset % _oneSetWidth) / _oneSetWidth;
+    } else {
+      // User let go: resume the marquee from the current value.
+      controller.repeat();
+    }
+  }
+
+  void _onTick() {
+    if (_autoScrollController == null || !_scrollController.hasClients) return;
+    // Never fight the user while they are actively dragging the list.
+    if (_scrollController.position.isScrollingNotifier.value) return;
+    _scrollController.jumpTo(_autoScrollController!.value * _oneSetWidth);
   }
 
   @override
   void dispose() {
+    _autoScrollController?.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -102,11 +161,15 @@ class _TopBachatsSectionState extends State<TopBachatsSection> {
   Widget build(BuildContext context) {
     if (widget.logos.isEmpty) return const SizedBox.shrink();
 
+    // Rendered twice so the marquee wraps seamlessly when the animation
+    // restarts from the beginning (both halves show the identical tile run).
+    final tileCount = widget.logos.length * 2;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
             widget.title,
             style: const TextStyle(
@@ -122,10 +185,11 @@ class _TopBachatsSectionState extends State<TopBachatsSection> {
           child: ListView.builder(
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
-            // Let the user swipe horizontally through the brands.
+            // The user can swipe through the brands; dragging pauses the
+            // marquee until they let go.
             physics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: widget.logos.length,
+            itemCount: tileCount,
             itemBuilder: (context, index) => _buildTile(index),
           ),
         ),
