@@ -63,28 +63,18 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
     position.isScrollingNotifier.removeListener(_handleScrollChange);
   }
 
-  // Pauses the auto-scroll marquee while the user is scrolling, then resumes it
-  // from the position the list is actually at when the user lets go.
   void _handleScrollChange() {
     final controller = _autoScrollController;
     if (controller == null || !_scrollController.hasClients) return;
-
-    // Always keep the animation progress in sync with the list's current
-    // offset (this also stops the animation while the user is scrolling).
-    // The modulo maps an offset inside the second (loop) set back onto the
-    // identical first set, so the resume below has no visible jump.
-    controller.value =
-        (_scrollController.offset % _oneSetWidth) / _oneSetWidth;
+    controller.value = (_scrollController.offset % _oneSetWidth) / _oneSetWidth;
 
     if (!_scrollController.position.isScrollingNotifier.value) {
-      // Drag/fling settled: resume the marquee from where the user left it.
       controller.repeat();
     }
   }
 
   void _onTick() {
     if (_autoScrollController == null || !_scrollController.hasClients) return;
-    // Never fight the user while they are actively dragging the list.
     if (_scrollController.position.isScrollingNotifier.value) return;
     _scrollController.jumpTo(_autoScrollController!.value * _oneSetWidth);
   }
@@ -140,7 +130,7 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
         decoration: BoxDecoration(
           // Brand color sits behind the logo so every tile reads as the brand.
           color: logo.brandColor,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.08),
@@ -161,9 +151,6 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
   @override
   Widget build(BuildContext context) {
     if (widget.logos.isEmpty) return const SizedBox.shrink();
-
-    // Rendered twice so the marquee wraps seamlessly when the animation
-    // restarts from the beginning (both halves show the identical tile run).
     final tileCount = widget.logos.length * 2;
 
     return Column(
@@ -186,8 +173,6 @@ class _TopBachatsSectionState extends State<TopBachatsSection>
           child: ListView.builder(
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
-            // The user can swipe through the brands; dragging pauses the
-            // marquee until they let go.
             physics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: tileCount,

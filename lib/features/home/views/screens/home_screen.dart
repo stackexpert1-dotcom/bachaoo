@@ -134,56 +134,71 @@ class _HomeScreenState extends State<HomeScreen> {
       'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com';
 
   // Random online brand logos (Google favicon service) for the horizontally
-  // scrollable "Top Bachats" row on the home screen. Each brand carries its
-  // own color, rendered as the tile background behind the logo.
   static final List<TopBachatModel> _topBachatLogos = [
+    // 🍔 McDonald's
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
-      brandColor: const Color(0xFFDA291C), // McDonald's red
+      imageUrl:
+          'https://www.google.com/s2/favicons?sz=128&domain=mcdonalds.com',
+      brandColor: const Color(0xFFDA291C),
     ),
+
+    // 🍗 KFC
     TopBachatModel(
       imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
-      brandColor: const Color(0xFFE4002B), // KFC red
+      brandColor: const Color(0xFFE4002B),
     ),
+
+    // 🥤 Coca-Cola
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=pizzahut.com',
-      brandColor: const Color(0xFFE22026), // Pizza Hut red
+      imageUrl:
+          'https://www.google.com/s2/favicons?sz=128&domain=coca-cola.com',
+      brandColor: const Color(0xFFFFFFFF),
     ),
+
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=burgerking.com',
-      brandColor: const Color(0xFFF5821F), // Burger King orange
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=kfc.com',
+      brandColor: const Color(0xFFE4002B),
     ),
+    // 🥤 Pepsi
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=subway.com',
-      brandColor: const Color(0xFF008C38), // Subway green
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=pepsi.com',
+      brandColor: const Color(0xFFFFFFFF),
     ),
+
+    // ☕ Starbucks
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=starbucks.com',
-      brandColor: const Color(0xFF00704A), // Starbucks green
+      imageUrl:
+          'https://www.google.com/s2/favicons?sz=128&domain=starbucks.com',
+      brandColor: const Color(0xFFFFFFFF),
     ),
-    TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=gloriajeanscoffees.com',
-      brandColor: const Color(0xFF7E1E2D), // Gloria Jean's maroon
-    ),
-    TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=tehzeeb.com',
-      brandColor: const Color(0xFF1E6B3A), // Tehzeeb green
-    ),
-    TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=nike.com',
-      brandColor: const Color(0xFF111111), // Nike black
-    ),
-    TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=adidas.com',
-      brandColor: const Color(0xFF231F20), // Adidas black
-    ),
+
+    // 🍕 Domino's
     TopBachatModel(
       imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=dominos.com',
-      brandColor: const Color(0xFF0078C8), // Domino's blue
+      brandColor: const Color(0xFFFFFFFF),
     ),
+
+    // 🍔 foodpanda
     TopBachatModel(
-      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=7-eleven.com',
-      brandColor: const Color(0xFFE31837), // 7-Eleven red
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=foodpanda.pk',
+      brandColor: const Color(0xFFD70F64),
+    ),
+
+    // 📱 Jazz
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=jazz.com.pk',
+      brandColor: const Color(0xFFED1C24),
+    ),
+    // 👟 Nike — black logo
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=nike.com',
+      brandColor: const Color(0xFFFFFFFF),
+    ),
+
+    // 👟 Adidas — black logo
+    TopBachatModel(
+      imageUrl: 'https://www.google.com/s2/favicons?sz=128&domain=adidas.com',
+      brandColor: const Color(0xFFFFFFFF),
     ),
   ];
 
@@ -307,15 +322,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.appBackroundColor,
-      // The floating navigation is an overlay, so the page continues behind
-      // it instead of stopping above a solid bottom-navigation background.
       extendBody: true,
-      // The hero and page content share one scroll view. This keeps the
-      // greeting, brand message, and mascot together while scrolling instead
-      // of collapsing the header beneath the content.
       body: SingleChildScrollView(
-        // Do not allow a pull-down bounce to reveal the scaffold background
-        // above the hero header.
         physics: const ClampingScrollPhysics(),
         child: Column(
           children: [
